@@ -17,21 +17,23 @@ export function rnd2(n: number): number {
     return Math.round(n * 100) / 100;
 }
 
-export const dummyShape: ShapeNgon = {
-    nOuter: 5,
-    nInner: 2,
-    lenOuter: { x: 2.2, y: 2.2 },
-    lenInner: { x: 5.2, y: 5.2 },
-    scene: {
-        w: CONST.sceneSize,
-        h: CONST.sceneSize,
-        scale: 1,
-        ofsX: CONST.sceneSize / 2,
-        ofsY: CONST.sceneSize / 2,
-    },
-    stroke: CONST.defStroke,
-    id: uniqueId()
-};
+export function dummyShape(): ShapeNgon {
+    return {
+        nOuter: 5,
+        nInner: 2,
+        lenOuter: { x: 2.2, y: 2.2 },
+        lenInner: { x: 5.2, y: 5.2 },
+        scene: {
+            w: CONST.sceneSize,
+            h: CONST.sceneSize,
+            scale: 1,
+            ofsX: CONST.sceneSize / 2,
+            ofsY: CONST.sceneSize / 2,
+        },
+        stroke: CONST.defStroke,
+        id: uniqueId()
+    };
+}
 
 // IO
 

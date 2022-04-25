@@ -2,6 +2,7 @@ import { atom, Getter } from 'jotai';
 import { atomWithCallback, LoadingDataState, loadingDataStateInit } from '@/hooks/atomsX';
 import { debounce } from '@/utils/debounce';
 import { toastError } from '@/components/UI/UiToaster';
+import { dummyShape } from './api/shape-utils';
 
 //#region LocalStorage
 
@@ -90,3 +91,7 @@ const correlateAtom = atom(
 // UI state
 
 export const section1_OpenAtom = atomWithCallback<boolean>(Storage.initialData.open1, ({ get }) => Storage.save(get));
+
+// Shapes
+
+export const editorShapeAtom = atom(dummyShape());
