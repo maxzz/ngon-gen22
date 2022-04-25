@@ -51,10 +51,41 @@ function Controls() {
         ),
     });
 
+    const colorsStore = useCreateStore();
+
+    const colors = useControls(
+        {
+            colors: folder({
+                elevation1: '#292D39',
+                elevation2: '#181C20',
+                elevation3: '#373C4B',
+                accent1: '#0066DC',
+                accent2: '#007BFF',
+                accent3: '#3C93FF',
+                highlight1: '#535760',
+                highlight2: '#8C92A4',
+                highlight3: '#FEFEFE',
+                vivid1: '#ffcc00',
+            }),
+        },
+        { store: colorsStore },
+    );
 
     return (<>
         <div className="">Controls</div>
 
+        <div
+            style={{
+                display: 'grid',
+                width: 300,
+                gap: 10,
+                paddingBottom: 40,
+                overflow: 'auto',
+                background: '#181C20',
+            }}
+        >
+            <LevaPanel fill flat titleBar={false} store={colorsStore} />
+        </div>
     </>);
 }
 
