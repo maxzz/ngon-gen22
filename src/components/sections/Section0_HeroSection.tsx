@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { Atom, useAtom, useAtomValue } from 'jotai';
 import { a, easings, useSpring } from '@react-spring/web';
 import { Scene } from '@/store/api/shape-types';
-import { folder, LevaPanel, useControls, useCreateStore } from 'leva';
+import { folder, Leva, LevaPanel, useControls, useCreateStore } from 'leva';
 import { editorShapeAtom } from '@/store/store';
 
 const boxShadow = { boxShadow: '0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12)', };
@@ -53,7 +53,7 @@ function Controls() {
                 { collapsed: false }
             ),
         },
-        { store: shapeStore },
+        // { store: shapeStore },
     );
 
     const colorsStore = useCreateStore();
@@ -88,7 +88,7 @@ function Controls() {
                 background: '#181C20',
             }}
         >
-            <LevaPanel fill flat titleBar={false} store={shapeStore} />
+            {/* <LevaPanel fill flat titleBar={false} store={shapeStore} /> */}
             <LevaPanel fill flat titleBar={false} store={colorsStore} />
         </div>
     </>);
@@ -97,6 +97,15 @@ function Controls() {
 export function Section0_Preview() {
     return (
         <div className="mt-4 grid grid-cols-2 gap-4">
+            <Leva
+            isRoot={false}
+                //detached={false}
+                // detached         // default = true,  false would make the pane fill the parent dom node it's rendered in.
+                // oneLineLabels    // default = false, alternative layout for labels, with labels and fields on separate rows
+                // hideTitleBar // default = false, hides the GUI header
+                // collapsed        // default = false, when true the GUI is collpased
+                // hidden           // default = false, when true the GUI is hidden
+            />
             <PreviewContainer />
             <Controls />
         </div>
