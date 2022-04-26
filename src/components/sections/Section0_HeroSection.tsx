@@ -38,18 +38,23 @@ const iconShadow = { filter: 'drop-shadow(1px 1px 1px #0002)', };
 function Controls() {
     const [editorShape, setEditorShape] = useAtom(editorShapeAtom);
 
-    const data = useControls({
-        //color: { value: '#f00', onChange: (v) => {}, transient: false },
-        ...editorShape,
-        myFolder: folder(
-            {
-                x: '#ff005b',
-                y: true,
-                z: 'hello',
-            },
-            { collapsed: false }
-        ),
-    });
+    const shapeStore = useCreateStore();
+
+    const data = useControls(
+        {
+            //color: { value: '#f00', onChange: (v) => {}, transient: false },
+            ...editorShape,
+            myFolder: folder(
+                {
+                    x: '#ff005b',
+                    y: true,
+                    z: 'hello',
+                },
+                { collapsed: false }
+            ),
+        },
+        { store: shapeStore },
+    );
 
     const colorsStore = useCreateStore();
 
@@ -72,8 +77,6 @@ function Controls() {
     );
 
     return (<>
-        <div className="">Controls</div>
-
         <div
             className="leva-override"
             style={{
@@ -85,6 +88,7 @@ function Controls() {
                 background: '#181C20',
             }}
         >
+            <LevaPanel fill flat titleBar={false} store={shapeStore} />
             <LevaPanel fill flat titleBar={false} store={colorsStore} />
         </div>
     </>);
