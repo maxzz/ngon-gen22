@@ -75,6 +75,7 @@ function Controls() {
         <div className="">Controls</div>
 
         <div
+            className="leva-override"
             style={{
                 display: 'grid',
                 width: 300,

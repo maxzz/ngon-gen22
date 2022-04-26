@@ -11,3 +11,12 @@
         @apply outline outline-1 sm:outline-2 outline-offset-1 outline-green-500 sm:outline-green-500/30;
     }
 }
+
+@layer components {
+    #leva__root [type="text"],
+    .leva-override [type="text"] {
+        background-color: transparent;
+        padding: 0 var(--leva-space-sm);
+        font-size: inherit;
+    }
+}
