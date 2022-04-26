@@ -3,7 +3,7 @@ import { dataLoadAtom } from './store/store';
 import { Frontpage } from './components/Frontpage';
 import { UIToaster } from './components/UI/UiToaster';
 import { UISymbolsDefs } from './components/UI/UIIcons';
-import './App.css';
+import './App.scss';
 
 function DataLoader() {
     useAtomValue(dataLoadAtom);
