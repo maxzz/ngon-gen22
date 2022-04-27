@@ -40,21 +40,27 @@ function Controls() {
 
     const shapeStore = useCreateStore();
 
-    const data = useControls(
-        {
-            //color: { value: '#f00', onChange: (v) => {}, transient: false },
-            ...editorShape,
-            myFolder: folder(
-                {
-                    x: '#ff005b',
-                    y: true,
-                    z: 'hello',
-                },
-                { collapsed: false }
-            ),
-        },
-        // { store: shapeStore },
-    );
+    // const data = useControls(
+    //     {
+    //         //color: { value: '#f00', onChange: (v) => {}, transient: false },
+    //         // ...editorShape,
+    //         myNumber: {
+    //             value: 4,
+    //             min: 0,
+    //             max: 10,
+    //             step: 1,
+    //         },
+    //         myFolder: folder(
+    //             {
+    //                 x: '#ff005b',
+    //                 y: true,
+    //                 z: 'hello',
+    //             },
+    //             { collapsed: false }
+    //         ),
+    //     },
+    //     // { store: shapeStore },
+    // );
 
     const colorsStore = useCreateStore();
 
@@ -97,15 +103,15 @@ function Controls() {
 export function Section0_Preview() {
     return (
         <div className="mt-4 grid grid-cols-2 gap-4">
-            <Leva
-            isRoot={false}
-                //detached={false}
-                // detached         // default = true,  false would make the pane fill the parent dom node it's rendered in.
-                // oneLineLabels    // default = false, alternative layout for labels, with labels and fields on separate rows
-                // hideTitleBar // default = false, hides the GUI header
-                // collapsed        // default = false, when true the GUI is collpased
-                // hidden           // default = false, when true the GUI is hidden
-            />
+            {/* <Leva
+                isRoot={true}
+            //detached={false}
+            // detached         // default = true,  false would make the pane fill the parent dom node it's rendered in.
+            // oneLineLabels    // default = false, alternative layout for labels, with labels and fields on separate rows
+            // hideTitleBar // default = false, hides the GUI header
+            // collapsed        // default = false, when true the GUI is collpased
+            // hidden           // default = false, when true the GUI is hidden
+            /> */}
             <PreviewContainer />
             <Controls />
         </div>
