@@ -118,9 +118,7 @@ export function Section0_Preview() {
             
             {/* <Controls /> */}
             <ControlsStore>
-                <ControlsLeva>
-                    <>11</>
-                </ControlsLeva>
+                <ControlsLeva />
             </ControlsStore>
         </div>
     );
