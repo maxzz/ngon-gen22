@@ -4,6 +4,8 @@ import { a, easings, useSpring } from '@react-spring/web';
 import { Scene } from '@/store/api/shape-types';
 import { folder, Leva, LevaPanel, useControls, useCreateStore } from 'leva';
 import { editorShapeAtom } from '@/store/store';
+import { ControlsStore } from './Editor/ControlsStore';
+import { ControlsLeva } from './Editor/ControlsLeva';
 
 const boxShadow = { boxShadow: '0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12)', };
 
@@ -113,7 +115,13 @@ export function Section0_Preview() {
             // hidden           // default = false, when true the GUI is hidden
             /> */}
             <PreviewContainer />
-            <Controls />
+            
+            {/* <Controls /> */}
+            <ControlsStore>
+                <ControlsLeva>
+                    <>11</>
+                </ControlsLeva>
+            </ControlsStore>
         </div>
     );
 }
