@@ -13,10 +13,18 @@ module.exports = plugin(
                 outline: '1px solid black',
             },
 
+            '.debug-dots *': {
+                // '--bc': '215 28% 17%',
+                // 'background-size': '10px 10px',
+                // 'background-image': 'radial-gradient(hsla(var(--bc)/.2) 0.5px,hsla(var(--b2)/1) 0.5px)',
+                
+                'background-size': '10px 10px',
+                'background-image': 'radial-gradient(#000 0.7px,#f020 0.7px)',
+            },
+
             '.debug-grid': {
                 background: 'transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAFElEQVR4AWPAC97/9x0eCsAEPgwAVLshdpENIxcAAAAASUVORK5CYII=) repeat top left',
             },
-
             '.debug-grid-16': {
                 background: 'transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMklEQVR4AWOgCLz/b0epAa6UGuBOqQHOQHLUgFEDnAbcBZ4UGwDOkiCnkIhdgNgNxAYAiYlD+8sEuo8AAAAASUVORK5CYII=) repeat top left',
             },
@@ -24,7 +32,6 @@ module.exports = plugin(
             '.debug-grid-8-solid': {
                 background: 'round:white url(data:image/gif;base64,R0lGODdhCAAIAPEAAADw/wDx/////wAAACwAAAAACAAIAAACDZQvgaeb/lxbAIKA8y0AOw==) repeat top left',
             },
-
             '.debug-grid-16-solid': {
                 background: 'round:white url(data:image/gif;base64,R0lGODdhEAAQAPEAAADw/wDx/xXy/////ywAAAAAEAAQAAACIZyPKckYDQFsb6ZqD85jZ2+BkwiRFKehhqQCQgDHcgwEBQA7) repeat top left',
             },

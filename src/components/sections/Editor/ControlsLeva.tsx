@@ -21,7 +21,7 @@ export type LevaControlsType = {
 };
 
 export const defLevaControls: LevaControlsType = {
-    nOuter: 7,
+    nOuter: 5,
     nInner: 4,
     outerLenghtX: 11, //scale
     outerLenghtY: 11, //scale
