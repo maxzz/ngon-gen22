@@ -3,11 +3,14 @@ import { atomWithCallback, LoadingDataState, loadingDataStateInit } from '@/hook
 import { debounce } from '@/utils/debounce';
 import { toastError } from '@/components/UI/UiToaster';
 import { dummyShape } from './api/shape-utils';
+import { defLevaControls } from '@/components/sections/Editor/ControlsLeva';
+import { ShapeNgon } from './api/shape-types';
+import { generate } from './api/shape-generator-ngon';
 
 //#region LocalStorage
 
 namespace Storage {
-    const KEY = 'react-page-qa2-01';
+    const KEY = 'react-svg-shapes22-01';
 
     type Store = {
         open1: boolean;
@@ -95,3 +98,24 @@ export const section1_OpenAtom = atomWithCallback<boolean>(Storage.initialData.o
 // Shapes
 
 export const editorShapeAtom = atom(dummyShape());
+
+// Leva
+
+export const levaControlsAtom = atom(defLevaControls);
+
+export const shapePathAtom = atom(
+    (get) => {
+        const { scene } = dummyShape();
+        const leva = get(levaControlsAtom);
+        let shapeNgon: ShapeNgon = {
+            ...dummyShape(),
+        }
+        shapeNgon.nOuter = leva.nOuter;
+        shapeNgon.nInner = leva.nInner;
+        shapeNgon.lenOuter = { x: leva.outerLenghtX, y: leva.outerLenghtY };
+        shapeNgon.lenInner = { x: leva.innerLenghtX, y: leva.innerLenghtY };
+
+        const res = generate(shapeNgon);
+        return res;
+    },
+);

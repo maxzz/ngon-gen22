@@ -11,7 +11,20 @@ function createNGonPoints(n: number): [number, number][] {
     return polygon;
 }
 
-export function generate(params: ShapeNgon) {
+export type GeneratorResult = {
+    d: string;
+    points: [number, number][];
+    start: {
+        cx: number;
+        cy: number;
+    };
+    center: {
+        x: number;
+        y: number;
+    };
+};
+
+export function generate(params: ShapeNgon): GeneratorResult {
 
     // generate points
     let points = createNGonPoints(params.nOuter * params.nInner);

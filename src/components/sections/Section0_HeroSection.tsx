@@ -3,16 +3,17 @@ import { Atom, useAtom, useAtomValue } from 'jotai';
 import { a, easings, useSpring } from '@react-spring/web';
 import { Scene } from '@/store/api/shape-types';
 import { folder, Leva, LevaPanel, useControls, useCreateStore } from 'leva';
-import { editorShapeAtom } from '@/store/store';
+import { editorShapeAtom, shapePathAtom } from '@/store/store';
 import { ControlsStore } from './Editor/ControlsStore';
 import { ControlsLeva } from './Editor/ControlsLeva';
+import { GeneratorResult } from '@/store/api/shape-generator-ngon';
 
 const boxShadow = { boxShadow: '0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12)', };
 
 function Preview({ scene, d }: { scene: Scene; d: string; }) {
     return (
         <svg viewBox={`0 0 ${scene.w} ${scene.h}`}>
-            <path d={d} />
+            <path style={{ fill: 'none', stroke: 'purple', strokeWidth: .1 }} d={d} />
         </svg >
     );
 }
@@ -26,10 +27,12 @@ function PreviewContainer() {
         ofsX: 7,
         ofsY: 7,
     };
+    const shapePath: GeneratorResult = useAtomValue(shapePathAtom);
     return (
         <div className="bg-slate-400 overflow-hidden" style={{ ...boxShadow, transition: "all .2s" }}>
             <a.div style={styles} className="h-full object-cover">
-                <Preview scene={scene} d={'M7,6.4L7.18,1.14L12.23,6.4L7.29,8.41L10.23,6.4L7,12.9L3.77,6.4L6.71,8.41L1.77,6.4L6.82,1.14z'} />
+                <Preview scene={scene} d={shapePath.d} />
+                {/* <Preview scene={scene} d={'M7,6.4L7.18,1.14L12.23,6.4L7.29,8.41L10.23,6.4L7,12.9L3.77,6.4L6.71,8.41L1.77,6.4L6.82,1.14z'} /> */}
             </a.div>
         </div>
     );
@@ -115,7 +118,7 @@ export function Section0_Preview() {
             // hidden           // default = false, when true the GUI is hidden
             /> */}
             <PreviewContainer />
-            
+
             {/* <Controls /> */}
             <ControlsStore>
                 <ControlsLeva />
