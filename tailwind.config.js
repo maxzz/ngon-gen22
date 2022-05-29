@@ -1,7 +1,8 @@
 const twColors = require('tailwindcss/colors');
 const twTheme = require('tailwindcss/defaultTheme');
-const colorsBridge = require('./tailwind-plugin-colors-bridge')
-const dataState = require('./tailwind-plugin-data-state');
+const colorsBridge = require('./tailwind/tailwind-plugin-colors-bridge');
+const dataState = require('./tailwind/tailwind-plugin-data-state');
+const debugStyles =require('./tailwind/tailwnd-plugin-debug-styles');
 
 module.exports = {
     content: ['./index.html', './src/**/*.{tsx,ts,js,jsx}'],
@@ -23,7 +24,8 @@ module.exports = {
     },
     plugins: [
         dataState,
-        colorsBridge({groupName: 'slate'}),
+        colorsBridge({ groupName: 'slate' }),
+        debugStyles,
         require('@tailwindcss/forms')
     ],
 };
