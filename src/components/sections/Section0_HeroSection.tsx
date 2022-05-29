@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { HTMLAttributes, useRef } from 'react';
 import { Atom, useAtom, useAtomValue } from 'jotai';
 import { a, easings, useSpring } from '@react-spring/web';
 import { Scene } from '@/store/api/shape-types';
@@ -7,19 +7,21 @@ import { editorShapeAtom, shapePathAtom } from '@/store/store';
 import { ControlsStore } from './Editor/ControlsStore';
 import { ControlsLeva } from './Editor/ControlsLeva';
 import { GeneratorResult } from '@/store/api/shape-generator-ngon';
+import { classNames } from '@/utils/classnames';
 
 const boxShadow = { boxShadow: '0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12)', };
 
-function Preview({ scene, d }: { scene: Scene; d: string; }) {
+function Preview({ scene, d, ...rest }: { scene: Scene; d: string; } & HTMLAttributes<SVGSVGElement>) {
     return (
-        <svg viewBox={`0 0 ${scene.w} ${scene.h}`}>
+        <svg viewBox={`0 0 ${scene.w} ${scene.h}`} {...rest}>
             <path style={{ fill: 'none', stroke: 'purple', strokeWidth: .1 }} d={d} />
         </svg >
     );
 }
 
 function PreviewContainer() {
-    const styles = useSpring({ scale: 1, from: { scale: 2 }, config: { duration: 2000, easing: easings.easeInOutElastic } });
+    const styles = useSpring({ scale: 1, from: { scale: .2 }, config: { duration: 2000, easing: easings.easeInOutElastic } });
+
     const scene: Scene = {
         // w: 14,
         // h: 14,
@@ -29,10 +31,12 @@ function PreviewContainer() {
         ofsX: 7,
         ofsY: 7,
     };
+
     const shapePath: GeneratorResult = useAtomValue(shapePathAtom);
+
     return (
-        <div className="bg-slate-400 overflow-hidden" style={{ ...boxShadow, transition: "all .2s" }}>
-            <a.div style={styles} className="h-full object-cover">
+        <div className="bg-slate-300 aspect-square overflow-hidden" style={{ ...boxShadow, transition: "all .2s" }}>
+            <a.div style={styles} className="w-full h-full object-cover">
                 <Preview scene={scene} d={shapePath.d} />
                 {/* <Preview scene={scene} d={'M7,6.4L7.18,1.14L12.23,6.4L7.29,8.41L10.23,6.4L7,12.9L3.77,6.4L6.71,8.41L1.77,6.4L6.82,1.14z'} /> */}
             </a.div>
@@ -109,7 +113,7 @@ function Controls() {
 
 export function Section0_Preview() {
     return (
-        <div className="mt-4 grid grid-cols-[minmax(0,1fr),auto] gap-4">
+        <div className="grid grid-cols-[minmax(0,1fr),auto] gap-4">
             {/* <Leva
                 isRoot={true}
             //detached={false}
