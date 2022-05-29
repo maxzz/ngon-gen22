@@ -13,12 +13,23 @@ module.exports = plugin(
                 outline: '1px solid black',
             },
 
+            // ':root': {
+            //     '--bc': '215 28% 17%',
+            //     '--b2': '215 28% 17%',
+            // },
+
             '.debug-dots *': {
                 // '--bc': '215 28% 17%',
                 // 'background-size': '10px 10px',
                 // 'background-image': 'radial-gradient(hsla(var(--bc)/.2) 0.5px,hsla(var(--b2)/1) 0.5px)',
                 
+                // '--bc': '215 28% 17%',
+                // '--b2': '215 28% 17%',
+                // 'background-size': '10px 10px',
+                // 'background-image': 'radial-gradient(hsla(var(--bc)/.2) 0.5px,hsla(var(--b2)/1) 0.5px)',
+                
                 'background-size': '10px 10px',
+                // 'background-size': '100px 100px',
                 'background-image': 'radial-gradient(#000 0.7px,#f020 0.7px)',
             },
 
