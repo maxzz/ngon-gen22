@@ -40,7 +40,7 @@ export interface StorageNgon { // Persistent format of ShapeParams
     lna: Point2D;       // ShapeNgon.lenOuter
     lnb: Point2D;       // ShapeNgon.lenInner
     stk?: number;       //
-    scn: StorageScene;    //
+    scn: StorageScene;  //
     gen?: string;       // ShapeNgon.gen
     id?: string;        // ShapeNgon.id
 }

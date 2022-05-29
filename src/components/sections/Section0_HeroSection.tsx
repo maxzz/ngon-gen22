@@ -21,8 +21,10 @@ function Preview({ scene, d }: { scene: Scene; d: string; }) {
 function PreviewContainer() {
     const styles = useSpring({ scale: 1, from: { scale: 2 }, config: { duration: 2000, easing: easings.easeInOutElastic } });
     const scene: Scene = {
-        w: 14,
-        h: 14,
+        // w: 14,
+        // h: 14,
+        w: 24,
+        h: 24,
         scale: 100,
         ofsX: 7,
         ofsY: 7,
@@ -107,7 +109,7 @@ function Controls() {
 
 export function Section0_Preview() {
     return (
-        <div className="mt-4 grid grid-cols-2 gap-4">
+        <div className="mt-4 grid grid-cols-[minmax(0,1fr),auto] gap-4">
             {/* <Leva
                 isRoot={true}
             //detached={false}
