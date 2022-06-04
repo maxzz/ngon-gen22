@@ -4,8 +4,8 @@ import { a, easings, useSpring } from '@react-spring/web';
 import { Scene } from '@/store/api/shape-types';
 import { folder, Leva, LevaPanel, useControls, useCreateStore } from 'leva';
 import { editorShapeAtom, shapePathAtom } from '@/store/store';
-import { ControlsStore } from './Editor/ControlsStore';
-import { ControlsLeva } from './Editor/ControlsLeva';
+import { ControlsStore } from '../UI/Leva/ControlsStore';
+import { ControlsLeva } from '../UI/Leva/ControlsLeva';
 import { GeneratorResult } from '@/store/api/shape-generator-ngon';
 import { classNames } from '@/utils/classnames';
 

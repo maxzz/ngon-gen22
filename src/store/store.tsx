@@ -3,7 +3,7 @@ import { atomWithCallback, LoadingDataState, loadingDataStateInit } from '@/hook
 import { debounce } from '@/utils/debounce';
 import { toastError } from '@/components/UI/UiToaster';
 import { dummyShape } from './api/shape-utils';
-import { defLevaControls } from '@/components/sections/Editor/ControlsLeva';
+import { defLevaControls } from '@/components/UI/Leva/ControlsLeva';
 import { ShapeNgon } from './api/shape-types';
 import { generate } from './api/shape-generator-ngon';
 
@@ -112,8 +112,8 @@ export const shapePathAtom = atom(
         }
         shapeNgon.nOuter = leva.nOuter;
         shapeNgon.nInner = leva.nInner;
-        shapeNgon.lenOuter = { x: leva.outerLenghtX, y: leva.outerLenghtY };
-        shapeNgon.lenInner = { x: leva.innerLenghtX, y: leva.innerLenghtY };
+        shapeNgon.lenOuter = { x: leva.outerX, y: leva.outerY };
+        shapeNgon.lenInner = { x: leva.innerX, y: leva.innerY };
 
         const res = generate(shapeNgon);
         return res;

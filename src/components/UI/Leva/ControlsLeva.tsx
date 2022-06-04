@@ -10,10 +10,10 @@ import { levaControlsAtom } from "@/store/store";
 export type LevaControlsType = {
     nOuter: number;     // Number of outer points
     nInner: number;     // Number of inner points
-    outerLenghtX: number;
-    outerLenghtY: number;
-    innerLenghtX: number;
-    innerLenghtY: number;
+    outerX: number;     // outer lenght x
+    outerY: number;     // outer lenght y
+    innerX: number;     // inner lenght x
+    innerY: number;     // inner lenght y
     // lenOuter: Point2D;  // length outer vector
     // lenInner: Point2D;  // length inner vector
     //scene: Scene;       // Scene params
@@ -23,10 +23,10 @@ export type LevaControlsType = {
 export const defLevaControls: LevaControlsType = {
     nOuter: 5,
     nInner: 4,
-    outerLenghtX: 11, //scale
-    outerLenghtY: 11, //scale
-    innerLenghtX: 8,  //scale
-    innerLenghtY: 8,  //scale
+    outerX: 11, //scale
+    outerY: 11, //scale
+    innerX: 8,  //scale
+    innerY: 8,  //scale
     stroke: .1,
 };
 
@@ -34,12 +34,12 @@ export function ControlsLeva({ store }: { store?: StoreType; }) {
 
     const [controls, set] = useControls(
         () => ({
-            nOuter: { value: defLevaControls.nOuter, min: 1, max: 100, step: 1 },
-            nInner: { value: defLevaControls.nInner, min: 1, max: 100, step: 1 },
-            outerLenghtX: { value: defLevaControls.outerLenghtX, min: 1, max: 100, step: 1 },
-            outerLenghtY: { value: defLevaControls.outerLenghtY, min: 1, max: 100, step: 1 },
-            innerLenghtX: { value: defLevaControls.innerLenghtX, min: 1, max: 100, step: 1 },
-            innerLenghtY: { value: defLevaControls.innerLenghtY, min: 1, max: 100, step: 1 },
+            nOuter: { label: '# outer points', value: defLevaControls.nOuter, min: 1, max: 100, step: 1 },
+            nInner: { label: '# inner points', value: defLevaControls.nInner, min: 1, max: 100, step: 1 },
+            outerX: { label: 'outer scale X', value: defLevaControls.outerX, min: -100, max: 100, step: 1 },
+            outerY: { label: 'outer scale Y', value: defLevaControls.outerY, min: -100, max: 100, step: 1 },
+            innerX: { label: 'inner scale X', value: defLevaControls.innerX, min: -100, max: 100, step: 1 },
+            innerY: { label: 'inner scale Y', value: defLevaControls.innerY, min: -100, max: 100, step: 1 },
             // lenOuter: { x: 0, y: 0 },
             // lenInner: { x: 0, y: 0 },
             //scene: Scene;       // Scene params
@@ -56,10 +56,10 @@ export function ControlsLeva({ store }: { store?: StoreType; }) {
         const newLevaControls: LevaControlsType = {
             nOuter: controls.nOuter,
             nInner: controls.nInner,
-            outerLenghtX: controls.outerLenghtX,
-            outerLenghtY: controls.outerLenghtY,
-            innerLenghtX: controls.innerLenghtX,
-            innerLenghtY: controls.innerLenghtY,
+            outerX: controls.outerX,
+            outerY: controls.outerY,
+            innerX: controls.innerX,
+            innerY: controls.innerY,
             stroke: controls.stroke,
         };
         setLevaControls(newLevaControls);

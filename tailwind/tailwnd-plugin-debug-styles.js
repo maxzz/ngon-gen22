@@ -18,7 +18,7 @@ module.exports = plugin(
             //     '--b2': '215 28% 17%',
             // },
 
-            '.debug-dots *': {
+            '.debug-dots *': { //https://daisyui.com/components/modal
                 // '--bc': '215 28% 17%',
                 // 'background-size': '10px 10px',
                 // 'background-image': 'radial-gradient(hsla(var(--bc)/.2) 0.5px,hsla(var(--b2)/1) 0.5px)',
