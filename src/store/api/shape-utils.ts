@@ -16,10 +16,10 @@ export function rnd2(n: number): number {
 
 export function dummyShape(): ShapeNgon {
     return {
-        nOuter: 5,
-        nInner: 2,
-        lenOuter: { x: 2.2, y: 2.2 },
-        lenInner: { x: 5.2, y: 5.2 },
+        outerN: 5,
+        innerN: 2,
+        outer: { x: 2.2, y: 2.2 },
+        inner: { x: 5.2, y: 5.2 },
         scene: {
             w: CONST.sceneSize,
             h: CONST.sceneSize,
@@ -42,8 +42,8 @@ export const defShapeParams: ShapeParams = {
     stroke: .1,
 
     scale: 1,
-    boxW: 24,
-    boxH: 24,
+    w: 24,
+    h: 24,
     ofsX: CONST.sceneSize / 2,
     ofsY: CONST.sceneSize / 2,
 };
@@ -52,10 +52,10 @@ export const defShapeParams: ShapeParams = {
 
 export function ShapeNgonToStorage(shape: ShapeNgon): StorageNgon {
     let rv: StorageNgon = {
-        na: shape.nOuter,
-        nb: shape.nInner,
-        lna: shape.lenOuter,
-        lnb: shape.lenInner,
+        na: shape.outerN,
+        nb: shape.innerN,
+        lna: shape.outer,
+        lnb: shape.inner,
         scn: {
             w: shape.scene.w,
             h: shape.scene.h,
@@ -74,10 +74,10 @@ export function ShapeNgonFromStorage(storage: StorageNgon): ShapeNgon {
     let w = storage.scn && storage.scn.w || CONST.sceneSize;
     let h = storage.scn && storage.scn.h || CONST.sceneSize;
     let rv: ShapeNgon = {
-        nOuter: storage.na,
-        nInner: storage.nb,
-        lenOuter: storage.lna,
-        lenInner: storage.lnb,
+        outerN: storage.na,
+        innerN: storage.nb,
+        outer: storage.lna,
+        inner: storage.lnb,
         scene: {
             w: w,
             h: h,

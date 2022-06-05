@@ -110,10 +110,10 @@ export const shapePathAtom = atom(
         let shapeNgon: ShapeNgon = {
             ...dummyShape(),
         };
-        shapeNgon.nOuter = leva.nOuter;
-        shapeNgon.nInner = leva.nInner;
-        shapeNgon.lenOuter = { x: leva.outerX, y: leva.outerY };
-        shapeNgon.lenInner = { x: leva.innerX, y: leva.innerY };
+        shapeNgon.outerN = leva.nOuter;
+        shapeNgon.innerN = leva.nInner;
+        shapeNgon.outer = { x: leva.outerX, y: leva.outerY };
+        shapeNgon.inner = { x: leva.innerX, y: leva.innerY };
 
         const res = generate(shapeNgon);
         return res;

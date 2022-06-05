@@ -27,13 +27,13 @@ export type GeneratorResult = {
 export function generate(params: ShapeNgon): GeneratorResult {
 
     // generate points
-    let points = createNGonPoints(params.nOuter * params.nInner);
+    let points = createNGonPoints(params.outerN * params.innerN);
 
     // scale inner and outer points
     points = points.map((pt, index) => {
-        return index % params.nInner === 0
-            ? [pt[0] * params.lenInner.x, pt[1] * params.lenInner.y]
-            : [pt[0] * params.lenOuter.x, pt[1] * params.lenOuter.y];
+        return index % params.innerN === 0
+            ? [pt[0] * params.inner.x, pt[1] * params.inner.y]
+            : [pt[0] * params.outer.x, pt[1] * params.outer.y];
     });
 
     // scene scale
