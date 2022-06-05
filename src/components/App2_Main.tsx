@@ -8,7 +8,7 @@ import { section1_OpenAtom } from '@/store/store';
 
 export function App2_Main() {
     return (
-        <div className="h-screen flex flex-col text-[#001845]">
+        <div className="h-screen flex flex-col">
             <App1_Header />
 
             <div className="flex-1 overflow-y-auto" style={{ overflow: 'overlay' }}>

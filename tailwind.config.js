@@ -9,6 +9,10 @@ module.exports = {
                 // primary: { 100: twColors.blue['500'], },
                 primary: twColors.slate,
                 title: '#06133e',
+                title2: '#001845',
+                title3: '#003165',
+                title4: '#003f82',
+                title5: '#002f87',
                 url: twColors.blue['500'],
             },
             // keyframes: {
