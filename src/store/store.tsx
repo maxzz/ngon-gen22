@@ -2,7 +2,7 @@ import { atom, Getter } from 'jotai';
 import { atomWithCallback, LoadingDataState, loadingDataStateInit } from '@/hooks/atomsX';
 import { debounce } from '@/utils/debounce';
 import { toastError } from '@/components/UI/UiToaster';
-import { defNewShapeParams, dummyShape, initalValueShapeParams } from './api/shape-utils';
+import { initalValueShapeParams } from './api/shape-utils';
 import { ShapeNgon } from './api/shape-types';
 import { generate } from './api/shape-generator-ngon';
 
@@ -96,13 +96,13 @@ export const section1_OpenAtom = atomWithCallback<boolean>(Storage.initialData.o
 
 // Shapes
 
-export const editorShapeAtom = atom(initalValueShapeParams());
+export const editorShapeParamsAtom = atom(initalValueShapeParams());
 
 // Controls
 
 export const shapePathAtom = atom(
     (get) => {
-        const data = get(editorShapeAtom);
+        const data = get(editorShapeParamsAtom);
         let shapeNgon: ShapeNgon = {
             outerN: data.outerN,
             innerN: data.innerN,

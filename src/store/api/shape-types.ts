@@ -26,22 +26,22 @@ export type ShapeNgon = {
 
 //////////////////
 
-type ArrTwo = [number, number]; // [x, y] or [w, h]
+// type ArrTwo = [number, number]; // [x, y] or [w, h]
 
-export type NewShapeParams4 = { // TODO: can it be more then one inner ?
-    outerN: number;     // Number of outer points
-    innerN: number;     // Number of inner points
-    outer: ArrTwo;      // Outer lenght x, y aka scale
-    inner: ArrTwo;      // Inner lenght x, y aka scale
-    stroke: number;     // Stroke width
+// export type NewShapeParams4 = { // TODO: can it be more then one inner ?
+//     outerN: number;     // Number of outer points
+//     innerN: number;     // Number of inner points
+//     outer: ArrTwo;      // Outer lenght x, y aka scale
+//     inner: ArrTwo;      // Inner lenght x, y aka scale
+//     stroke: number;     // Stroke width
 
-    size: ArrTwo;       // Box width, height
-    offset: ArrTwo;     // shape offset x, y // TODO: should it be cx, cy?
-    scale: number;      // scene scale
+//     size: ArrTwo;       // Box width, height
+//     offset: ArrTwo;     // shape offset x, y // TODO: should it be cx, cy?
+//     scale: number;      // scene scale
 
-    id?: string;        // shape ID
-    genId?: string;     // shape generator name aka 'ngon'
-};
+//     id?: string;        // shape ID
+//     genId?: string;     // shape generator name aka 'ngon'
+// };
 
 export type NewShapeParams = { // TODO: can it be more then one inner ?
     outerN: number;     // Number of outer points
