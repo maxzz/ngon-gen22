@@ -16,8 +16,8 @@ export type Scene = {
 export type ShapeNgon = {
     outerN: number;     // Number of outer points
     innerN: number;     // Number of inner points
-    outer: Point2D;  // length outer vector
-    inner: Point2D;  // length inner vector
+    outer: Point2D;     // length outer vector
+    inner: Point2D;     // length inner vector
     stroke: number;     // Stroke width
     scene: Scene;       // Scene params
     id: string;         // Relatively unique shape ID or generated
@@ -26,7 +26,24 @@ export type ShapeNgon = {
 
 //////////////////
 
-export type ShapeParams = { // TODO: can it be more then one inner ?
+type ArrTwo = [number, number]; // [x, y] or [w, h]
+
+export type NewShapeParams4 = { // TODO: can it be more then one inner ?
+    outerN: number;     // Number of outer points
+    innerN: number;     // Number of inner points
+    outer: ArrTwo;      // Outer lenght x, y aka scale
+    inner: ArrTwo;      // Inner lenght x, y aka scale
+    stroke: number;     // Stroke width
+
+    size: ArrTwo;       // Box width, height
+    offset: ArrTwo;     // shape offset x, y // TODO: should it be cx, cy?
+    scale: number;      // scene scale
+
+    id?: string;        // shape ID
+    genId?: string;     // shape generator name aka 'ngon'
+};
+
+export type NewShapeParams = { // TODO: can it be more then one inner ?
     outerN: number;     // Number of outer points
     innerN: number;     // Number of inner points
     outerX: number;     // Outer lenght x aka scale
@@ -38,7 +55,7 @@ export type ShapeParams = { // TODO: can it be more then one inner ?
     w: number;          // Box width
     h: number;          // Box height
     ofsX: number;       // shape offset x
-    ofsY: number;       // shape offset y
+    ofsY: number;       // shape offset y // TODO: should it be cx, cy?
     scale: number;      // scene scale
 
     id?: string;        // shape ID

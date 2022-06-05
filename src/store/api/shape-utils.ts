@@ -1,4 +1,4 @@
-import { StorageNgon, ShapeNgon, ShapeParams } from "./shape-types";
+import { StorageNgon, ShapeNgon, NewShapeParams, NewShapeParams4 } from "./shape-types";
 import { uuid } from "@/utils/uuid";
 
 const enum CONST { // ts defines type by last enum
@@ -32,7 +32,19 @@ export function dummyShape(): ShapeNgon {
     };
 }
 
-export const defShapeParams: ShapeParams = {
+export const defNewShapeParams4: NewShapeParams4 = {
+    outerN: 5,
+    innerN: 4,
+    outer: [11, 11],
+    inner: [8, 8],
+    stroke: .1,
+
+    size: [CONST.sceneSize,CONST.sceneSize],
+    offset: [CONST.sceneSize / 2, CONST.sceneSize / 2],
+    scale: 1,
+};
+
+export const defNewShapeParams: NewShapeParams = {
     outerN: 5,
     innerN: 4,
     outerX: 11,
@@ -41,11 +53,11 @@ export const defShapeParams: ShapeParams = {
     innerY: 8,
     stroke: .1,
 
-    scale: 1,
-    w: 24,
-    h: 24,
+    w: CONST.sceneSize,
+    h: CONST.sceneSize,
     ofsX: CONST.sceneSize / 2,
     ofsY: CONST.sceneSize / 2,
+    scale: 1,
 };
 
 // IO
