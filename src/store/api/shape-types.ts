@@ -62,7 +62,13 @@ export type NewShapeParams = { // TODO: can it be more then one inner ?
     genId?: string;     // shape generator name aka 'ngon'
 };
 
-export type NewShapeParamsMetaItem = { label: string, min: number, max: number, step: number; };
+export type NewShapeParamsMetaItem = {
+    label: string;
+    min: number;
+    max: number;
+    step: number;
+    digits?: number;    // if defined number will be rounded before apply
+};
 
 export type NewShapeParamsMeta = {
     nOuter: NewShapeParamsMetaItem;

@@ -69,15 +69,15 @@ export function initalValueShapeParams(): NewShapeParams {
 }
 
 export const initialValueNewShapeParamsMeta: NewShapeParamsMeta = {
-    nOuter: { label: '# outer points', min: 1, max: 100, step: 1 },
-    nInner: { label: '# inner points', min: 1, max: 100, step: 1 },
+    nOuter: { label: '# outer points', min: 1, max: 100, step: 1, digits: 0, },
+    nInner: { label: '# inner points', min: 1, max: 100, step: 1, digits: 0, },
     outerX: { label: 'outer scale X', min: -100, max: 100, step: 1 },
     outerY: { label: 'outer scale Y', min: -100, max: 100, step: 1 },
     innerX: { label: 'inner scale X', min: -100, max: 100, step: 1 },
     innerY: { label: 'inner scale Y', min: -100, max: 100, step: 1 },
 
-    w: { label: 'width', min: -100, max: 100, step: 1 },
-    h: { label: 'height', min: -100, max: 100, step: 1 },
+    w: { label: 'width', min: -100, max: 100, step: 1, digits: 0, },
+    h: { label: 'height', min: -100, max: 100, step: 1, digits: 0, },
     ofsX: { label: 'offset X', min: -100, max: 100, step: 1 },
     ofsY: { label: 'offset Y', min: -100, max: 100, step: 1 },
     scale: { label: 'scale', min: -100, max: 100, step: 1 },
