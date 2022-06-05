@@ -125,14 +125,14 @@ export const paramAtom = atom(1);
 //////////////////////
 
 export type ShapeParams = { // TODO: can it be more then one inner ?
-    boxW: number;   // box width
-    boxH: number;   // box height
+    boxW: number;   // Box width
+    boxH: number;   // Box height
     outerN: number; // Number of outer points
     innerN: number; // Number of inner points
-    outerX: number; // outer lenght x as scale
-    outerY: number; // outer lenght y as scale
-    innerX: number; // inner lenght x as scale
-    innerY: number; // inner lenght y as scale
+    outerX: number; // Outer lenght x as scale
+    outerY: number; // Outer lenght y as scale
+    innerX: number; // Inner lenght x as scale
+    innerY: number; // Inner lenght y as scale
     stroke: number; // Stroke width
 };
 

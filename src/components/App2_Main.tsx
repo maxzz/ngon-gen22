@@ -1,9 +1,9 @@
 import React from 'react';
 import { App1_Header } from './App1_Header';
-import { Section } from './sections/Section';
-import { Section0_Preview } from './sections/Section0_HeroSection';
-import { Section1_Presets } from './sections/Section1_Presets';
 import { App3_Footer } from './App3_Footer';
+import { UISection } from './UI/UISection';
+import { Section0_Preview } from './sections/Section0_Preview';
+import { Section1_Presets } from './sections/Section1_Presets';
 import { section1_OpenAtom } from '@/store/store';
 
 export function App2_Main() {
