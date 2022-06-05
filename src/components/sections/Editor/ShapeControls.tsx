@@ -17,14 +17,23 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
 
     const { outerN, innerN, outerX, outerY, innerX, innerY, stroke, } = shapeParams;
 
+    //sconst fields = { outerN, innerN, outerX, outerY, innerX, innerY, stroke, };
+
     const entry = initialValueNewShapeParamsMeta.nOuter;
 
     return (
         <div className={classNames("", className)} {...rest}>
 
             <Slider label="inner" min={-100} max={100} onChange={(v) => setV(v)} value={v} />
-            
-            <Slider label={entry.label} min={entry.min} max={entry.max} onChange={(value) => setShapeParams((p) => ({...p, outerN: Math.floor(value)}))} value={outerN} />
+
+            <Slider
+                label={entry.label}
+                min={entry.min}
+                max={entry.max}
+                step={entry.step}
+                onChange={(value) => setShapeParams((p) => ({ ...p, outerN: entry.digits === 0 ? Math.floor(value) : value }))}
+                value={outerN}
+            />
 
         </div>
     );
