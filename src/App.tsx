@@ -1,6 +1,6 @@
 import { useAtomValue } from 'jotai';
 import { dataLoadAtom } from './store/store';
-import { Frontpage } from './components/Frontpage';
+import { App2_Main } from './components/App2_Main';
 import { UIToaster } from './components/UI/UiToaster';
 import { UISymbolsDefs } from './components/UI/UIIcons';
 import './App.scss';
@@ -25,7 +25,7 @@ function App() {
         <UISymbolsDefs />
         <DataLoader />
         <div className="min-h-full overflow-hidden bg-slate-50">
-            <Frontpage />
+            <App2_Main />
         </div>
     </>);
 }

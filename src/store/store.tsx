@@ -109,7 +109,7 @@ export const shapePathAtom = atom(
         const leva = get(levaControlsAtom);
         let shapeNgon: ShapeNgon = {
             ...dummyShape(),
-        }
+        };
         shapeNgon.nOuter = leva.nOuter;
         shapeNgon.nInner = leva.nInner;
         shapeNgon.lenOuter = { x: leva.outerX, y: leva.outerY };
@@ -121,3 +121,29 @@ export const shapePathAtom = atom(
 );
 
 export const paramAtom = atom(1);
+
+//////////////////////
+
+export type ShapeParams = { // TODO: can it be more then one inner ?
+    boxW: number;   // box width
+    boxH: number;   // box height
+    outerN: number; // Number of outer points
+    innerN: number; // Number of inner points
+    outerX: number; // outer lenght x as scale
+    outerY: number; // outer lenght y as scale
+    innerX: number; // inner lenght x as scale
+    innerY: number; // inner lenght y as scale
+    stroke: number; // Stroke width
+};
+
+export const defShapeParams: ShapeParams = {
+    boxW: 24,
+    boxH: 24,
+    outerN: 5,
+    innerN: 4,
+    outerX: 11,
+    outerY: 11,
+    innerX: 8,
+    innerY: 8,
+    stroke: .1,
+};

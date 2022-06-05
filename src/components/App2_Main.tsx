@@ -1,15 +1,15 @@
 import React from 'react';
-import { AppHeader } from './AppHeader';
+import { App1_Header } from './App1_Header';
 import { Section } from './sections/Section';
 import { Section0_Preview } from './sections/Section0_HeroSection';
 import { Section1_Presets } from './sections/Section1_Presets';
-import { Section6_Footer } from './sections/Section6_Footer';
+import { App3_Footer } from './App3_Footer';
 import { section1_OpenAtom } from '@/store/store';
 
-export function Frontpage() {
+export function App2_Main() {
     return (
         <div className="h-screen flex flex-col text-[#001845]">
-            <AppHeader />
+            <App1_Header />
 
             <div className="flex-1 overflow-y-auto" style={{ overflow: 'overlay' }}>
                 {/* <div className="m-auto w-4/5 flex flex-col space-y-4"> */}
@@ -26,7 +26,7 @@ export function Frontpage() {
                 </div>
             </div>
 
-            <Section6_Footer />
+            <App3_Footer />
         </div>
     );
 }
