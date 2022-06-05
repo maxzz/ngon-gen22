@@ -20,7 +20,7 @@ export type ShapeNgon = {
     inner: Point2D;     // length inner vector
     stroke: number;     // Stroke width
     scene: Scene;       // Scene params
-    id: string;         // Relatively unique shape ID or generated
+    id?: string;        // Relatively unique shape ID or generated
     gen?: string;       // Generator name: 'ngon'
 };
 
@@ -60,6 +60,23 @@ export type NewShapeParams = { // TODO: can it be more then one inner ?
 
     id?: string;        // shape ID
     genId?: string;     // shape generator name aka 'ngon'
+};
+
+export type NewShapeParamsMetaItem = { label: string, min: number, max: number, step: number; };
+
+export type NewShapeParamsMeta = {
+    nOuter: NewShapeParamsMetaItem;
+    nInner: NewShapeParamsMetaItem;
+    outerX: NewShapeParamsMetaItem;
+    outerY: NewShapeParamsMetaItem;
+    innerX: NewShapeParamsMetaItem;
+    innerY: NewShapeParamsMetaItem;
+
+    w: NewShapeParamsMetaItem;
+    h: NewShapeParamsMetaItem;
+    ofsX: NewShapeParamsMetaItem;
+    ofsY: NewShapeParamsMetaItem;
+    scale: NewShapeParamsMetaItem;
 };
 
 //////////////////

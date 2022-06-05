@@ -2,7 +2,7 @@ import { atom, Getter } from 'jotai';
 import { atomWithCallback, LoadingDataState, loadingDataStateInit } from '@/hooks/atomsX';
 import { debounce } from '@/utils/debounce';
 import { toastError } from '@/components/UI/UiToaster';
-import { dummyShape } from './api/shape-utils';
+import { defNewShapeParams, dummyShape, initalValueShapeParams } from './api/shape-utils';
 import { defLevaControls } from '@/components/UI/Leva/ControlsLeva';
 import { ShapeNgon } from './api/shape-types';
 import { generate } from './api/shape-generator-ngon';
@@ -97,7 +97,7 @@ export const section1_OpenAtom = atomWithCallback<boolean>(Storage.initialData.o
 
 // Shapes
 
-export const editorShapeAtom = atom(dummyShape());
+export const editorShapeAtom = atom(initalValueShapeParams());
 
 // Leva
 
@@ -105,16 +105,23 @@ export const levaControlsAtom = atom(defLevaControls);
 
 export const shapePathAtom = atom(
     (get) => {
-        const { scene } = dummyShape();
-        const leva = get(levaControlsAtom);
+        const data = get(editorShapeAtom);
         let shapeNgon: ShapeNgon = {
-            ...dummyShape(),
+            outerN: data.outerN,
+            innerN: data.innerN,
+            outer: { x: data.outerX, y: data.outerY, },
+            inner: { x: data.innerX, y: data.innerY, },
+            stroke: data.stroke,
+            scene: {
+                w: data.w,
+                h: data.h,
+                ofsX: data.ofsX,
+                ofsY: data.ofsY,
+                scale: data.scale,
+            },
+            id: data.id,
+            gen: data.genId,
         };
-        shapeNgon.outerN = leva.nOuter;
-        shapeNgon.innerN = leva.nInner;
-        shapeNgon.outer = { x: leva.outerX, y: leva.outerY };
-        shapeNgon.inner = { x: leva.innerX, y: leva.innerY };
-
         const res = generate(shapeNgon);
         return res;
     },

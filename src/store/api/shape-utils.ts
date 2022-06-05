@@ -1,4 +1,4 @@
-import { StorageNgon, ShapeNgon, NewShapeParams, NewShapeParams4 } from "./shape-types";
+import { StorageNgon, ShapeNgon, NewShapeParams, NewShapeParams4, NewShapeParamsMeta } from "./shape-types";
 import { uuid } from "@/utils/uuid";
 
 const enum CONST { // ts defines type by last enum
@@ -39,7 +39,7 @@ export const defNewShapeParams4: NewShapeParams4 = {
     inner: [8, 8],
     stroke: .1,
 
-    size: [CONST.sceneSize,CONST.sceneSize],
+    size: [CONST.sceneSize, CONST.sceneSize],
     offset: [CONST.sceneSize / 2, CONST.sceneSize / 2],
     scale: 1,
 };
@@ -58,6 +58,29 @@ export const defNewShapeParams: NewShapeParams = {
     ofsX: CONST.sceneSize / 2,
     ofsY: CONST.sceneSize / 2,
     scale: 1,
+};
+
+export function initalValueShapeParams(): NewShapeParams {
+    return {
+        ...defNewShapeParams,
+        stroke: CONST.defStroke,
+        id: uuid(),
+    };
+}
+
+export const initialValueNewShapeParamsMeta: NewShapeParamsMeta = {
+    nOuter: { label: '# outer points', min: 1, max: 100, step: 1 },
+    nInner: { label: '# inner points', min: 1, max: 100, step: 1 },
+    outerX: { label: 'outer scale X', min: -100, max: 100, step: 1 },
+    outerY: { label: 'outer scale Y', min: -100, max: 100, step: 1 },
+    innerX: { label: 'inner scale X', min: -100, max: 100, step: 1 },
+    innerY: { label: 'inner scale Y', min: -100, max: 100, step: 1 },
+
+    w: { label: 'width', min: -100, max: 100, step: 1 },
+    h: { label: 'height', min: -100, max: 100, step: 1 },
+    ofsX: { label: 'offset X', min: -100, max: 100, step: 1 },
+    ofsY: { label: 'offset Y', min: -100, max: 100, step: 1 },
+    scale: { label: 'scale', min: -100, max: 100, step: 1 },
 };
 
 // IO
