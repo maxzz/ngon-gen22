@@ -3,7 +3,6 @@ import { atomWithCallback, LoadingDataState, loadingDataStateInit } from '@/hook
 import { debounce } from '@/utils/debounce';
 import { toastError } from '@/components/UI/UiToaster';
 import { defNewShapeParams, dummyShape, initalValueShapeParams } from './api/shape-utils';
-import { defLevaControls } from '@/components/UI/Leva/ControlsLeva';
 import { ShapeNgon } from './api/shape-types';
 import { generate } from './api/shape-generator-ngon';
 
@@ -99,9 +98,7 @@ export const section1_OpenAtom = atomWithCallback<boolean>(Storage.initialData.o
 
 export const editorShapeAtom = atom(initalValueShapeParams());
 
-// Leva
-
-export const levaControlsAtom = atom(defLevaControls);
+// Controls
 
 export const shapePathAtom = atom(
     (get) => {
