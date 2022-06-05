@@ -1,15 +1,15 @@
 const twColors = require('tailwindcss/colors');
 const twTheme = require('tailwindcss/defaultTheme');
-const colorsBridge = require('./tailwind/tailwind-plugin-colors-bridge');
-const dataState = require('./tailwind/tailwind-plugin-data-state');
-const debugStyles =require('./tailwind/tailwnd-plugin-debug-styles');
 
 module.exports = {
     content: ['./index.html', './src/**/*.{tsx,ts,js,jsx}'],
     theme: {
         extend: {
             colors: {
-                url: '#0047cc',
+                // primary: { 100: twColors.blue['500'], },
+                primary: twColors.slate,
+                title: '#06133e',
+                url: twColors.blue['500'],
             },
             // keyframes: {
             //     slidein: {
@@ -23,9 +23,10 @@ module.exports = {
         },
     },
     plugins: [
-        dataState,
-        colorsBridge({ groupName: 'slate' }),
-        debugStyles,
+        require('./tailwind/tailwind-plugin-data-state'),
+        require('./tailwind/tailwind-plugin-colors-bridge')({ prefix: '--tm-', groupName: 'primary' }),
+        require('./tailwind/tailwnd-plugin-debug-styles'),
+        require('./tailwind/tailwind-plugin-overflow-overlay'),
         require('@tailwindcss/forms')
     ],
 };

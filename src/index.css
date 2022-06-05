@@ -13,10 +13,15 @@
 }
 
 @layer components {
-    #leva__root [type="text"],
-    .leva-override [type="text"] {
-        background-color: transparent;
-        padding: 0 var(--leva-space-sm);
-        font-size: inherit;
+    .no-active-ouline {
+        @apply active:outline-none focus:outline-none;
+    }
+
+    .active-scale {
+        @apply active:scale-[.97];
+    }
+    
+    .flex-centered {
+        @apply flex items-center justify-center;
     }
 }
