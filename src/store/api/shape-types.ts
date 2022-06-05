@@ -71,12 +71,13 @@ export type NewShapeParamsMetaItem = {
 };
 
 export type NewShapeParamsMeta = {
-    nOuter: NewShapeParamsMetaItem;
-    nInner: NewShapeParamsMetaItem;
+    outerN: NewShapeParamsMetaItem;
+    innerN: NewShapeParamsMetaItem;
     outerX: NewShapeParamsMetaItem;
     outerY: NewShapeParamsMetaItem;
     innerX: NewShapeParamsMetaItem;
     innerY: NewShapeParamsMetaItem;
+    stroke: NewShapeParamsMetaItem;
 
     w: NewShapeParamsMetaItem;
     h: NewShapeParamsMetaItem;
