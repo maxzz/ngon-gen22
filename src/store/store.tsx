@@ -119,3 +119,5 @@ export const shapePathAtom = atom(
         return res;
     },
 );
+
+export const paramAtom = atom(1);

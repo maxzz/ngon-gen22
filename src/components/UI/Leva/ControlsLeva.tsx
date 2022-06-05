@@ -5,7 +5,7 @@ import { Point2D, ShapeNgon } from "@/store/api/shape-types";
 import './ControlsLeva.scss';
 import { useAtom } from "jotai";
 import { useUpdateAtom } from "jotai/utils";
-import { levaControlsAtom } from "@/store/store";
+import { levaControlsAtom, paramAtom } from "@/store/store";
 
 export type LevaControlsType = {
     nOuter: number;     // Number of outer points
@@ -32,8 +32,46 @@ export const defLevaControls: LevaControlsType = {
 
 export function ControlsLeva({ store }: { store?: StoreType; }) {
 
+    console.log('render');
+
+    /*1* /
     const [controls, set] = useControls(
-        () => ({
+        // () => ({
+        //     nOuter: { label: '# outer points', value: defLevaControls.nOuter, min: 1, max: 100, step: 1 },
+        //     nInner: { label: '# inner points', value: defLevaControls.nInner, min: 1, max: 100, step: 1 },
+        //     outerX: { label: 'outer scale X', value: defLevaControls.outerX, min: -100, max: 100, step: 1 },
+        //     outerY: { label: 'outer scale Y', value: defLevaControls.outerY, min: -100, max: 100, step: 1 },
+        //     innerX: { label: 'inner scale X', value: defLevaControls.innerX, min: -100, max: 100, step: 1 },
+        //     innerY: { label: 'inner scale Y', value: defLevaControls.innerY, min: -100, max: 100, step: 1 },
+        //     // lenOuter: { x: 0, y: 0 },
+        //     // lenInner: { x: 0, y: 0 },
+        //     //scene: Scene;       // Scene params
+        //     stroke: { value: defLevaControls.stroke, min: 1, max: 100, step: 1 },
+        // }),
+        () => {
+            console.log('invoked');
+            
+            return {
+                nOuter: { label: '# outer points', value: defLevaControls.nOuter, min: 1, max: 100, step: 1 },
+                nInner: { label: '# inner points', value: defLevaControls.nInner, min: 1, max: 100, step: 1 },
+                outerX: { label: 'outer scale X', value: defLevaControls.outerX, min: -100, max: 100, step: 1 },
+                outerY: { label: 'outer scale Y', value: defLevaControls.outerY, min: -100, max: 100, step: 1 },
+                innerX: { label: 'inner scale X', value: defLevaControls.innerX, min: -100, max: 100, step: 1 },
+                innerY: { label: 'inner scale Y', value: defLevaControls.innerY, min: -100, max: 100, step: 1 },
+                // lenOuter: { x: 0, y: 0 },
+                // lenInner: { x: 0, y: 0 },
+                //scene: Scene;       // Scene params
+                stroke: { value: defLevaControls.stroke, min: 1, max: 100, step: 1 },
+            }
+        },
+        { store }
+    );
+    /**/
+
+    /*2*/
+    const [param, setParam] = useAtom(paramAtom);
+    const controls = useControls(
+        {
             nOuter: { label: '# outer points', value: defLevaControls.nOuter, min: 1, max: 100, step: 1 },
             nInner: { label: '# inner points', value: defLevaControls.nInner, min: 1, max: 100, step: 1 },
             outerX: { label: 'outer scale X', value: defLevaControls.outerX, min: -100, max: 100, step: 1 },
@@ -43,10 +81,16 @@ export function ControlsLeva({ store }: { store?: StoreType; }) {
             // lenOuter: { x: 0, y: 0 },
             // lenInner: { x: 0, y: 0 },
             //scene: Scene;       // Scene params
-            stroke: { value: defLevaControls.stroke, min: 1, max: 100, step: 1 },
-        }),
+            // stroke: { value: defLevaControls.stroke, min: 1, max: 100, step: 1 },
+            stroke: (() => {
+                console.log('invoked', param);
+                // return { value: defLevaControls.stroke, min: 1, max: 100, step: 1 };
+                return { value: param, min: 1, max: 100, step: 1 };
+            })(),
+        },
         { store }
     );
+    /**/
 
     const setLevaControls = useUpdateAtom(levaControlsAtom);
 
@@ -67,13 +111,15 @@ export function ControlsLeva({ store }: { store?: StoreType; }) {
     }, Object.values(controls));
 
     return (<>
+        {/* <button onClick={() => setParam((v) => v + 1)}>qqq {param}</button> */}
+
         <div
             className="leva-override"
             style={{
                 display: 'grid',
                 width: 300,
                 gap: 10,
-                paddingBottom: 40,
+                //paddingBottom: 40,
                 overflow: 'auto',
                 background: '#181C20',
             }}
