@@ -123,27 +123,3 @@ export const shapePathAtom = atom(
 export const paramAtom = atom(1);
 
 //////////////////////
-
-export type ShapeParams = { // TODO: can it be more then one inner ?
-    boxW: number;   // Box width
-    boxH: number;   // Box height
-    outerN: number; // Number of outer points
-    innerN: number; // Number of inner points
-    outerX: number; // Outer lenght x as scale
-    outerY: number; // Outer lenght y as scale
-    innerX: number; // Inner lenght x as scale
-    innerY: number; // Inner lenght y as scale
-    stroke: number; // Stroke width
-};
-
-export const defShapeParams: ShapeParams = {
-    boxW: 24,
-    boxH: 24,
-    outerN: 5,
-    innerN: 4,
-    outerX: 11,
-    outerY: 11,
-    innerX: 8,
-    innerY: 8,
-    stroke: .1,
-};

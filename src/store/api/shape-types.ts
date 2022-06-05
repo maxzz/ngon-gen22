@@ -24,6 +24,30 @@ export type ShapeNgon = {
     id: string;         // Relatively unique shape ID or generated
 }
 
+//////////////////
+
+export type ShapeParams = { // TODO: can it be more then one inner ?
+    outerN: number; // Number of outer points
+    innerN: number; // Number of inner points
+    outerX: number; // Outer lenght x as scale
+    outerY: number; // Outer lenght y as scale
+    innerX: number; // Inner lenght x as scale
+    innerY: number; // Inner lenght y as scale
+    stroke: number; // Stroke width
+
+    scale: number;  // scene scale
+    boxW: number;   // Box width
+    boxH: number;   // Box height
+    ofsX: number;   // shape offset x
+    ofsY: number;   // shape offset y
+
+    id?: string;    // shape ID
+    genId?: string; // shape generator name
+};
+
+//////////////////
+
+
 // Storage formats
 
 export interface StorageScene { // Persistent format of Scene
