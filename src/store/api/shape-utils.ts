@@ -81,7 +81,7 @@ export const initialValueNewShapeParamsMeta: NewShapeParamsMeta = {
     h: { label: 'height', min: -100, max: 100, step: 1, digits: 0, },
     ofsX: { label: 'offset X', min: -100, max: 100, step: 1 },
     ofsY: { label: 'offset Y', min: -100, max: 100, step: 1 },
-    scale: { label: 'scale', min: -100, max: 100, step: 1 },
+    scale: { label: 'scale', min: 0.01, max: 3, step: 0.01 },
 };
 
 export namespace IO {

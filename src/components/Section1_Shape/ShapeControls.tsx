@@ -4,7 +4,7 @@ import { editorShapeParamsAtom } from "@/store/store";
 import { NewShapeParams } from "@/store/api/shape-types";
 import { initialValueNewShapeParamsMeta } from "@/store/api/shape-utils";
 import { classNames } from "@/utils/classnames";
-import { NewSlider } from "../../UI/NewSlider";
+import { NewSlider } from "../UI/NewSlider";
 
 export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
