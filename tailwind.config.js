@@ -30,6 +30,7 @@ module.exports = {
         require('./tailwind/tailwind-plugin-data-state'),
         require('./tailwind/tailwind-plugin-colors-bridge')({ prefix: '--tm-', groupName: 'primary' }),
         require('./tailwind/tailwnd-plugin-debug-styles'),
+        require('./tailwind/tailwind-plugin-range'),
         require('./tailwind/tailwind-plugin-overflow-overlay'),
         require('@tailwindcss/forms')
     ],
