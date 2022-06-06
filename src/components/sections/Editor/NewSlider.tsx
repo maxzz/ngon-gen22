@@ -19,7 +19,8 @@ export function NewSlider({ label, min, max, step = .01, labelWidth = '4.5rem', 
             <div className="flex-none" style={{ width: labelWidth }}>{label}</div>
             <input
                 // className="ui-slider [::-webkit-slider-thumb:bg-red-700]"
-                className="ui-slider hover:webkit-slider-thumb:bg-green-400 hover:text-orange-400"
+                // className="ui-slider hover:webkit-slider-thumb:bg-green-400 hover:text-orange-400"
+                className="ui-slider wthumb:bg-green-400 hover:wthumb:opacity-20 hover:text-orange-400"
                 type="range"
                 min={min} max={max} step={step}
                 value={value}
@@ -70,7 +71,7 @@ input[type="range"].ui-slider {
         border: 1px solid $range-track-color;
         border-bottom: 1px solid $range-track-border-color;
         border-right: 1px solid $range-track-border-color;
-        
+
         &:hover {
             background: $range-handle-color-hover;
             transform: scale(1.2);
