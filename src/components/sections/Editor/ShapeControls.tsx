@@ -4,14 +4,7 @@ import { editorShapeParamsAtom } from "@/store/store";
 import { NewShapeParams } from "@/store/api/shape-types";
 import { initialValueNewShapeParamsMeta } from "@/store/api/shape-utils";
 import { classNames } from "@/utils/classnames";
-import Slider from "@/components/UI/Slider";
 import { NewSlider } from "./NewSlider";
-
-// function SliderControl({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-//     return (
-//         <div className={classNames("", className)} {...rest}>11</div>
-//     );
-// }
 
 export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
@@ -34,13 +27,8 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
     });
 
     return (
-        <>
-        <div className={classNames("bg-red-300 text-red-400", className)} {...rest}>
+        <div className={classNames("px-2 py-4 text-xs bg-primary-200", className)} {...rest}>
             {controls}
         </div>
-        <div className="">
-            {/* <NewSlider /> */}
-        </div>
-        </>
     );
 }

@@ -69,13 +69,13 @@ export function initalValueShapeParams(): NewShapeParams {
 }
 
 export const initialValueNewShapeParamsMeta: NewShapeParamsMeta = {
-    outerN: { label: '# outer points', min: 1, max: 100, step: 1, digits: 0, },
-    innerN: { label: '# inner points', min: 1, max: 100, step: 1, digits: 0, },
-    outerX: { label: 'outer scale X', min: -100, max: 100, step: 1 },
-    outerY: { label: 'outer scale Y', min: -100, max: 100, step: 1 },
-    innerX: { label: 'inner scale X', min: -100, max: 100, step: 1 },
-    innerY: { label: 'inner scale Y', min: -100, max: 100, step: 1 },
-    stroke: { label: 'inner scale Y', min: -100, max: 100, step: 1 },
+    outerN: { label: '# outer pts', min: 1, max: 100, step: 1, digits: 0, },
+    innerN: { label: '# inner pts', min: 1, max: 100, step: 1, digits: 0, },
+    outerX: { label: 'outer X', min: -100, max: 100, step: 1 },
+    outerY: { label: 'outer Y', min: -100, max: 100, step: 1 },
+    innerX: { label: 'inner X', min: -100, max: 100, step: 1 },
+    innerY: { label: 'inner Y', min: -100, max: 100, step: 1 },
+    stroke: { label: 'stroke', min: -100, max: 100, step: 1 },
 
     w: { label: 'width', min: -100, max: 100, step: 1, digits: 0, },
     h: { label: 'height', min: -100, max: 100, step: 1, digits: 0, },
