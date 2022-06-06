@@ -19,7 +19,7 @@ export function App2_Main() {
                 {/* <div className="ml-[calc(20vw/2)] mr-[calc(calc(20vw/2)-16px)] max-w-3xl flex flex-col space-y-4"> */}
                 {/* <div className="ml-[calc(20vw/2)] mr-auto max-w-3xl flex flex-col space-y-4"> */}
 
-                <div className="py-4 mx-auto max-w-[30rem] sm:max-w-xl md:max-w-2xl lg:max-w-4xl flex flex-col space-y-4 transition-all">
+                <div className="py-4 mx-auto max-w-[29rem] sm:max-w-[37rem] md:max-w-2xl lg:max-w-4xl flex flex-col space-y-4 transition-all">
                     {/* <div className="py-4 mx-auto max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-4xl flex flex-col space-y-4 transition-all"> */}
                     <Section0_Preview />
                     <Section1_Presets />

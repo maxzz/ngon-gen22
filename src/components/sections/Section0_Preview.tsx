@@ -7,7 +7,7 @@ import { shapePathAtom } from '@/store/store';
 import { GeneratorResult } from '@/store/api/shape-generator-ngon';
 import { ShapeControls } from './Editor/ShapeControls';
 
-const boxShadow = { boxShadow: '0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12)', };
+const previewBoxShadow = { boxShadow: '0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12)', };
 
 function Preview({ scene, d, ...rest }: { scene: Scene; d: string; } & HTMLAttributes<SVGSVGElement>) {
     return (
@@ -33,7 +33,7 @@ function PreviewContainer() {
     const shapePath: GeneratorResult = useAtomValue(shapePathAtom);
 
     return (
-        <div className="bg-slate-300 aspect-square overflow-hidden" style={{ ...boxShadow, transition: "all .2s" }}>
+        <div className="bg-slate-100 aspect-square border-primary-300 border overflow-hidden" style={{ ...previewBoxShadow, transition: "all .2s" }}>
             <a.div style={styles} className="w-full h-full object-cover">
                 <Preview scene={scene} d={shapePath.d} />
                 {/* <Preview scene={scene} d={'M7,6.4L7.18,1.14L12.23,6.4L7.29,8.41L10.23,6.4L7,12.9L3.77,6.4L6.71,8.41L1.77,6.4L6.82,1.14z'} /> */}
@@ -48,7 +48,7 @@ export function Section0_Preview() {
     return (
         <div className="grid grid-cols-[minmax(0,1fr),auto] gap-4">
             <PreviewContainer />
-            <ShapeControls />
+            <ShapeControls className="border-primary-300 border " style={previewBoxShadow} />
         </div>
     );
 }
