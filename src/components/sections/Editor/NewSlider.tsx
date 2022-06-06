@@ -1,6 +1,7 @@
 import React from 'react';
 import useFloatInput from '@/hooks/useFloatInput';
 import '../../UI/Sliders.scss';
+import { classNames } from '@/utils/classnames';
 
 export interface SliderProps {
     label: string;
@@ -20,7 +21,18 @@ export function NewSlider({ label, min, max, step = .01, labelWidth = '4.5rem', 
             <input
                 // className="ui-slider [::-webkit-slider-thumb:bg-red-700]"
                 // className="ui-slider hover:webkit-slider-thumb:bg-green-400 hover:text-orange-400"
-                className="ui-slider wthumb:bg-green-400 hover:wthumb:opacity-20 hover:text-orange-400"
+                // className="ui-slider wthumb:bg-green-400 hover:wthumb:opacity-20 hover:text-orange-400"
+                className={classNames(
+                    "w-full h-px bg-primary-700/40 cursor-pointer appearance-none outline-none",
+                    
+                    "thumb-w:appearance-none thumb-w:w-4 thumb-w:h-4 thumb-w:rounded thumb-w:bg-primary-50",
+                    "thumb-w:border thumb-w:border-solid thumb-w:border-primary-200 thumb-w:border-r-primary-400 thumb-w:border-b-primary-400",
+                    "hover:thumb-w:bg-white/40 hover:thumb-w:border-white hover:thumb-w:scale-125 hover:thumb-w:transition-all",
+
+                    "thumb-m:appearance-none thumb-m:w-4 thumb-m:h-4 thumb-m:rounded thumb-m:bg-primary-50",
+                    "thumb-m:border thumb-m:border-solid thumb-m:border-primary-200 thumb-m:border-r-primary-400 thumb-m:border-b-primary-400",
+                    "hover:thumb-m:bg-white/40 hover:thumb-m:border-white hover:thumb-m:scale-125 hover:thumb-m:transition-all",
+                )}
                 type="range"
                 min={min} max={max} step={step}
                 value={value}
@@ -35,6 +47,28 @@ export function NewSlider({ label, min, max, step = .01, labelWidth = '4.5rem', 
         </div>
     );
 }
+
+/*
+    &::-moz-range-thumb {
+        width: $range-handle-size;
+        height: $range-handle-size;
+            border: 0;
+        border-radius: $range-handle-radius;
+        background: $range-handle-color;
+        cursor: pointer;
+
+            transition: background 0.15s ease-in-out;
+        border: 1px solid $range-track-color;
+        border-bottom: 1px solid $range-track-border-color;
+        border-right: 1px solid $range-track-border-color;
+
+        &:hover {
+            background: $range-handle-color-hover;
+            border: 1px solid white;
+        }
+    }
+
+*/
 
 /*
 input[type="range"].ui-slider {
@@ -75,24 +109,6 @@ input[type="range"].ui-slider {
         &:hover {
             background: $range-handle-color-hover;
             transform: scale(1.2);
-            border: 1px solid white;
-        }
-    }
-    &::-moz-range-thumb {
-        width: $range-handle-size;
-        height: $range-handle-size;
-            border: 0;
-        border-radius: $range-handle-radius;
-        background: $range-handle-color;
-        cursor: pointer;
-
-            transition: background 0.15s ease-in-out;
-        border: 1px solid $range-track-color;
-        border-bottom: 1px solid $range-track-border-color;
-        border-right: 1px solid $range-track-border-color;
-
-        &:hover {
-            background: $range-handle-color-hover;
             border: 1px solid white;
         }
     }

@@ -2,16 +2,16 @@ const plugin = require('tailwindcss/plugin');
 
 module.exports = plugin(function ({ addVariant, e }) {
     // Chrome thumb
-    addVariant('wthumb', ({ modifySelectors, separator }) => {
+    addVariant('thumb-w', ({ modifySelectors, separator }) => {
         modifySelectors(({ className }) => {
-            return `.${e(`wthumb${separator}${className}`)}::-webkit-slider-thumb`;
+            return `.${e(`thumb-w${separator}${className}`)}::-webkit-slider-thumb`;
         });
     });
 
     // Firefox thumb
-    addVariant('mthumb', ({ modifySelectors, separator }) => {
+    addVariant('thumb-m', ({ modifySelectors, separator }) => {
         modifySelectors(({ className }) => {
-            return `.${e(`mthumb${separator}${className}`)}::-moz-range-thumb`;
+            return `.${e(`thumb-m${separator}${className}`)}::-moz-range-thumb`;
         });
     });
 });
