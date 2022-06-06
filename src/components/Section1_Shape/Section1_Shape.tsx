@@ -9,10 +9,12 @@ import { ShapeControls } from './ShapeControls';
 
 const previewBoxShadow = { boxShadow: '0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12)', };
 
-function PreviewSvg({ scene, d, ...rest }: { scene: Scene; d: string; } & HTMLAttributes<SVGSVGElement>) {
+function PreviewSvg(props: HTMLAttributes<SVGSVGElement>) {
+    const shapeParams = useAtomValue(editorShapeParamsAtom);
+    const shapePath: GeneratorResult = useAtomValue(shapePathAtom);
     return (
-        <svg viewBox={`0 0 ${scene.w} ${scene.h}`} {...rest}>
-            <path style={{ fill: 'none', stroke: 'purple', strokeWidth: .1 }} d={d} />
+        <svg viewBox={`0 0 ${shapeParams.w} ${shapeParams.h}`} {...props}>
+            <path style={{ fill: 'none', stroke: 'purple', strokeWidth: shapeParams.stroke }} d={shapePath.d} />
         </svg >
     );
 }
@@ -20,27 +22,11 @@ function PreviewSvg({ scene, d, ...rest }: { scene: Scene; d: string; } & HTMLAt
 function PreviewContainer() {
     const styles = useSpring({ scale: 1, from: { scale: .2 }, config: { duration: 2000, easing: easings.easeInOutElastic } });
 
-    const shapeParams = useAtomValue(editorShapeParamsAtom);
-    const { w, h, ofsX, ofsY, scale, } = shapeParams;
-    const sceneMembers = { w, h, ofsX, ofsY, scale, };
-
-    // const scene: Scene = {
-    //     // w: 14,
-    //     // h: 14,
-    //     w: 24,
-    //     h: 24,
-    //     scale: 100,
-    //     ofsX: 7,
-    //     ofsY: 7,
-    // };
-
-    const shapePath: GeneratorResult = useAtomValue(shapePathAtom);
 
     return (
         <div className="bg-slate-100 aspect-square border-primary-300 border overflow-hidden" style={{ ...previewBoxShadow, transition: "all .2s" }}>
             <a.div style={styles} className="w-full h-full object-cover">
-                <PreviewSvg scene={sceneMembers} d={shapePath.d} />
-                {/* <Preview scene={scene} d={'M7,6.4L7.18,1.14L12.23,6.4L7.29,8.41L10.23,6.4L7,12.9L3.77,6.4L6.71,8.41L1.77,6.4L6.82,1.14z'} /> */}
+                <PreviewSvg />
             </a.div>
         </div>
     );
