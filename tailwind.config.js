@@ -32,6 +32,7 @@ module.exports = {
         require('./tailwind/tailwnd-plugin-debug-styles'),
         require('./tailwind/tailwind-plugin-range'),
         require('./tailwind/tailwind-plugin-overflow-overlay'),
+        require('./tailwind/tailwind-plugin-debug-screens'),
         require('@tailwindcss/forms')
     ],
 };

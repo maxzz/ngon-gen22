@@ -7,7 +7,7 @@ import { Section3_Multiplication } from './Section3_Multiplication/Section3_Mult
 
 export function App2_Main() {
     return (
-        <div className="h-screen flex flex-col">
+        <div className="h-screen flex flex-col debug-screens">
             <App1_Header />
 
             <div className="flex-1 overflow-y-auto" style={{ overflow: 'overlay' }}>
