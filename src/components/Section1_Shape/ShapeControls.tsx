@@ -6,6 +6,21 @@ import { initialValueNewShapeParamsMeta } from "@/store/api/shape-utils";
 import { classNames } from "@/utils/classnames";
 import { NewSlider } from "../UI/NewSlider";
 
+function Separator() {
+    return (<>
+        {/* <div className="border-primary-300 border"></div> */}
+
+        < div className="relative" >
+            <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                <div className="w-full border-t-primary-300 border-t"></div>
+            </div>
+            <div className="relative flex justify-center">
+                <span className="px-2 pb-1 bg-primary-200">Continue</span>
+            </div>
+        </div >
+    </>);
+}
+
 function ViewBoxSize() {
     return (
         <div className="flex items-center space-x-1">
@@ -72,13 +87,13 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 {shapeControls}
             </div>
 
-            {/* <div className="border-primary-300 border"></div> */}
+            <Separator />
 
             <div className="">
                 {sceneControls}
             </div>
 
-            <div className="px-3 self-end">
+            <div className="pr-3 self-end">
                 <ViewBoxSize />
             </div>
         </div>
