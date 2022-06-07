@@ -33,6 +33,6 @@ module.exports = {
         require('./tailwind/tailwind-plugin-range'),
         require('./tailwind/tailwind-plugin-overflow-overlay'),
         require('./tailwind/tailwind-plugin-debug-screens'),
-        require('@tailwindcss/forms')
+        require('@tailwindcss/forms')({strategy: 'class'})
     ],
 };

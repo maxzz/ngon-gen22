@@ -45,7 +45,7 @@ export function NewSlider({ label, min, max, step = .01, labelWidth = '4.5rem', 
             <input
                 className={classNames(
                     "px-1 w-8 text-[.6rem] text-right bg-primary-200 focus:bg-primary-50 rounded-sm",
-                    "outline-none focus:ring-1 ring-offset-2 ring-offset-primary-500 ring-primary-900/50",
+                    "outline-none focus:ring-1 ring-offset-2 ring-offset-primary-50 ring-primary-700/50",
                 )}
                 value={local}
                 onChange={onInputChange}

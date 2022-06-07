@@ -6,6 +6,29 @@ import { initialValueNewShapeParamsMeta } from "@/store/api/shape-utils";
 import { classNames } from "@/utils/classnames";
 import { NewSlider } from "../UI/NewSlider";
 
+function ViewBoxSize() {
+    return (
+        <div className="flex items-center space-x-1">
+            <div className="mr-1">view box</div>
+            <input
+                className={classNames(
+                    "px-1 py-0.5 w-8 border-primary-400 border-dotted border rounded",
+                    "text-[.6rem] text-right bg-primary-200 focus:bg-primary-50 rounded-sm",
+                    "outline-none focus:border-0 focus:ring-1 ring-offset-1 ring-offset-primary-50 ring-primary-700/50",
+                )}
+            />
+            <div className="">x</div>
+            <input
+                className={classNames(
+                    "px-1 py-0.5 w-8 border-primary-400 border-dotted border rounded",
+                    "text-[.6rem] text-right bg-primary-200 focus:bg-primary-50 rounded-sm",
+                    "outline-none focus:border-0 focus:ring-1 ring-offset-1 ring-offset-primary-50 ring-primary-700/50",
+                )}
+            />
+        </div>
+    );
+}
+
 export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
     const { outerN, innerN, outerX, outerY, innerX, innerY, stroke, w, h, ofsX, ofsY, scale, } = shapeParams;
@@ -53,6 +76,10 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
 
             <div className="">
                 {sceneControls}
+            </div>
+
+            <div className="px-3 self-end">
+                <ViewBoxSize />
             </div>
         </div>
     );
