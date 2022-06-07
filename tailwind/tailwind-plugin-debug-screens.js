@@ -1,5 +1,6 @@
-module.exports = function ({ addComponents, theme }) {
-    const screens = theme('screens');
+module.exports = function ({ addComponents, theme }) { //https://github.com/jorenvanhee/tailwindcss-debug-screens
+    const screens = theme('screens'); // {sm: '640px', md: '768px', lg: '1024px', xl: '1280px', '2xl': '1536px'}
+
     const userStyles = theme('debugScreens.style', {});
     const ignoredScreens = theme('debugScreens.ignore', ['dark']);
     const prefix = theme('debugScreens.prefix', 'screen: ');
@@ -14,25 +15,27 @@ module.exports = function ({ addComponents, theme }) {
         [`${selector}::before`]: Object.assign({
             position: 'fixed',
             zIndex: '2147483647',
-            [positionY]: '0',
-            [positionX]: '0',
-            padding: '.3333333em .5em',
+            [positionY]: '6px',
+            [positionX]: '4px',
+            padding: '.5em',
             fontSize: '12px',
             lineHeight: '1',
             fontFamily: 'sans-serif',
-            backgroundColor: '#000',
-            color: '#fff',
-            boxShadow: '0 0 0 1px #fff',
+            borderRadius: '3px',
+            border: '1px solid #b1b1b1',
+            backgroundColor: '#0008',
+            color: '#ddd',
+            boxShadow: '0 0 2px 2px #fff5',
             content: `'${prefix}_'`,
         }, userStyles),
     };
 
     Object.entries(screens)
         .filter(([screen]) => !ignoredScreens.includes(screen))
-        .forEach(([screen]) => {
+        .forEach(([screen, size]) => {
             components[`@screen ${screen}`] = {
                 [`${selector}::before`]: {
-                    content: `'${prefix}${screen}'`,
+                    content: `'${prefix}${screen} (${size})'`,
                 },
             };
         });
