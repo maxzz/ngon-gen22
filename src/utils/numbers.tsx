@@ -1,3 +1,7 @@
+export function rnd2(n: number): number {
+    return Math.round(n * 100) / 100;
+}
+
 export function random(min: number, max: number): number { //The maximum is exclusive and the minimum is inclusive
     return Math.random() * (max - min) + min;
 }

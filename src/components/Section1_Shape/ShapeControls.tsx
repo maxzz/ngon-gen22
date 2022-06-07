@@ -5,10 +5,11 @@ import { NewShapeParams } from "@/store/api/shape-types";
 import { initialValueNewShapeParamsMeta } from "@/store/api/shape-utils";
 import { classNames } from "@/utils/classnames";
 import { NewSlider } from "../UI/NewSlider";
+import useFloatInput from "@/hooks/useFloatInput";
 
 function Separator({ label, tall = true, className, ...rest }: { label?: string; tall?: boolean; } & HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className={classNames("relative", className)} {...rest}>
+        <div className={classNames("relative select-none", className)} {...rest}>
             <div className="absolute inset-0 flex items-center" aria-hidden="true">
                 <div className="w-full border-t-primary-300 border-t"></div>
             </div>
@@ -19,25 +20,32 @@ function Separator({ label, tall = true, className, ...rest }: { label?: string;
     );
 }
 
+function InputSize({ member }: { member: keyof Pick<NewShapeParams, 'w' | 'h'>; }) {
+    const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
+    const { min, max, step } = initialValueNewShapeParamsMeta[member];
+    const onChange = (v: number) => setShapeParams((p) => ({ ...p, [member]: v }));
+    const [local, _onSliderChange, onInputChange, onInputKey] = useFloatInput(shapeParams[member], { min, max, step }, onChange);
+    return (
+        <input
+            className={classNames(
+                "px-1 py-0.5 w-8 border-primary-400 border-dotted border rounded",
+                "text-[.6rem] text-right bg-primary-200 focus:bg-primary-50 rounded-sm",
+                "outline-none focus:border-0 focus:ring-1 ring-offset-1 ring-offset-primary-50 ring-primary-700/50",
+            )}
+            value={local}
+            onChange={onInputChange}
+            onKeyDown={onInputKey}
+        />
+    );
+}
+
 function ViewBoxSize() {
     return (
         <div className="flex items-center space-x-1">
             <div className="mr-1">view box</div>
-            <input
-                className={classNames(
-                    "px-1 py-0.5 w-8 border-primary-400 border-dotted border rounded",
-                    "text-[.6rem] text-right bg-primary-200 focus:bg-primary-50 rounded-sm",
-                    "outline-none focus:border-0 focus:ring-1 ring-offset-1 ring-offset-primary-50 ring-primary-700/50",
-                )}
-            />
+            <InputSize member={"w"} />
             <div className="">x</div>
-            <input
-                className={classNames(
-                    "px-1 py-0.5 w-8 border-primary-400 border-dotted border rounded",
-                    "text-[.6rem] text-right bg-primary-200 focus:bg-primary-50 rounded-sm",
-                    "outline-none focus:border-0 focus:ring-1 ring-offset-1 ring-offset-primary-50 ring-primary-700/50",
-                )}
-            />
+            <InputSize member={"h"} />
         </div>
     );
 }
@@ -82,7 +90,7 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
     return (
         <div className={classNames("px-2 py-4 text-xs bg-primary-200 flex flex-col space-y-2", className)} {...rest}>
 
-            <Separator className="mx-2 my-1" label="Shape" tall={false}/>
+            {/* <Separator label="Shape" /> */}
 
             <div className="">
                 {shapeControls}

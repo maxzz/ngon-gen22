@@ -13,7 +13,7 @@ function PreviewSvg(props: HTMLAttributes<SVGSVGElement>) {
     const shapeParams = useAtomValue(editorShapeParamsAtom);
     const shapePath: GeneratorResult = useAtomValue(shapePathAtom);
     return (
-        <svg viewBox={`0 0 ${shapeParams.w} ${shapeParams.h}`} {...props}>
+        <svg viewBox={`0 0 ${shapeParams.w} ${shapeParams.h}`} className="w-full h-full" {...props} preserveAspectRatio="none">
             <path style={{ fill: 'none', stroke: 'purple', strokeWidth: shapeParams.stroke }} d={shapePath.d} />
         </svg >
     );

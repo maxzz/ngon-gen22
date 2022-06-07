@@ -1,5 +1,5 @@
+import { rnd2 } from "@/utils/numbers";
 import { ShapeNgon } from "./shape-types";
-import { rnd2 } from "./shape-utils";
 
 function createNGonPoints(n: number): [number, number][] {
     //n = Math.floor(n);
