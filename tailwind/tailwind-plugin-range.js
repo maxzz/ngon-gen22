@@ -14,4 +14,18 @@ module.exports = plugin(function ({ addVariant, e }) {
             return `.${e(`thumb-m${separator}${className}`)}::-moz-range-thumb`;
         });
     });
+
+    // webkit track
+    addVariant('track-w', ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+            return `.${e(`track-w${separator}${className}`)}::-webkit-slider-runnable-track`;
+        });
+    });
+
+    // mozilla track
+    addVariant('track-m', ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+            return `.${e(`track-m${separator}${className}`)}::-moz-range-track`;
+        });
+    });
 });
