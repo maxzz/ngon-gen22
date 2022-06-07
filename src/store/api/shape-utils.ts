@@ -69,8 +69,8 @@ export function initalValueShapeParams(): NewShapeParams {
 }
 
 export const initialValueNewShapeParamsMeta: NewShapeParamsMeta = {
-    outerN: { label: '# outer pts', min: 1, max: 100, step: 1, digits: 0, },
-    innerN: { label: '# inner pts', min: 1, max: 100, step: 1, digits: 0, },
+    outerN: { label: 'outer points', min: 1, max: 100, step: 1, digits: 0, },
+    innerN: { label: 'inner points', min: 1, max: 100, step: 1, digits: 0, },
     outerX: { label: 'outer X', min: -100, max: 100, step: 0.01 },
     outerY: { label: 'outer Y', min: -100, max: 100, step: 0.01 },
     innerX: { label: 'inner X', min: -100, max: 100, step: 0.01 },
@@ -83,6 +83,8 @@ export const initialValueNewShapeParamsMeta: NewShapeParamsMeta = {
     ofsY: { label: 'center Y', min: -100, max: 100, step: 1 },
     scale: { label: 'scale', min: 0.01, max: 3, step: 0.01 },
 };
+//TODO: digits 2
+//TODO: pairs lock
 
 export namespace IO {
     export function ShapeNgonToStorage(shape: ShapeNgon): StorageNgon {
