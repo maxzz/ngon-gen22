@@ -6,19 +6,17 @@ import { initialValueNewShapeParamsMeta } from "@/store/api/shape-utils";
 import { classNames } from "@/utils/classnames";
 import { NewSlider } from "../UI/NewSlider";
 
-function Separator() {
-    return (<>
-        {/* <div className="border-primary-300 border"></div> */}
-
-        < div className="relative" >
+function Separator({ label, tall = true, className, ...rest }: { label?: string; tall?: boolean; } & HTMLAttributes<HTMLDivElement>) {
+    return (
+        <div className={classNames("relative", className)} {...rest}>
             <div className="absolute inset-0 flex items-center" aria-hidden="true">
                 <div className="w-full border-t-primary-300 border-t"></div>
             </div>
-            <div className="relative flex justify-center">
-                <span className="px-2 pb-1 bg-primary-200">Continue</span>
+            <div className={tall ? "relative flex justify-center" : "absolute inset-0 flex items-center justify-center"}>
+                <span className="px-2 pb-1 bg-primary-200">{label}</span>
             </div>
-        </div >
-    </>);
+        </div>
+    );
 }
 
 function ViewBoxSize() {
@@ -83,11 +81,14 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
 
     return (
         <div className={classNames("px-2 py-4 text-xs bg-primary-200 flex flex-col space-y-2", className)} {...rest}>
+
+            <Separator className="mx-2 my-1" label="Shape" tall={false}/>
+
             <div className="">
                 {shapeControls}
             </div>
 
-            <Separator />
+            <Separator label="Box" />
 
             <div className="">
                 {sceneControls}
