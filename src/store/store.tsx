@@ -2,9 +2,9 @@ import { atom, Getter } from 'jotai';
 import { atomWithCallback, LoadingDataState, loadingDataStateInit } from '@/hooks/atomsX';
 import { debounce } from '@/utils/debounce';
 import { toastError } from '@/components/UI/UiToaster';
-import { initalValueShapeParams } from './api/shape-defaults';
-import { ShapeNgon } from './api/shape';
-import { generate } from './api/generator-ngon';
+import { initalValueShapeParams } from './ngon/shape-defaults';
+import { ShapeNgon } from './ngon/shape';
+import { generate } from './ngon/generator';
 
 //#region LocalStorage
 

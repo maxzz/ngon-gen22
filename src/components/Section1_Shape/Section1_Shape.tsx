@@ -3,7 +3,7 @@ import { useAtomValue } from 'jotai';
 import { editorShapeParamsAtom, shapePathAtom } from '@/store/store';
 import { a, easings, useSpring } from '@react-spring/web';
 import { classNames } from '@/utils/classnames';
-import { GeneratorResult } from '@/store/api/generator-ngon';
+import { GeneratorResult } from '@/store/ngon/generator';
 import { ShapeControls } from './ShapeControls';
 
 const previewBoxShadow = { boxShadow: '0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12)', };
