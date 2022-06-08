@@ -1,9 +1,8 @@
 import { HTMLAttributes } from 'react';
-import { Atom, useAtom, useAtomValue } from 'jotai';
+import { useAtomValue } from 'jotai';
+import { editorShapeParamsAtom, shapePathAtom } from '@/store/store';
 import { a, easings, useSpring } from '@react-spring/web';
 import { classNames } from '@/utils/classnames';
-import { Scene } from '@/store/api/shape-types';
-import { editorShapeParamsAtom, shapePathAtom } from '@/store/store';
 import { GeneratorResult } from '@/store/api/shape-generator-ngon';
 import { ShapeControls } from './ShapeControls';
 
@@ -21,8 +20,6 @@ function PreviewSvg(props: HTMLAttributes<SVGSVGElement>) {
 
 function PreviewContainer() {
     const styles = useSpring({ scale: 1, from: { scale: .2 }, config: { duration: 2000, easing: easings.easeInOutElastic } });
-
-
     return (
         <div className="bg-slate-100 aspect-square border-primary-300 border overflow-hidden" style={{ ...previewBoxShadow, transition: "all .2s" }}>
             <a.div style={styles} className="w-full h-full object-cover">
@@ -31,8 +28,6 @@ function PreviewContainer() {
         </div>
     );
 }
-
-const iconShadow = { filter: 'drop-shadow(1px 1px 1px #0002)', };
 
 export function Section1_Shape() {
     return (

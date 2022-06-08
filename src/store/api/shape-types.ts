@@ -26,23 +26,6 @@ export type ShapeNgon = {
 
 //////////////////
 
-// type ArrTwo = [number, number]; // [x, y] or [w, h]
-
-// export type NewShapeParams4 = { // TODO: can it be more then one inner ?
-//     outerN: number;     // Number of outer points
-//     innerN: number;     // Number of inner points
-//     outer: ArrTwo;      // Outer lenght x, y aka scale
-//     inner: ArrTwo;      // Inner lenght x, y aka scale
-//     stroke: number;     // Stroke width
-
-//     size: ArrTwo;       // Box width, height
-//     offset: ArrTwo;     // shape offset x, y // TODO: should it be cx, cy?
-//     scale: number;      // scene scale
-
-//     id?: string;        // shape ID
-//     genId?: string;     // shape generator name aka 'ngon'
-// };
-
 export type NewShapeParams = { // TODO: can it be more then one inner ?
     outerN: number;     // Number of outer points
     innerN: number;     // Number of inner points
@@ -87,25 +70,3 @@ export type NewShapeParamsMeta = {
 };
 
 //////////////////
-
-
-// Storage formats
-
-export interface StorageScene { // Persistent format of Scene
-    w: number;          // Scene.w
-    h: number;          // Scene.h
-    cx?: number;        // Scene.ofsX
-    cy?: number;        // Scene.ofsY
-    z?: number;         // Scene.scale
-}
-
-export interface StorageNgon { // Persistent format of ShapeParams
-    na: number;         // ShapeNgon.nOuter
-    nb: number;         // ShapeNgon.nInner
-    lna: Point2D;       // ShapeNgon.lenOuter
-    lnb: Point2D;       // ShapeNgon.lenInner
-    stk?: number;       //
-    scn: StorageScene;  //
-    id?: string;        // ShapeNgon.id
-    gen?: string;       // ShapeNgon.gen
-}

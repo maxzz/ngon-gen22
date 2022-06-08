@@ -1,8 +1,8 @@
-import { StorageNgon, ShapeNgon, NewShapeParams, NewShapeParamsMeta } from "./shape-types";
+import { ShapeNgon, NewShapeParams, NewShapeParamsMeta, Point2D } from "./shape-types";
 import { uuid } from "@/utils/uuid";
 
 const enum CONST {      // ts defines type by last enum
-    defStroke = 0.2,
+    defStroke = 0.07,
     sceneSize = 24,     // should not be float
     sceneSizeMax = 256, // should not be float
 }
@@ -11,44 +11,14 @@ enum CONST_NAMES {
     NAME_NGON = 'ngon',
 }
 
-// function dummyShape(): ShapeNgon {
-//     return {
-//         outerN: 5,
-//         innerN: 2,
-//         outer: { x: 2.2, y: 2.2 },
-//         inner: { x: 5.2, y: 5.2 },
-//         scene: {
-//             w: CONST.sceneSize,
-//             h: CONST.sceneSize,
-//             scale: 1,
-//             ofsX: CONST.sceneSize / 2,
-//             ofsY: CONST.sceneSize / 2,
-//         },
-//         stroke: CONST.defStroke,
-//         id: uuid(),
-//     };
-// }
-
-// const defNewShapeParams4: NewShapeParams4 = {
-//     outerN: 5,
-//     innerN: 4,
-//     outer: [11, 11],
-//     inner: [8, 8],
-//     stroke: .1,
-
-//     size: [CONST.sceneSize, CONST.sceneSize],
-//     offset: [CONST.sceneSize / 2, CONST.sceneSize / 2],
-//     scale: 1,
-// };
-
 export const defNewShapeParams: NewShapeParams = {
     outerN: 5,
-    innerN: 4,
-    outerX: 11,
-    outerY: 11,
-    innerX: 8,
-    innerY: 8,
-    stroke: .1,
+    innerN: 2,
+    outerX: 0.3,
+    outerY: 6.5,
+    innerX: 5.5,
+    innerY: 0,
+    stroke: CONST.defStroke,
 
     w: CONST.sceneSize,
     h: CONST.sceneSize,
@@ -60,7 +30,6 @@ export const defNewShapeParams: NewShapeParams = {
 export function initalValueShapeParams(): NewShapeParams {
     return {
         ...defNewShapeParams,
-        stroke: CONST.defStroke,
         id: uuid(),
     };
 }
@@ -82,6 +51,27 @@ export const initialValueNewShapeParamsMeta: NewShapeParamsMeta = {
 };
 //TODO: digits 2
 //TODO: pairs lock
+
+// Storage formats
+
+export interface StorageScene { // Persistent format of Scene
+    w: number;          // Scene.w
+    h: number;          // Scene.h
+    cx?: number;        // Scene.ofsX
+    cy?: number;        // Scene.ofsY
+    z?: number;         // Scene.scale
+}
+
+export interface StorageNgon { // Persistent format of ShapeParams
+    na: number;         // ShapeNgon.nOuter
+    nb: number;         // ShapeNgon.nInner
+    lna: Point2D;       // ShapeNgon.lenOuter
+    lnb: Point2D;       // ShapeNgon.lenInner
+    stk?: number;       //
+    scn: StorageScene;  //
+    id?: string;        // ShapeNgon.id
+    gen?: string;       // ShapeNgon.gen
+}
 
 export namespace IO {
     export function ShapeNgonToStorage(shape: ShapeNgon): StorageNgon {
