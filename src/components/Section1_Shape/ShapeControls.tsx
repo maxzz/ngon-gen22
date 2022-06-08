@@ -1,8 +1,9 @@
 import React, { HTMLAttributes } from "react";
 import { useAtom } from "jotai";
+import { useUpdateAtom } from "jotai/utils";
 import { editorShapeParamsAtom } from "@/store/store";
 import { NewShapeParams } from "@/store/api/shape-types";
-import { initialValueNewShapeParamsMeta } from "@/store/api/shape-utils";
+import { initalValueShapeParams, initialValueNewShapeParamsMeta } from "@/store/api/shape-utils";
 import { classNames } from "@/utils/classnames";
 import { NewSlider } from "../UI/NewSlider";
 import useFloatInput from "@/hooks/useFloatInput";
@@ -28,8 +29,8 @@ function InputSize({ member }: { member: keyof Pick<NewShapeParams, 'w' | 'h'>; 
     return (
         <input
             className={classNames(
-                "px-1 py-0.5 w-8 border-primary-400 border-dotted border rounded",
-                "text-[.6rem] text-right bg-primary-200 focus:bg-primary-50 rounded-sm",
+                "px-1 py-0.5 w-8 border-primary-400 border-dotted border rounded-sm",
+                "text-[.6rem] text-right bg-primary-200 focus:bg-primary-50",
                 "outline-none focus:border-0 focus:ring-1 ring-offset-1 ring-offset-primary-50 ring-primary-700/50",
             )}
             value={local}
@@ -47,6 +48,24 @@ function ViewBoxSize() {
             <div className="">x</div>
             <InputSize member={"h"} />
         </div>
+    );
+}
+
+function ResetButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
+    const setShapeParams = useUpdateAtom(editorShapeParamsAtom);
+    return (
+        <input
+            className={classNames(
+                "px-1 py-0.5 border-primary-400 border-dotted border rounded-sm shadow-sm",
+                "bg-primary-200 hover:bg-primary-300 focus:bg-primary-300",
+                "outline-none focus:ring-1 ring-offset-1 ring-offset-primary-50 ring-primary-700/50",
+                "active:scale-[.97]",
+                className
+            )}
+            type="button"
+            value="Reset" {...rest}
+            onClick={()=>setShapeParams(initalValueShapeParams())}
+        />
     );
 }
 
@@ -102,8 +121,9 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 {sceneControls}
             </div>
 
-            <div className="pr-3 self-end">
+            <div className="self-end pr-3 flex flex-col space-y-2">
                 <ViewBoxSize />
+                <ResetButton className="self-end" />
             </div>
         </div>
     );
