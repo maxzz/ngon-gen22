@@ -1,9 +1,8 @@
 import { atom, Getter } from 'jotai';
-import { atomWithCallback, LoadingDataState, loadingDataStateInit } from '@/hooks/atomsX';
+import { Atomize, atomWithCallback, LoadingDataState, loadingDataStateInit } from '@/hooks/atomsX';
 import { debounce } from '@/utils/debounce';
 import { toastError } from '@/components/UI/UiToaster';
 import { initalValueShapeParams } from './ngon/shape-defaults';
-import { generate } from './ngon/generator';
 
 //#region LocalStorage
 
@@ -99,14 +98,18 @@ export const editorShapeParamsAtom = atom(initalValueShapeParams());
 
 // Controls
 
-// export const shapePathAtom = atom(
-//     (get) => {
-//         const shapeParams = get(editorShapeParamsAtom);
-//         const res = generate(shapeParams);
-//         return res;
-//     },
-// );
+type ViewboxOptions = {
+    showInnerLines: boolean;
+    showOuterLines: boolean;
+    showInnerDots: boolean;
+    showOuterDots: boolean;
+};
 
-// export const paramAtom = atom(1);
+export const viewboxOptionAtoms: Atomize<ViewboxOptions> = {
+    showInnerLinesAtom: atom<boolean>(false),
+    showOuterLinesAtom: atom<boolean>(false),
+    showInnerDotsAtom: atom<boolean>(false),
+    showOuterDotsAtom: atom<boolean>(false),
+};
 
 //////////////////////

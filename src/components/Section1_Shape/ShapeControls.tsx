@@ -1,7 +1,7 @@
 import React, { HTMLAttributes } from "react";
 import { useAtom } from "jotai";
 import { useUpdateAtom } from "jotai/utils";
-import { editorShapeParamsAtom } from "@/store/store";
+import { editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
 import { NewShapeParams } from "@/store/ngon/shape";
 import { initalValueShapeParams, initialValueNewShapeParamsMeta } from "@/store/ngon/shape-defaults";
 import { classNames } from "@/utils/classnames";
@@ -51,6 +51,23 @@ function ViewBoxSize() {
     );
 }
 
+function ViewOptions() {
+    const [showOuterLines, setShowOuterLines] = useAtom(viewboxOptionAtoms.showOuterLinesAtom);
+    const [showInnerLines, setShowInnerLines] = useAtom(viewboxOptionAtoms.showInnerLinesAtom);
+    return (
+        <div className="">
+            <label className="flex items-center space-x-1">
+                <input type="checkbox" checked={showInnerLines} onChange={() => setShowInnerLines((p)=>!p)} />
+                <div className="">show inner lines</div>
+            </label>
+            <label className="flex items-center space-x-1">
+                <input type="checkbox" checked={showOuterLines} onChange={() => setShowOuterLines((p)=>!p)} />
+                <div className="">show outer lines</div>
+            </label>
+        </div>
+    );
+}
+
 function ResetButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const setShapeParams = useUpdateAtom(editorShapeParamsAtom);
     return (
@@ -64,7 +81,7 @@ function ResetButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
             )}
             type="button"
             value="Reset" {...rest}
-            onClick={()=>setShapeParams(initalValueShapeParams())}
+            onClick={() => setShapeParams(initalValueShapeParams())}
         />
     );
 }
@@ -124,6 +141,7 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
             <div className="self-end pr-3 flex flex-col space-y-2">
                 <ViewBoxSize />
                 <ResetButton className="self-end" />
+                <ViewOptions />
             </div>
         </div>
     );
