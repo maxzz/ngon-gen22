@@ -25,6 +25,14 @@ export type GeneratorResult = {
     };
 };
 
+function isInnerPoint(idx: number, innerN: number): boolean {
+    return idx % innerN !== 0;
+}
+
+function isOuterPoint(idx: number, innerN: number): boolean {
+    return idx % innerN === 0;
+}
+
 export function generate(params: NewShapeParams): GeneratorResult {
 
     // generate points
@@ -32,7 +40,7 @@ export function generate(params: NewShapeParams): GeneratorResult {
 
     // scale inner and outer points
     points = points.map(([x, y], index) => {
-        return index % params.innerN !== 0
+        return isInnerPoint(index, params.innerN)
             ? [x * params.innerX, y * params.innerY]
             : [x * params.outerX, y * params.outerY];
     });
@@ -70,8 +78,8 @@ export function generate(params: NewShapeParams): GeneratorResult {
 }
 
 export function separatePoints(points: [number, number][], innerN: number) {
-    const outerPts = points.filter((_, idx) => idx % innerN === 0);
-    const innerPts = points.filter((_, idx) => idx % innerN !== 0);
+    const outerPts = points.filter((_, idx) => isOuterPoint(idx, innerN));
+    const innerPts = points.filter((_, idx) => isInnerPoint(idx, innerN));
     return {
         outerPts,
         innerPts,
