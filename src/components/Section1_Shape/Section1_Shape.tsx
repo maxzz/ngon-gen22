@@ -1,19 +1,16 @@
 import { HTMLAttributes } from 'react';
 import { useAtomValue } from 'jotai';
 import { editorShapeParamsAtom, viewboxOptionAtoms } from '@/store/store';
-import { generate } from '@/store/ngon/generator';
+import { generate, pointsToLines, separatePoints } from '@/store/ngon/generator';
 import { a, easings, useSpring } from '@react-spring/web';
 import { classNames } from '@/utils/classnames';
 import { ShapeControls } from './ShapeControls';
-
-const pointsToLines = (pts: [number, number][], centerX: number, centerY: number) => pts.map(([x, y]) => `M${centerX},${centerY}L${x},${y}`);
 
 function PreviewSvg(props: HTMLAttributes<SVGSVGElement>) {
     const shapeParams = useAtomValue(editorShapeParamsAtom);
 
     const shape = generate(shapeParams);
-    const outerPts = shape.points.filter((_, idx) => idx % shapeParams.innerN === 0);
-    const innerPts = shape.points.filter((_, idx) => idx % shapeParams.innerN !== 0);
+    const {outerPts, innerPts} = separatePoints(shape.points, shapeParams.innerN);
 
     const outer = pointsToLines(outerPts, shape.center.x, shape.center.y);
     const inner = pointsToLines(innerPts, shape.center.x, shape.center.y);

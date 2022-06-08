@@ -68,3 +68,16 @@ export function generate(params: NewShapeParams): GeneratorResult {
         }
     };
 }
+
+export function separatePoints(points: [number, number][], innerN: number) {
+    const outerPts = points.filter((_, idx) => idx % innerN === 0);
+    const innerPts = points.filter((_, idx) => idx % innerN !== 0);
+    return {
+        outerPts,
+        innerPts,
+    };
+}
+
+export function pointsToLines(pts: [number, number][], centerX: number, centerY: number) {
+    return pts.map(([x, y]) => `M${centerX},${centerY}L${x},${y}`);
+}
