@@ -10,7 +10,7 @@ function PreviewSvg(props: HTMLAttributes<SVGSVGElement>) {
     const shapeParams = useAtomValue(editorShapeParamsAtom);
 
     const shape = generate(shapeParams);
-    const {outerPts, innerPts} = separatePoints(shape.points, shapeParams.innerN);
+    const {outerPts, innerPts} = separatePoints(shape.points, shapeParams.innerN, shapeParams.swap);
 
     const outer = pointsToLines(outerPts, shape.center.x, shape.center.y);
     const inner = pointsToLines(innerPts, shape.center.x, shape.center.y);

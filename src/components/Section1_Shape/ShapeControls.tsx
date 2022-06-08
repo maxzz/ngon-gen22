@@ -51,8 +51,7 @@ function ViewBoxSize() {
     );
 }
 
-function Checkbox({ valueAtom }: { valueAtom: PrimitiveAtom<boolean>; }) {
-    const [show, setShow] = useAtom(valueAtom);
+function Checkbox({ value, setValue }: { value: boolean; setValue: (v: boolean) => void; }) {
     return (
         <input
             className={classNames(
@@ -60,9 +59,26 @@ function Checkbox({ valueAtom }: { valueAtom: PrimitiveAtom<boolean>; }) {
                 "outline-none focus:ring-1 ring-offset-1 ring-offset-primary-50 focus:ring-primary-700/50"
             )}
             type="checkbox"
-            checked={show}
-            onChange={() => setShow((p) => !p)}
+            checked={value}
+            onChange={() => setValue(!value)}
         />
+    );
+}
+
+function CheckboxWitAtom({ valueAtom }: { valueAtom: PrimitiveAtom<boolean>; }) {
+    const [show, setShow] = useAtom(valueAtom);
+    return (
+        <Checkbox value={show} setValue={() => setShow((p) => !p)} />
+    );
+}
+
+function SwapCheckbox() {
+    const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
+    return (
+        <label className="flex items-center space-x-1" title="The old algorithm used swap by mistake">
+            <div className="">Swap inner and outer</div>
+            <Checkbox value={!!shapeParams.swap} setValue={(v: boolean) => setShapeParams((p) => ({ ...p, swap: v }))} />
+        </label>
     );
 }
 
@@ -75,11 +91,11 @@ function ViewOptions() {
             <div className="flex items-center space-x-2">
                 <label className="flex items-center space-x-1">
                     <div className="">dots</div>
-                    <Checkbox valueAtom={viewboxOptionAtoms.showOuterDotsAtom} />
+                    <CheckboxWitAtom valueAtom={viewboxOptionAtoms.showOuterDotsAtom} />
                 </label>
                 <label className="flex items-center space-x-1">
                     <div className="">lines</div>
-                    <Checkbox valueAtom={viewboxOptionAtoms.showOuterLinesAtom} />
+                    <CheckboxWitAtom valueAtom={viewboxOptionAtoms.showOuterLinesAtom} />
                 </label>
             </div>
 
@@ -89,21 +105,16 @@ function ViewOptions() {
             <div className="flex items-center space-x-2">
                 <label className="flex items-center space-x-1">
                     <div className="">dots</div>
-                    <Checkbox valueAtom={viewboxOptionAtoms.showInnerDotsAtom} />
+                    <CheckboxWitAtom valueAtom={viewboxOptionAtoms.showInnerDotsAtom} />
                 </label>
                 <label className="flex items-center space-x-1">
                     <div className="">lines</div>
-                    <Checkbox valueAtom={viewboxOptionAtoms.showInnerLinesAtom} />
+                    <CheckboxWitAtom valueAtom={viewboxOptionAtoms.showInnerLinesAtom} />
                 </label>
             </div>
         </div>
     );
 }
-//TODO: ctrl+click to set/reset all at once or drop down section (when up all hidden; when down respect current options)
-//TODO: triangle shading
-//TODO: treat debug lines as part of shape
-//TODO: support colors for lines and dots (and dots radius)
-//TODO: outer points as curve points
 
 function ResetButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const setShapeParams = useUpdateAtom(editorShapeParamsAtom);
@@ -131,7 +142,7 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
     const sceneMembers = { w, h, ofsX, ofsY, scale, };
 
     const shapeControls = Object.entries(shapeMembers).map(([key, val]) => {
-        const meta = initialValueNewShapeParamsMeta[key as keyof Omit<NewShapeParams, 'id' | 'genId'>];
+        const meta = initialValueNewShapeParamsMeta[key as keyof Omit<NewShapeParams, 'id' | 'genId' | 'swap'>];
         return meta && (
             <NewSlider
                 label={meta.label}
@@ -147,7 +158,7 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
     });
 
     const sceneControls = Object.entries(sceneMembers).map(([key, val]) => {
-        const meta = initialValueNewShapeParamsMeta[key as keyof Omit<NewShapeParams, 'id' | 'genId'>];
+        const meta = initialValueNewShapeParamsMeta[key as keyof Omit<NewShapeParams, 'id' | 'genId' | 'swap'>];
         return meta && (
             <NewSlider
                 label={meta.label}
@@ -180,8 +191,15 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 <ViewBoxSize />
                 <ResetButton />
                 <ViewOptions />
+                <SwapCheckbox />
                 {/* className="self-end" */}
             </div>
         </div>
     );
 }
+
+//TODO: ViewOptions: ctrl+click to set/reset all at once or drop down section (when up all hidden; when down respect current options)
+//TODO: triangle shading
+//TODO: treat debug lines as part of shape
+//TODO: support colors for lines and dots (and dots radius)
+//TODO: outer points as curve points

@@ -41,6 +41,7 @@ export type NewShapeParams = { // TODO: can it be more then one inner ?
     ofsY: number;       // shape offset y // TODO: should it be cx, cy?
     scale: number;      // scene scale
 
+    swap?: boolean;     // swap inner and outer; should be false; old implementations had this as true by mistake
     id?: string;        // shape ID
     genId?: string;     // shape generator name aka 'ngon'
 };

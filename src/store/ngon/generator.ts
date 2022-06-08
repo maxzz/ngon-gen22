@@ -25,12 +25,14 @@ export type GeneratorResult = {
     };
 };
 
-function isInnerPoint(idx: number, innerN: number): boolean {
-    return idx % innerN !== 0;
+function isInnerPoint(idx: number, innerN: number, swap?: boolean): boolean {
+    const v= idx % innerN !== 0;
+    return swap ? !v : v;
 }
 
-function isOuterPoint(idx: number, innerN: number): boolean {
-    return idx % innerN === 0;
+function isOuterPoint(idx: number, innerN: number, swap?: boolean): boolean {
+    const v= idx % innerN === 0;
+    return swap ? !v : v;
 }
 
 export function generate(params: NewShapeParams): GeneratorResult {
@@ -40,7 +42,7 @@ export function generate(params: NewShapeParams): GeneratorResult {
 
     // scale inner and outer points
     points = points.map(([x, y], index) => {
-        return isInnerPoint(index, params.innerN)
+        return isInnerPoint(index, params.innerN, params.swap)
             ? [x * params.innerX, y * params.innerY]
             : [x * params.outerX, y * params.outerY];
     });
@@ -77,9 +79,9 @@ export function generate(params: NewShapeParams): GeneratorResult {
     };
 }
 
-export function separatePoints(points: [number, number][], innerN: number) {
-    const outerPts = points.filter((_, idx) => isOuterPoint(idx, innerN));
-    const innerPts = points.filter((_, idx) => isInnerPoint(idx, innerN));
+export function separatePoints(points: [number, number][], innerN: number, swap?: boolean) {
+    const outerPts = points.filter((_, idx) => isOuterPoint(idx, innerN, swap));
+    const innerPts = points.filter((_, idx) => isInnerPoint(idx, innerN, swap));
     return {
         outerPts,
         innerPts,
