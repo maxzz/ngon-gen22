@@ -3,7 +3,7 @@ import { atomWithCallback, LoadingDataState, loadingDataStateInit } from '@/hook
 import { debounce } from '@/utils/debounce';
 import { toastError } from '@/components/UI/UiToaster';
 import { initalValueShapeParams } from './ngon/shape-defaults';
-import { generate, generate2 } from './ngon/generator';
+import { generate } from './ngon/generator';
 
 //#region LocalStorage
 
@@ -101,37 +101,11 @@ export const editorShapeParamsAtom = atom(initalValueShapeParams());
 
 export const shapePathAtom = atom(
     (get) => {
-        const data = get(editorShapeParamsAtom);
-        const res = generate2(data);
+        const shapeParams = get(editorShapeParamsAtom);
+        const res = generate(shapeParams);
         return res;
     },
 );
-
-/** /
-export const shapePathAtom = atom(
-    (get) => {
-        const data = get(editorShapeParamsAtom);
-        let shapeNgon: ShapeNgon = {
-            outerN: data.outerN,
-            innerN: data.innerN,
-            outer: { x: data.outerX, y: data.outerY, },
-            inner: { x: data.innerX, y: data.innerY, },
-            stroke: data.stroke,
-            scene: {
-                w: data.w,
-                h: data.h,
-                ofsX: data.ofsX,
-                ofsY: data.ofsY,
-                scale: data.scale,
-            },
-            id: data.id,
-            gen: data.genId,
-        };
-        const res = generate(shapeNgon);
-        return res;
-    },
-);
-/**/
 
 export const paramAtom = atom(1);
 
