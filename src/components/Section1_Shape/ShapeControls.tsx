@@ -74,12 +74,12 @@ function ViewOptions() {
 
             <div className="flex items-center space-x-2">
                 <label className="flex items-center space-x-1">
-                    <div className="">lines</div>
-                    <Checkbox valueAtom={viewboxOptionAtoms.showOuterLinesAtom} />
-                </label>
-                <label className="flex items-center space-x-1">
                     <div className="">dots</div>
                     <Checkbox valueAtom={viewboxOptionAtoms.showOuterDotsAtom} />
+                </label>
+                <label className="flex items-center space-x-1">
+                    <div className="">lines</div>
+                    <Checkbox valueAtom={viewboxOptionAtoms.showOuterLinesAtom} />
                 </label>
             </div>
 
@@ -88,18 +88,22 @@ function ViewOptions() {
 
             <div className="flex items-center space-x-2">
                 <label className="flex items-center space-x-1">
-                    <div className="">lines</div>
-                    <Checkbox valueAtom={viewboxOptionAtoms.showInnerLinesAtom} />
-                </label>
-                <label className="flex items-center space-x-1">
                     <div className="">dots</div>
                     <Checkbox valueAtom={viewboxOptionAtoms.showInnerDotsAtom} />
+                </label>
+                <label className="flex items-center space-x-1">
+                    <div className="">lines</div>
+                    <Checkbox valueAtom={viewboxOptionAtoms.showInnerLinesAtom} />
                 </label>
             </div>
         </div>
     );
 }
 //TODO: ctrl+click to set/reset all at once or drop down section (when up all hidden; when down respect current options)
+//TODO: triangle shading
+//TODO: treat debug lines as part of shape
+//TODO: support colors for lines and dots (and dots radius)
+//TODO: outer points as curve points
 
 function ResetButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const setShapeParams = useUpdateAtom(editorShapeParamsAtom);

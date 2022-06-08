@@ -13,11 +13,18 @@ namespace Storage {
     type Store = {
         open1: boolean;
         shapeParams: NewShapeParams;
+        viewboxOptions: ViewboxOptions;
     };
 
     export let initialData: Store = {
         open1: false,
         shapeParams: initalValueShapeParams(),
+        viewboxOptions: {
+            showInnerLines: false,
+            showOuterLines: false,
+            showInnerDots: false,
+            showOuterDots: false,
+        }
     };
 
     function load() {
@@ -36,7 +43,13 @@ namespace Storage {
         let newStore: Store = {
             open1: get(section1_OpenAtom),
             shapeParams: get(editorShapeParamsAtom),
-        };
+            viewboxOptions: {
+                showInnerLines: get(viewboxOptionAtoms.showInnerLinesAtom),
+                showOuterLines: get(viewboxOptionAtoms.showOuterLinesAtom),
+                showInnerDots: get(viewboxOptionAtoms.showInnerDotsAtom),
+                showOuterDots: get(viewboxOptionAtoms.showOuterDotsAtom),
+            }
+            };
         localStorage.setItem(KEY, JSON.stringify(newStore));
     }, 1000);
 
@@ -112,10 +125,10 @@ type ViewboxOptions = {
 };
 
 export const viewboxOptionAtoms: Atomize<ViewboxOptions> = {
-    showInnerLinesAtom: atom<boolean>(false),
-    showOuterLinesAtom: atom<boolean>(false),
-    showInnerDotsAtom: atom<boolean>(false),
-    showOuterDotsAtom: atom<boolean>(false),
+    showInnerLinesAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showInnerLines, Storage.save),
+    showOuterLinesAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showOuterLines, Storage.save),
+    showInnerDotsAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showInnerDots, Storage.save),
+    showOuterDotsAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showOuterDots, Storage.save),
 };
 
 //////////////////////
