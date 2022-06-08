@@ -25,6 +25,8 @@ export const defNewShapeParams: NewShapeParams = {
     ofsX: CONST.sceneSize / 2,
     ofsY: CONST.sceneSize / 2,
     scale: 1,
+
+    swap: true,
 };
 
 export function initalValueShapeParams(/*stored?: string*/): NewShapeParams {
@@ -52,3 +54,4 @@ export const initialValueNewShapeParamsMeta: NewShapeParamsMeta = {
 
 //TODO: digits 2
 //TODO: pairs lock
+//TODO: add round button

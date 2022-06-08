@@ -16,11 +16,21 @@ export interface SliderProps {
 export function NewSlider({ label, title, min, max, step = .01, labelWidth = '4.5rem', value, onChange }: SliderProps) {
     const [local, onSliderChange, onInputChange, onInputKey] = useFloatInput(value, { min, max, step }, onChange); // TODO: what to do with NaN?
     return (
-        <label className="px-2 w-full h-5 flex-centered space-x-2 text-primary-900" title={title}>
+        <label className="px-2 w-full h-5 flex-centered space-x-2 text-primary-900" title={title}> {/* relative */}
 
-            <div className="flex-none" style={{ width: labelWidth }}>
+            <div className="flex-none select-none cursor-pointer" style={{ width: labelWidth }}
+                onClick={(e) => {
+                    e.ctrlKey && onChange(Math.round(value));
+                    console.log('clicl', e);
+                    
+                }}
+                title="Ctrl+click to round value"
+            >
                 {label}
             </div>
+            {/* TODO: Do this and tooltip if number has digits */}
+
+            {/* <div className="absolute -right-0.5 bottom-0 w-2 h-1/2 border-primary-400 border rounded-sm"></div> */}
 
             <input
                 className={classNames(
