@@ -3,6 +3,7 @@ import { Atomize, atomWithCallback, LoadingDataState, loadingDataStateInit } fro
 import { debounce } from '@/utils/debounce';
 import { toastError } from '@/components/UI/UiToaster';
 import { initalValueShapeParams } from './ngon/shape-defaults';
+import { NewShapeParams } from './ngon/shape';
 
 //#region LocalStorage
 
@@ -11,10 +12,12 @@ namespace Storage {
 
     type Store = {
         open1: boolean;
+        shapeParams: NewShapeParams;
     };
 
     export let initialData: Store = {
         open1: false,
+        shapeParams: initalValueShapeParams(),
     };
 
     function load() {
@@ -29,12 +32,15 @@ namespace Storage {
     }
     load();
 
-    export const save = debounce(function _save(get: Getter) {
+    export const saveDebounced = debounce(function _save(get: Getter) {
         let newStore: Store = {
             open1: get(section1_OpenAtom),
+            shapeParams: get(editorShapeParamsAtom),
         };
         localStorage.setItem(KEY, JSON.stringify(newStore));
     }, 1000);
+
+    export const save = ({ get }: { get: Getter; }) => Storage.saveDebounced(get);
 }
 
 //#endregion LocalStorage
@@ -90,11 +96,11 @@ const correlateAtom = atom(
 
 // UI state
 
-export const section1_OpenAtom = atomWithCallback<boolean>(Storage.initialData.open1, ({ get }) => Storage.save(get));
+export const section1_OpenAtom = atomWithCallback<boolean>(Storage.initialData.open1, Storage.save);
 
 // Shapes
 
-export const editorShapeParamsAtom = atom(initalValueShapeParams());
+export const editorShapeParamsAtom = atomWithCallback(Storage.initialData.shapeParams, Storage.save);
 
 // Controls
 

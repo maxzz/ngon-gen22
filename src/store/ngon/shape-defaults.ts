@@ -27,7 +27,7 @@ export const defNewShapeParams: NewShapeParams = {
     scale: 1,
 };
 
-export function initalValueShapeParams(): NewShapeParams {
+export function initalValueShapeParams(/*stored?: string*/): NewShapeParams {
     return {
         ...defNewShapeParams,
         id: uuid(),

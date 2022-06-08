@@ -99,6 +99,7 @@ function ViewOptions() {
         </div>
     );
 }
+//TODO: ctrl+click to set/reset all at once or drop down section (when up all hidden; when down respect current options)
 
 function ResetButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const setShapeParams = useUpdateAtom(editorShapeParamsAtom);
