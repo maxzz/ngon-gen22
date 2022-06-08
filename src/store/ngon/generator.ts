@@ -31,27 +31,27 @@ export function generate(params: NewShapeParams): GeneratorResult {
     let points = createNGonPoints(params.outerN * params.innerN);
 
     // scale inner and outer points
-    points = points.map((pt, index) => {
-        return index % params.innerN === 0
-            ? [pt[0] * params.innerX, pt[1] * params.innerY]
-            : [pt[0] * params.outerX, pt[1] * params.outerY];
+    points = points.map(([x, y], index) => {
+        return index % params.innerN !== 0
+            ? [x * params.innerX, y * params.innerY]
+            : [x * params.outerX, y * params.outerY];
     });
 
     // scene scale
-    points = points.map((pt) => {
-        return [pt[0] * params.scale, pt[1] * params.scale];
+    points = points.map(([x, y]) => {
+        return [x * params.scale, y * params.scale];
     });
 
     // offset
-    points = points.map((pt) => [pt[0] + params.ofsX, pt[1] + params.ofsY]);
+    points = points.map(([x, y]) => [x + params.ofsX, y + params.ofsY]);
 
     // round
-    points = points.map((pt) => [rnd2(pt[0]), rnd2(pt[1])]);
+    points = points.map(([x, y]) => [rnd2(x), rnd2(y)]);
 
     // generate line
     let d = `M${points[0][0]},${points[0][1]}` +
-        points.map((pt, index) => {
-            return !index ? '' : `L${pt[0]},${pt[1]}`;
+        points.map(([x, y], index) => {
+            return !index ? '' : `L${x},${y}`;
         }).join('') +
         `z`;
 

@@ -12,8 +12,8 @@ function PreviewSvg(props: HTMLAttributes<SVGSVGElement>) {
     const shapeParams = useAtomValue(editorShapeParamsAtom);
 
     const shape = generate(shapeParams);
-    const outerPts = shape.points.filter((_, idx) => idx % shapeParams.innerN !== 0);
-    const innerPts = shape.points.filter((_, idx) => idx % shapeParams.innerN === 0);
+    const outerPts = shape.points.filter((_, idx) => idx % shapeParams.innerN === 0);
+    const innerPts = shape.points.filter((_, idx) => idx % shapeParams.innerN !== 0);
 
     const outer = pointsToLines(outerPts, shape.center.x, shape.center.y);
     const inner = pointsToLines(innerPts, shape.center.x, shape.center.y);
