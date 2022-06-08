@@ -99,14 +99,14 @@ export const editorShapeParamsAtom = atom(initalValueShapeParams());
 
 // Controls
 
-export const shapePathAtom = atom(
-    (get) => {
-        const shapeParams = get(editorShapeParamsAtom);
-        const res = generate(shapeParams);
-        return res;
-    },
-);
+// export const shapePathAtom = atom(
+//     (get) => {
+//         const shapeParams = get(editorShapeParamsAtom);
+//         const res = generate(shapeParams);
+//         return res;
+//     },
+// );
 
-export const paramAtom = atom(1);
+// export const paramAtom = atom(1);
 
 //////////////////////

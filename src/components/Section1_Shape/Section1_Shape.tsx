@@ -1,31 +1,32 @@
 import { HTMLAttributes } from 'react';
 import { useAtomValue } from 'jotai';
-import { editorShapeParamsAtom, shapePathAtom } from '@/store/store';
+import { editorShapeParamsAtom } from '@/store/store';
 import { a, easings, useSpring } from '@react-spring/web';
 import { classNames } from '@/utils/classnames';
-import { GeneratorResult } from '@/store/ngon/generator';
+import { generate, GeneratorResult } from '@/store/ngon/generator';
 import { ShapeControls } from './ShapeControls';
 
 const pointsToLines = (pts: [number, number][], centerX: number, centerY: number) => pts.map(([x, y]) => `M${centerX},${centerY}L${x},${y}`);
 
 function PreviewSvg(props: HTMLAttributes<SVGSVGElement>) {
     const shapeParams = useAtomValue(editorShapeParamsAtom);
-    const shape: GeneratorResult = useAtomValue(shapePathAtom);
+    
+    //const shape: GeneratorResult = useAtomValue(shapePathAtom);
 
-    console.log('shape', shape.points);
+    const shape = generate(shapeParams);
+
 
     const outerPts = shape.points.filter((_, idx) => idx % shapeParams.innerN !== 0);
     const innerPts = shape.points.filter((_, idx) => idx % shapeParams.innerN === 0);
 
-    console.log('ouPts', outerPts);
-
     const outer = pointsToLines(outerPts, shape.center.x, shape.center.y);
     const inner = pointsToLines(innerPts, shape.center.x, shape.center.y);
 
-    console.log('outer', outer);
-
     const options_outerLines = false;
     const options_innerLines = false;
+
+    console.log('render');
+    
 
     return (
         <svg viewBox={`0 0 ${shapeParams.w} ${shapeParams.h}`} className="w-full h-full" {...props} preserveAspectRatio="none">
@@ -33,9 +34,6 @@ function PreviewSvg(props: HTMLAttributes<SVGSVGElement>) {
                 style={{ fill: 'none', stroke: 'purple', strokeWidth: shapeParams.stroke }}
                 d={shape.d}
             />
-
-            {/* <path className="fill-purple-500 stroke-green-500 stroke-[0.1]" d={'M12,12L5,5'} />
-            <path className="fill-purple-500 stroke-green-500 stroke-[0.1]" d={outer[1]} /> */}
 
             {options_outerLines && (<>
                 <path className="fill-purple-500 stroke-blue-500 stroke-[0.1]" d={outer.join('')} />
