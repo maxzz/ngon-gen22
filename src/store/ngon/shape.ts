@@ -51,6 +51,7 @@ export type NewShapeParamsMetaItem = {
     max: number;
     step: number;
     digits?: number;    // if defined number will be rounded before apply
+    hint?: string;
 };
 
 export type NewShapeParamsMeta = {

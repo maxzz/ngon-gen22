@@ -28,16 +28,18 @@ function PreviewSvg(props: HTMLAttributes<SVGSVGElement>) {
             <path className="stroke-primary-900" style={{ strokeWidth: shapeParams.stroke }} d={shape.d} />
 
             <g className="stroke-[0.05]">
+                {/* Outer */}
                 {showOuterLines && (<>
-                    <path className="stroke-red-500" strokeDasharray={'.2'} d={outer.join('')} />
+                    <path className="stroke-orange-500" strokeDasharray={'.2'} d={outer.join('')} />
                 </>)}
 
                 {showOuterDots && (<>
-                    {outerPts.map(([x, y], idx) => <circle className="stroke-red-500 fill-red-500/40" cx={x} cy={y} r=".3" key={idx} />)}
+                    {outerPts.map(([x, y], idx) => <circle className="stroke-orange-500 fill-orange-500/40" cx={x} cy={y} r=".3" key={idx} />)}
 
                     <circle className="stroke-primary-700" cx={shape.start.cx} cy={shape.start.cy} r=".5" />
                 </>)}
 
+                {/* Inner */}
                 {showInnerLines && (<>
                     <path className="stroke-blue-500" strokeDasharray={'.2'} d={inner.join('')} />
                 </>)}

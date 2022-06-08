@@ -67,31 +67,35 @@ function Checkbox({ valueAtom }: { valueAtom: PrimitiveAtom<boolean>; }) {
 }
 
 function ViewOptions() {
-    const [showOuterLines, setShowOuterLines] = useAtom(viewboxOptionAtoms.showOuterLinesAtom);
-    const [showInnerLines, setShowInnerLines] = useAtom(viewboxOptionAtoms.showInnerLinesAtom);
-    const [showOuterDots, setShowOuterDots] = useAtom(viewboxOptionAtoms.showOuterDotsAtom);
-    const [showInnerDots, setShowInnerDots] = useAtom(viewboxOptionAtoms.showInnerDotsAtom);
     return (
-        <div className="">
-            <label className="flex items-center space-x-1">
-                <Checkbox valueAtom={viewboxOptionAtoms.showInnerLinesAtom} />
-                <div className="">show inner lines</div>
-            </label>
+        <div className="grid grid-cols-[auto,auto,1fr] gap-x-1">
+            <div className="place-self-center w-2 h-2 bg-orange-500/50 rounded-full"></div>
+            <div className="">Show outer:</div>
 
-            <label className="flex items-center space-x-1">
-                <Checkbox valueAtom={viewboxOptionAtoms.showInnerDotsAtom} />
-                <div className="">show inner dots</div>
-            </label>
+            <div className="flex items-center space-x-2">
+                <label className="flex items-center space-x-1">
+                    <div className="">lines</div>
+                    <Checkbox valueAtom={viewboxOptionAtoms.showOuterLinesAtom} />
+                </label>
+                <label className="flex items-center space-x-1">
+                    <div className="">dots</div>
+                    <Checkbox valueAtom={viewboxOptionAtoms.showOuterDotsAtom} />
+                </label>
+            </div>
 
-            <label className="flex items-center space-x-1">
-                <Checkbox valueAtom={viewboxOptionAtoms.showOuterLinesAtom} />
-                <div className="">show outer lines</div>
-            </label>
+            <div className="place-self-center w-2 h-2 bg-blue-500/50 rounded-full"></div>
+            <div className="">Show inner:</div>
 
-            <label className="flex items-center space-x-1">
-                <Checkbox valueAtom={viewboxOptionAtoms.showOuterDotsAtom} />
-                <div className="">show outer dots</div>
-            </label>
+            <div className="flex items-center space-x-2">
+                <label className="flex items-center space-x-1">
+                    <div className="">lines</div>
+                    <Checkbox valueAtom={viewboxOptionAtoms.showInnerLinesAtom} />
+                </label>
+                <label className="flex items-center space-x-1">
+                    <div className="">dots</div>
+                    <Checkbox valueAtom={viewboxOptionAtoms.showInnerDotsAtom} />
+                </label>
+            </div>
         </div>
     );
 }
@@ -132,6 +136,7 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 onChange={(value) => setShapeParams((p) => ({ ...p, [key]: meta.digits === 0 ? Math.floor(value) : value }))}
                 value={val}
                 key={key}
+                title={meta.hint}
             />
         );
     });
@@ -166,10 +171,11 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 {sceneControls}
             </div>
 
-            <div className="self-end pr-3 flex flex-col space-y-2">
+            <div className="self-end pr-3 flex flex-col items-end space-y-2">
                 <ViewBoxSize />
-                <ResetButton className="self-end" />
+                <ResetButton />
                 <ViewOptions />
+                {/* className="self-end" */}
             </div>
         </div>
     );

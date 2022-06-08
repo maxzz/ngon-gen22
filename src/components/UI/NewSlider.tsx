@@ -4,6 +4,7 @@ import { classNames } from '@/utils/classnames';
 
 export interface SliderProps {
     label: string;
+    title?: string;
     min: number;
     max: number;
     step?: number;
@@ -12,10 +13,10 @@ export interface SliderProps {
     onChange: (value: number) => void;
 }
 
-export function NewSlider({ label, min, max, step = .01, labelWidth = '4.5rem', value, onChange }: SliderProps) {
+export function NewSlider({ label, title, min, max, step = .01, labelWidth = '4.5rem', value, onChange }: SliderProps) {
     const [local, onSliderChange, onInputChange, onInputKey] = useFloatInput(value, { min, max, step }, onChange); // TODO: what to do with NaN?
     return (
-        <label className="px-2 w-full h-5 flex-centered space-x-2 text-primary-900">
+        <label className="px-2 w-full h-5 flex-centered space-x-2 text-primary-900" title={title}>
 
             <div className="flex-none" style={{ width: labelWidth }}>
                 {label}
