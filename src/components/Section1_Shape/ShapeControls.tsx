@@ -1,5 +1,5 @@
 import React, { HTMLAttributes } from "react";
-import { useAtom } from "jotai";
+import { PrimitiveAtom, useAtom } from "jotai";
 import { useUpdateAtom } from "jotai/utils";
 import { editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
 import { NewShapeParams } from "@/store/ngon/shape";
@@ -51,6 +51,21 @@ function ViewBoxSize() {
     );
 }
 
+function Checkbox({ valueAtom }: { valueAtom: PrimitiveAtom<boolean>; }) {
+    const [show, setShow] = useAtom(valueAtom);
+    return (
+        <input
+            className={classNames(
+                "w-3 h-3 text-primary-400 rounded form-checkbox",
+                "outline-none focus:ring-1 ring-offset-1 ring-offset-primary-50 focus:ring-primary-700/50"
+            )}
+            type="checkbox"
+            checked={show}
+            onChange={() => setShow((p) => !p)}
+        />
+    );
+}
+
 function ViewOptions() {
     const [showOuterLines, setShowOuterLines] = useAtom(viewboxOptionAtoms.showOuterLinesAtom);
     const [showInnerLines, setShowInnerLines] = useAtom(viewboxOptionAtoms.showInnerLinesAtom);
@@ -59,25 +74,24 @@ function ViewOptions() {
     return (
         <div className="">
             <label className="flex items-center space-x-1">
-                <input type="checkbox" checked={showInnerLines} onChange={() => setShowInnerLines((p)=>!p)} />
+                <Checkbox valueAtom={viewboxOptionAtoms.showInnerLinesAtom} />
                 <div className="">show inner lines</div>
             </label>
 
             <label className="flex items-center space-x-1">
-                <input type="checkbox" checked={showInnerDots} onChange={() => setShowInnerDots((p)=>!p)} />
+                <Checkbox valueAtom={viewboxOptionAtoms.showInnerDotsAtom} />
                 <div className="">show inner dots</div>
             </label>
 
             <label className="flex items-center space-x-1">
-                <input type="checkbox" checked={showOuterLines} onChange={() => setShowOuterLines((p)=>!p)} />
+                <Checkbox valueAtom={viewboxOptionAtoms.showOuterLinesAtom} />
                 <div className="">show outer lines</div>
             </label>
 
             <label className="flex items-center space-x-1">
-                <input type="checkbox" checked={showOuterDots} onChange={() => setShowOuterDots((p)=>!p)} />
+                <Checkbox valueAtom={viewboxOptionAtoms.showOuterDotsAtom} />
                 <div className="">show outer dots</div>
             </label>
-
         </div>
     );
 }
