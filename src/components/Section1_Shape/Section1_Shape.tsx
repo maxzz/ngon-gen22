@@ -1,9 +1,9 @@
 import { HTMLAttributes } from 'react';
 import { useAtomValue } from 'jotai';
 import { editorShapeParamsAtom, viewboxOptionAtoms } from '@/store/store';
+import { generate } from '@/store/ngon/generator';
 import { a, easings, useSpring } from '@react-spring/web';
 import { classNames } from '@/utils/classnames';
-import { generate, GeneratorResult } from '@/store/ngon/generator';
 import { ShapeControls } from './ShapeControls';
 
 const pointsToLines = (pts: [number, number][], centerX: number, centerY: number) => pts.map(([x, y]) => `M${centerX},${centerY}L${x},${y}`);
@@ -20,34 +20,35 @@ function PreviewSvg(props: HTMLAttributes<SVGSVGElement>) {
 
     const showOuterLines = useAtomValue(viewboxOptionAtoms.showOuterLinesAtom);
     const showInnerLines = useAtomValue(viewboxOptionAtoms.showInnerLinesAtom);
+    const showOuterDots = useAtomValue(viewboxOptionAtoms.showOuterDotsAtom);
+    const showInnerDots = useAtomValue(viewboxOptionAtoms.showInnerDotsAtom);
 
     return (
-        <svg viewBox={`0 0 ${shapeParams.w} ${shapeParams.h}`} className="w-full h-full" {...props} preserveAspectRatio="none">
-            <path
-                style={{ fill: 'none', stroke: 'purple', strokeWidth: shapeParams.stroke }}
-                d={shape.d}
-            />
+        <svg viewBox={`0 0 ${shapeParams.w} ${shapeParams.h}`} className="w-full h-full fill-transparent" {...props} preserveAspectRatio="none">
+            <path className="stroke-primary-900" style={{ strokeWidth: shapeParams.stroke }} d={shape.d} />
 
-            {showOuterLines && (<>
-                <path className="fill-purple-500 stroke-blue-500 stroke-[0.1]" d={outer.join('')} />
+            <g className="stroke-[0.05]">
+                {showOuterLines && (<>
+                    <path className="stroke-blue-500" d={outer.join('')} />
+                </>)}
 
-                {outerPts.map(([x, y], idx) => (
-                    <circle className="fill-transparent stroke-green-500 stroke-[0.1]" cx={x} cy={y} r=".3" key={idx}/>
-                ))}
-            </>)}
+                {showOuterDots && (<>
+                    {outerPts.map(([x, y], idx) => <circle className="stroke-blue-500" cx={x} cy={y} r=".3" key={idx} />)}
+                </>)}
 
-            {showInnerLines && (<>
-                <path className="fill-current text-red-500 stroke-current stroke-[0.1] helper-inn-lines" d={inner.join('')} />
+                {showInnerLines && (<>
+                    <path className="stroke-red-500" d={inner.join('')} />
+                </>)}
 
-                {innerPts.map(([x, y], idx) => (
-                    <circle className="fill-purple-500 stroke-purple-500 stroke-[0.1]" cx={x} cy={y} r=".3" key={idx}/>
-                ))}
-            </>)}
+                {showInnerDots && (<>
+                    {innerPts.map(([x, y], idx) => <circle className="stroke-red-500" cx={x} cy={y} r=".3" key={idx} />)}
+                </>)}
 
-            {showOuterLines && (
-                <circle className="origin fill-transparent stroke-red-500 stroke-[0.1]" cx={shape.start.cx} cy={shape.start.cy} r=".3" />
-            )}
-        </svg >
+                {showInnerDots && (
+                    <circle className="stroke-red-500" cx={shape.start.cx} cy={shape.start.cy} r=".3" />
+                )}
+            </g>
+        </svg>
     );
 }
 

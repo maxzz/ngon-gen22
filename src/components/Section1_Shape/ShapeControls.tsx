@@ -54,16 +54,30 @@ function ViewBoxSize() {
 function ViewOptions() {
     const [showOuterLines, setShowOuterLines] = useAtom(viewboxOptionAtoms.showOuterLinesAtom);
     const [showInnerLines, setShowInnerLines] = useAtom(viewboxOptionAtoms.showInnerLinesAtom);
+    const [showOuterDots, setShowOuterDots] = useAtom(viewboxOptionAtoms.showOuterDotsAtom);
+    const [showInnerDots, setShowInnerDots] = useAtom(viewboxOptionAtoms.showInnerDotsAtom);
     return (
         <div className="">
             <label className="flex items-center space-x-1">
                 <input type="checkbox" checked={showInnerLines} onChange={() => setShowInnerLines((p)=>!p)} />
                 <div className="">show inner lines</div>
             </label>
+
+            <label className="flex items-center space-x-1">
+                <input type="checkbox" checked={showInnerDots} onChange={() => setShowInnerDots((p)=>!p)} />
+                <div className="">show inner dots</div>
+            </label>
+
             <label className="flex items-center space-x-1">
                 <input type="checkbox" checked={showOuterLines} onChange={() => setShowOuterLines((p)=>!p)} />
                 <div className="">show outer lines</div>
             </label>
+
+            <label className="flex items-center space-x-1">
+                <input type="checkbox" checked={showOuterDots} onChange={() => setShowOuterDots((p)=>!p)} />
+                <div className="">show outer dots</div>
+            </label>
+
         </div>
     );
 }
