@@ -149,6 +149,7 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 min={meta.min}
                 max={meta.max}
                 step={meta.step}
+                linkWithNext={meta.link}
                 onChange={(value) => setShapeParams((p) => ({ ...p, [key]: meta.digits === 0 ? Math.floor(value) : value }))}
                 value={val}
                 key={key}
@@ -165,6 +166,7 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 min={meta.min}
                 max={meta.max}
                 step={meta.step}
+                linkWithNext={meta.link}
                 onChange={(value) => setShapeParams((p) => ({ ...p, [key]: meta.digits === 0 ? Math.floor(value) : value }))}
                 value={val}
                 key={key}
