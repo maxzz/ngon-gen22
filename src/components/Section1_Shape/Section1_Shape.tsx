@@ -12,8 +12,8 @@ function PreviewSvg(props: HTMLAttributes<SVGSVGElement>) {
     const shape = generate(shapeParams);
     const {outerPts, innerPts} = separatePoints(shape.points, shapeParams.innerN, shapeParams.swap);
 
-    const outer = pointsToLines(outerPts, shape.center.x, shape.center.y);
-    const inner = pointsToLines(innerPts, shape.center.x, shape.center.y);
+    const outer = pointsToLines(outerPts, shapeParams.ofsX, shapeParams.ofsY);
+    const inner = pointsToLines(innerPts, shapeParams.ofsX, shapeParams.ofsY);
 
     const showOuterLines = useAtomValue(viewboxOptionAtoms.showOuterLinesAtom);
     const showInnerLines = useAtomValue(viewboxOptionAtoms.showInnerLinesAtom);
