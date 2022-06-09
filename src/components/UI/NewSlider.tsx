@@ -1,6 +1,7 @@
 import React from 'react';
 import useFloatInput from '@/hooks/useFloatInput';
 import { classNames } from '@/utils/classnames';
+import { IconLinked } from './UIIcons';
 
 export interface SliderProps {
     label: string;
@@ -10,25 +11,22 @@ export interface SliderProps {
     step?: number;
     value: number;
     labelWidth?: string; // TODO: it can be '30%' as default
+    linkWithNext?: boolean;
     onChange: (value: number) => void;
 }
 
-export function NewSlider({ label, title, min, max, step = .01, labelWidth = '4.5rem', value, onChange }: SliderProps) {
+export function NewSlider({ label, title, min, max, step = .01, labelWidth = '4.5rem', linkWithNext, value, onChange }: SliderProps) {
     const [local, onSliderChange, onInputChange, onInputKey] = useFloatInput(value, { min, max, step }, onChange); // TODO: what to do with NaN?
     return (
         <label className="px-2 w-full h-5 flex-centered space-x-2 text-primary-900" title={title}> {/* relative */}
 
-            <div className="flex-none select-none cursor-pointer" style={{ width: labelWidth }}
-                onClick={(e) => {
-                    e.ctrlKey && onChange(Math.round(value));
-                    console.log('clicl', e);
-                    
-                }}
+            <div className="relative flex-none select-none cursor-pointer" style={{ width: labelWidth }}
+                onClick={(e) => e.ctrlKey && onChange(Math.round(value))}
                 title="Ctrl+click to round value"
             >
                 {label}
+                {/* <IconLinked className="absolute right-0 w-3 h-3 fill-transparent stroke-primary-400" /> */}
             </div>
-            {/* TODO: Do this and tooltip if number has digits */}
 
             {/* <div className="absolute -right-0.5 bottom-0 w-2 h-1/2 border-primary-400 border rounded-sm"></div> */}
 
@@ -53,19 +51,24 @@ export function NewSlider({ label, title, min, max, step = .01, labelWidth = '4.
                 onChange={onSliderChange}
             />
 
-            <input
-                className={classNames(
-                    "px-1 w-8 text-[.6rem] text-right bg-primary-200 focus:bg-primary-50 rounded-sm",
-                    "outline-none focus:ring-1 ring-offset-2 ring-offset-primary-50 ring-primary-700/50",
-                )}
-                value={local}
-                onChange={onInputChange}
-                onKeyDown={onInputKey}
-            />
+            <div className="relative flex">
+                <input
+                    className={classNames(
+                        "px-1 w-8 text-[.6rem] text-right bg-primary-200 focus:bg-primary-50 rounded-sm",
+                        "outline-none focus:ring-1 ring-offset-2 ring-offset-primary-50 ring-primary-700/50",
+                    )}
+                    value={local}
+                    onChange={onInputChange}
+                    onKeyDown={onInputKey}
+                />
+
+                {linkWithNext && <IconLinked className="absolute -right-4 top-full w-7 h-7 z-10 fill-transparent stroke-primary-400 bg-orange-300" />}
+            </div>
         </label>
     );
 }
 
-//TODO: local storage
-//TODO: New slider should return fragment
-//TODO: lock values
+//TODO: local storage - done
+//TODO: New slider should return fragment - no need
+//TODO: lock values in pairs
+//TODO: Do this and tooltip if number has digits

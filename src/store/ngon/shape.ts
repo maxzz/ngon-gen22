@@ -53,6 +53,8 @@ export type NewShapeParamsMetaItem = {
     step: number;
     digits?: number;    // if defined number will be rounded before apply
     hint?: string;
+    linkKey?: string;   // key of field to link with
+    link?: boolean;     // show link icon
 };
 
 export type NewShapeParamsMeta = {

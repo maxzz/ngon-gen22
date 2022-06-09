@@ -39,16 +39,16 @@ export function initalValueShapeParams(/*stored?: string*/): NewShapeParams {
 export const initialValueNewShapeParamsMeta: NewShapeParamsMeta = {
     outerN: { label: 'outer points', min: 1, max: 100, step: 1, digits: 0, },
     innerN: { label: 'inner lines', min: 1, max: 100, step: 1, digits: 0, hint: 'divide a line between two outer points into n lines' },
-    outerX: { label: 'outer X', min: -100, max: 100, step: 0.01 },
-    outerY: { label: 'outer Y', min: -100, max: 100, step: 0.01 },
-    innerX: { label: 'inner X', min: -100, max: 100, step: 0.01 },
-    innerY: { label: 'inner Y', min: -100, max: 100, step: 0.01 },
+    outerX: { label: 'outer X', min: -100, max: 100, step: 0.01, linkKey: 'outerY', link: true, },
+    outerY: { label: 'outer Y', min: -100, max: 100, step: 0.01, linkKey: 'outerX' },
+    innerX: { label: 'inner X', min: -100, max: 100, step: 0.01, linkKey: 'innerY', link: true, },
+    innerY: { label: 'inner Y', min: -100, max: 100, step: 0.01, linkKey: 'innerX' },
     stroke: { label: 'stroke', min: 0.01, max: 2, step: 0.01 },
 
-    w: { label: 'width', min: 4, max: CONST.sceneSizeMax, step: 1, digits: 0, },
-    h: { label: 'height', min: 4, max: CONST.sceneSizeMax, step: 1, digits: 0, },
-    ofsX: { label: 'center X', min: -CONST.sceneSizeMax / 2, max: CONST.sceneSizeMax / 2, step: .1 },
-    ofsY: { label: 'center Y', min: -CONST.sceneSizeMax / 2, max: CONST.sceneSizeMax / 2, step: .1 },
+    w: { label: 'width', min: 4, max: CONST.sceneSizeMax, step: 1, digits: 0, linkKey: 'h', link: true, },
+    h: { label: 'height', min: 4, max: CONST.sceneSizeMax, step: 1, digits: 0, linkKey: 'w', },
+    ofsX: { label: 'center X', min: -CONST.sceneSizeMax / 2, max: CONST.sceneSizeMax / 2, step: .1, linkKey: 'ofsY', link: true },
+    ofsY: { label: 'center Y', min: -CONST.sceneSizeMax / 2, max: CONST.sceneSizeMax / 2, step: .1, linkKey: 'ofsX', },
     scale: { label: 'scale', min: 0.01, max: 3, step: 0.01 },
 };
 
