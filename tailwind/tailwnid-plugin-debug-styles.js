@@ -18,6 +18,8 @@ module.exports = plugin(
             //     '--b2': '215 28% 17%',
             // },
 
+            //https://codepen.io/t_afif/pen/OJQoybg Graph paper
+
             '.debug-dots *': { //https://daisyui.com/components/modal
                 // '--bc': '215 28% 17%',
                 // 'background-size': '10px 10px',

@@ -29,7 +29,7 @@ module.exports = {
     plugins: [
         require('./tailwind/tailwind-plugin-data-state'),
         require('./tailwind/tailwind-plugin-colors-bridge')({ prefix: '--tm-', groupName: 'primary' }),
-        require('./tailwind/tailwnd-plugin-debug-styles'),
+        require('./tailwind/tailwnid-plugin-debug-styles'),
         require('./tailwind/tailwind-plugin-range'),
         require('./tailwind/tailwind-plugin-overflow-overlay'),
         require('./tailwind/tailwind-plugin-debug-screens'),
