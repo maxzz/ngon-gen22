@@ -1,0 +1,10 @@
+<svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <defs>
+    <style>
+      .cls-2{fill:none;stroke:red;stroke-miterlimit:10;stroke-width:1.21px}
+    </style>
+  </defs>
+  <path fill="#e6e6e6" d="M0 0h24v24H0z"/>
+  <path class="cls-2" d="M15.34 6.35V4.74a2.8 2.8 0 0 0-2.81-2.81H4.82a2.8 2.8 0 0 0-2.81 2.81v7.71a2.8 2.8 0 0 0 2.81 2.81h1.71"/>
+  <path class="cls-2" d="M17.42 8.75h1.76a2.8 2.8 0 0 1 2.81 2.81v7.71a2.8 2.8 0 0 1-2.81 2.81h-7.71a2.8 2.8 0 0 1-2.81-2.81v-.81"/>
+</svg>
