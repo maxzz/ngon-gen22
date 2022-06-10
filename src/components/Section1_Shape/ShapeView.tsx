@@ -1,10 +1,11 @@
-import React, { HTMLAttributes } from "react";
+import React, { HTMLAttributes, useState } from "react";
 import { useAtomValue } from "jotai";
 import { editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
 import { generate, GeneratorResult, pointsToLines, separatePoints } from "@/store/ngon/generator";
 import { useDrag } from "@use-gesture/react";
 import { rnd2 } from "@/utils/numbers";
 import { NewShapeParams } from "@/store/ngon/shape";
+import { classNames } from "@/utils/classnames";
 
 const enum PointTyp {
     inner,
@@ -13,11 +14,32 @@ const enum PointTyp {
 }
 
 function PointOuter({ x, y }: { x: number; y: number; }) {
-    const bind = useDrag(({ down, movement: [mx, my] }) => {
-        console.log('delta', rnd2(mx), rnd2(my), 'x,y', x, y);
+    const [isDown, setIsDown] = useState(false);
+    const bind = useDrag(({ down, target, movement: [mx, my] }) => {
+        setIsDown(down);
+        
+        down && target && setTimeout(() => (target as SVGCircleElement).style.cursor = 'move', 0);
+
+        if (!mx && !my) {
+            return;
+        }
+
+        console.log('delta', rnd2(mx), rnd2(my), 'x,y', x, y, target);
     });
+    console.log('render');
+
     return (
-        <circle {...bind()} className="stroke-orange-500 fill-orange-500/40 touch-none" cx={x} cy={y} r=".3" />
+        <circle
+            className={classNames(
+                "stroke-orange-500 fill-orange-500/40 touch-none",
+                isDown ? "stroke-green-500 stroke-[.1]" : ""
+            )}
+            cx={x}
+            cy={y}
+            r={isDown ? '.5' : '.3'}
+            style={{ cursor: isDown ? 'crosshair' : 'default' }}
+            {...bind()}
+        />
     );
 }
 
