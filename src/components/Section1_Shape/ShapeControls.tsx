@@ -1,6 +1,5 @@
 import React, { HTMLAttributes } from "react";
-import { PrimitiveAtom, useAtom } from "jotai";
-import { useUpdateAtom } from "jotai/utils";
+import { PrimitiveAtom, useAtom, useSetAtom } from "jotai";
 import { editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
 import { NewShapeParams } from "@/store/ngon/shape";
 import { initalValueShapeParams, initialValueNewShapeParamsMeta } from "@/store/ngon/shape-defaults";
@@ -56,7 +55,7 @@ function Checkbox({ value, setValue }: { value: boolean; setValue: (v: boolean) 
         <input
             className={classNames(
                 "w-3 h-3 text-primary-400 rounded form-checkbox",
-                "outline-none focus:ring-1 ring-offset-1 ring-offset-primary-50 focus:ring-primary-700/50"
+                "outline-none focus:ring-1 ring-offset-1 ring-offset-primary-50 focus:ring-primary-700/50 cursor-pointer"
             )}
             type="checkbox"
             checked={value}
@@ -117,14 +116,14 @@ function ViewOptions() {
 }
 
 function ResetButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
-    const setShapeParams = useUpdateAtom(editorShapeParamsAtom);
+    const setShapeParams = useSetAtom(editorShapeParamsAtom);
     return (
         <input
             className={classNames(
                 "px-1 py-0.5 border-primary-400 border-dotted border rounded-sm shadow-sm",
                 "bg-primary-200 hover:bg-primary-300 focus:bg-primary-300",
                 "outline-none focus:ring-1 ring-offset-1 ring-offset-primary-50 ring-primary-700/50",
-                "active:scale-[.97]",
+                "active:scale-[.97] cursor-pointer",
                 className
             )}
             type="button"
@@ -187,7 +186,7 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
     });
 
     return (
-        <div className={classNames("px-2 py-4 text-xs bg-primary-200 flex flex-col space-y-2", className)} {...rest}>
+        <div className={classNames("px-2 py-4 text-xs bg-primary-200 flex flex-col space-y-2 cursor-default", className)} {...rest}>
 
             {/* <Separator label="Shape" /> */}
 
