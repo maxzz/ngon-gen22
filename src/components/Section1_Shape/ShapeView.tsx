@@ -3,11 +3,29 @@ import { useAtomValue } from "jotai";
 import { editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
 import { generate, pointsToLines, separatePoints } from "@/store/ngon/generator";
 
+const enum PointTyp {
+    inner,
+    outer,
+    start,
+}
+
+function PointOuter({ x, y }: { x: number; y: number; }) {
+    return (
+        <circle className="stroke-orange-500 fill-orange-500/40" cx={x} cy={y} r=".3" />
+    );
+}
+
+function PointInner({ x, y }: { x: number; y: number; }) {
+    return (
+        <circle className="stroke-blue-500 fill-blue-500/40" cx={x} cy={y} r=".3" />
+    );
+}
+
 export function ShapeView(props: HTMLAttributes<SVGSVGElement>) {
     const shapeParams = useAtomValue(editorShapeParamsAtom);
 
     const shape = generate(shapeParams);
-    const {outerPts, innerPts} = separatePoints(shape.points, shapeParams.innerN, shapeParams.swap);
+    const { outerPts, innerPts } = separatePoints(shape.points, shapeParams.innerN, shapeParams.swap);
 
     const outer = pointsToLines(outerPts, shapeParams.ofsX, shapeParams.ofsY);
     const inner = pointsToLines(innerPts, shapeParams.ofsX, shapeParams.ofsY);
@@ -23,28 +41,18 @@ export function ShapeView(props: HTMLAttributes<SVGSVGElement>) {
 
             <g className="stroke-[0.05]">
                 {/* Outer */}
-                {showOuterLines && (<>
-                    <path className="stroke-orange-500" strokeDasharray={'.2'} d={outer.join('')} />
-                </>)}
+                {showOuterLines && <path className="stroke-orange-500" strokeDasharray={'.2'} d={outer.join('')} />}
 
-                {showOuterDots && (<>
-                    {outerPts.map(([x, y], idx) => <circle className="stroke-orange-500 fill-orange-500/40" cx={x} cy={y} r=".3" key={idx} />)}
+                {showOuterDots && outerPts.map(([x, y], idx) => <PointOuter x={x} y={y} key={idx} />)}
 
-                    <circle className="stroke-primary-700" cx={shape.start.cx} cy={shape.start.cy} r=".5" />
-                </>)}
+                {showOuterDots && <circle className="stroke-primary-700" cx={shape.start.cx} cy={shape.start.cy} r=".5" />}
 
                 {/* Inner */}
-                {showInnerLines && (<>
-                    <path className="stroke-blue-500" strokeDasharray={'.2'} d={inner.join('')} />
-                </>)}
+                {showInnerLines && <path className="stroke-blue-500" strokeDasharray={'.2'} d={inner.join('')} />}
 
-                {showInnerDots && (<>
-                    {innerPts.map(([x, y], idx) => <circle className="stroke-blue-500 fill-blue-500/40" cx={x} cy={y} r=".3" key={idx} />)}
-                </>)}
+                {showInnerDots && innerPts.map(([x, y], idx) => <PointInner x={x} y={y} key={idx} />)}
 
-                {/* {showInnerDots && (
-                    <circle className="stroke-primary-500 fill-green-500" cx={shape.start.cx} cy={shape.start.cy} r=".3" />
-                )} */}
+                {/* {showInnerDots && <circle className="stroke-primary-500 fill-green-500" cx={shape.start.cx} cy={shape.start.cy} r=".3" />} */}
             </g>
         </svg>
     );
