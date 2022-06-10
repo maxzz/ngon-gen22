@@ -1,7 +1,10 @@
 import React, { HTMLAttributes } from "react";
 import { useAtomValue } from "jotai";
 import { editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
-import { generate, pointsToLines, separatePoints } from "@/store/ngon/generator";
+import { generate, GeneratorResult, pointsToLines, separatePoints } from "@/store/ngon/generator";
+import { useDrag } from "@use-gesture/react";
+import { rnd2 } from "@/utils/numbers";
+import { NewShapeParams } from "@/store/ngon/shape";
 
 const enum PointTyp {
     inner,
@@ -10,8 +13,11 @@ const enum PointTyp {
 }
 
 function PointOuter({ x, y }: { x: number; y: number; }) {
+    const bind = useDrag(({ down, movement: [mx, my] }) => {
+        console.log('delta', rnd2(mx), rnd2(my), 'x,y', x, y);
+    });
     return (
-        <circle className="stroke-orange-500 fill-orange-500/40" cx={x} cy={y} r=".3" />
+        <circle {...bind()} className="stroke-orange-500 fill-orange-500/40 touch-none" cx={x} cy={y} r=".3" />
     );
 }
 
@@ -21,10 +27,7 @@ function PointInner({ x, y }: { x: number; y: number; }) {
     );
 }
 
-export function ShapeView(props: HTMLAttributes<SVGSVGElement>) {
-    const shapeParams = useAtomValue(editorShapeParamsAtom);
-
-    const shape = generate(shapeParams);
+export function ViewHelpers({ shapeParams, shape }: { shapeParams: NewShapeParams; shape: GeneratorResult; }) {
     const { outerPts, innerPts } = separatePoints(shape.points, shapeParams.innerN, shapeParams.swap);
 
     const outer = pointsToLines(outerPts, shapeParams.ofsX, shapeParams.ofsY);
@@ -34,26 +37,32 @@ export function ShapeView(props: HTMLAttributes<SVGSVGElement>) {
     const showInnerLines = useAtomValue(viewboxOptionAtoms.showInnerLinesAtom);
     const showOuterDots = useAtomValue(viewboxOptionAtoms.showOuterDotsAtom);
     const showInnerDots = useAtomValue(viewboxOptionAtoms.showInnerDotsAtom);
+    return (
+        <g className="stroke-[0.05]">
+            {/* Outer */}
+            {showOuterLines && <path className="stroke-orange-500" strokeDasharray={'.2'} d={outer.join('')} />}
 
+            {showOuterDots && outerPts.map(([x, y], idx) => <PointOuter x={x} y={y} key={idx} />)}
+
+            {showOuterDots && <circle className="stroke-primary-700" cx={shape.start.cx} cy={shape.start.cy} r=".5" />}
+
+            {/* Inner */}
+            {showInnerLines && <path className="stroke-blue-500" strokeDasharray={'.2'} d={inner.join('')} />}
+
+            {showInnerDots && innerPts.map(([x, y], idx) => <PointInner x={x} y={y} key={idx} />)}
+
+            {/* {showInnerDots && <circle className="stroke-primary-500 fill-green-500" cx={shape.start.cx} cy={shape.start.cy} r=".3" />} */}
+        </g>
+    );
+}
+
+export function ShapeView(props: HTMLAttributes<SVGSVGElement>) {
+    const shapeParams = useAtomValue(editorShapeParamsAtom);
+    const shape = generate(shapeParams);
     return (
         <svg viewBox={`0 0 ${shapeParams.w} ${shapeParams.h}`} className="w-full h-full fill-transparent" {...props} preserveAspectRatio="none">
             <path className="stroke-primary-900" style={{ strokeWidth: shapeParams.stroke }} d={shape.d} />
-
-            <g className="stroke-[0.05]">
-                {/* Outer */}
-                {showOuterLines && <path className="stroke-orange-500" strokeDasharray={'.2'} d={outer.join('')} />}
-
-                {showOuterDots && outerPts.map(([x, y], idx) => <PointOuter x={x} y={y} key={idx} />)}
-
-                {showOuterDots && <circle className="stroke-primary-700" cx={shape.start.cx} cy={shape.start.cy} r=".5" />}
-
-                {/* Inner */}
-                {showInnerLines && <path className="stroke-blue-500" strokeDasharray={'.2'} d={inner.join('')} />}
-
-                {showInnerDots && innerPts.map(([x, y], idx) => <PointInner x={x} y={y} key={idx} />)}
-
-                {/* {showInnerDots && <circle className="stroke-primary-500 fill-green-500" cx={shape.start.cx} cy={shape.start.cy} r=".3" />} */}
-            </g>
+            <ViewHelpers shapeParams={shapeParams} shape={shape} />
         </svg>
     );
 }
