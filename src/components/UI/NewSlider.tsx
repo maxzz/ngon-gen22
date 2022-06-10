@@ -62,7 +62,7 @@ export function NewSlider({ label, title, min, max, step = .01, labelWidth = '4.
                     onKeyDown={onInputKey}
                 />
 
-                {linkWithNext && <IconLinked className="absolute -right-4 top-full w-7 h-7 z-10 fill-transparent stroke-primary-400 bg-orange-300" />}
+                {/* {linkWithNext && <IconLinked className="absolute -right-4 top-full w-7 h-7 z-10 fill-transparent stroke-primary-400 bg-orange-300" />} */}
             </div>
         </label>
     );
