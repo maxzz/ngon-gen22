@@ -116,7 +116,7 @@ function ViewOptions() {
     );
 }
 
-function ResetButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
+function ResetButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
     const setShapeParams = useUpdateAtom(editorShapeParamsAtom);
     return (
         <input
@@ -131,6 +131,21 @@ function ResetButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
             value="Reset" {...rest}
             onClick={() => setShapeParams(initalValueShapeParams())}
         />
+    );
+}
+
+function InfoButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
+    return (
+        <div className={classNames("flex items-center justify-end", className)} {...rest}>
+            <div className={classNames(
+                "flex items-center justify-center",
+                "p-1 w-4 h-4 border-primary-400 border-dotted border rounded-full shadow-sm",
+                "bg-primary-200 hover:bg-primary-300 focus:bg-primary-300",
+                "outline-none focus:ring-1 ring-offset-1 ring-offset-primary-50 ring-primary-700/50",
+                "active:scale-[.97]",
+                className
+            )}>?</div>
+        </div>
     );
 }
 
@@ -177,6 +192,7 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
     return (
         <div className={classNames("px-2 py-4 text-xs bg-primary-200 flex flex-col space-y-2", className)} {...rest}>
 
+            <InfoButton />
             {/* <Separator label="Shape" /> */}
 
             <div className="">
