@@ -134,15 +134,12 @@ function ResetButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
     );
 }
 
-function InfoButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
+function HintButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className={classNames("flex items-center justify-end", className)} {...rest}>
+        <div className={classNames("flex items-end", className)} {...rest}>
             <div className={classNames(
+                "w-4 h-4 text-primary-500 bg-primary-200 border-primary-500 border-dotted border rounded-md shadow-sm select-none cursor-default",
                 "flex items-center justify-center",
-                "p-1 w-4 h-4 border-primary-400 border-dotted border rounded-full shadow-sm",
-                "bg-primary-200 hover:bg-primary-300 focus:bg-primary-300",
-                "outline-none focus:ring-1 ring-offset-1 ring-offset-primary-50 ring-primary-700/50",
-                "active:scale-[.97]",
                 className
             )}>?</div>
         </div>
@@ -192,7 +189,6 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
     return (
         <div className={classNames("px-2 py-4 text-xs bg-primary-200 flex flex-col space-y-2", className)} {...rest}>
 
-            <InfoButton />
             {/* <Separator label="Shape" /> */}
 
             <div className="">
@@ -205,12 +201,15 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 {sceneControls}
             </div>
 
-            <div className="self-end pr-3 flex flex-col items-end space-y-2">
-                <ViewBoxSize />
-                <ResetButton />
-                <ViewOptions />
-                <SwapCheckbox />
-                {/* className="self-end" */}
+            <div className="flex justify-between">
+                <HintButton />
+                <div className="self-end pr-3 flex flex-col items-end space-y-2">
+                    <ViewBoxSize />
+                    <ResetButton />
+                    <ViewOptions />
+                    <SwapCheckbox />
+                    {/* className="self-end" */}
+                </div>
             </div>
         </div>
     );
