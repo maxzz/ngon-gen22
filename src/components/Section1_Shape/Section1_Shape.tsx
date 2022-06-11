@@ -15,11 +15,30 @@ function ShapeViewContainer() {
     );
 }
 
+function ShapeViewText() {
+    return (
+        <div className="px-2 py-1 h-32 text-xs bg-primary-100 border-primary-300 border overflow-hidden" style={{ ...previewBoxShadow }}>
+            <div className="h-full overflow-overlay">
+                <div className="pr-4">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam corporis eaque fuga, repellendus excepturi facere modi laboriosam ducimus? Omnis vero voluptatem in sunt id unde accusantium cupiditate doloribus vitae voluptatibus.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam corporis eaque fuga, repellendus excepturi facere modi laboriosam ducimus? Omnis vero voluptatem in sunt id unde accusantium cupiditate doloribus vitae voluptatibus.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam corporis eaque fuga, repellendus excepturi facere modi laboriosam ducimus? Omnis vero voluptatem in sunt id unde accusantium cupiditate doloribus vitae voluptatibus.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam corporis eaque fuga, repellendus excepturi facere modi laboriosam ducimus? Omnis vero voluptatem in sunt id unde accusantium cupiditate doloribus vitae voluptatibus.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam corporis eaque fuga, repellendus excepturi facere modi laboriosam ducimus? Omnis vero voluptatem in sunt id unde accusantium cupiditate doloribus vitae voluptatibus.
+                </div>
+            </div>
+        </div>
+    );
+}
+
 export function Section1_Shape() {
     return (
         <div className="grid grid-cols-[minmax(0,1fr),auto] gap-4">
             <ShapeViewContainer />
-            <ShapeControls className="border-primary-300 border " style={previewBoxShadow} />
+            <ShapeControls className="border-primary-300 border" style={previewBoxShadow} />
+            <div className="col-span-full">
+                <ShapeViewText />
+            </div>
         </div>
     );
 }
