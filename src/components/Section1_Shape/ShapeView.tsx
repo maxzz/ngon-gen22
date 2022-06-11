@@ -18,7 +18,7 @@ function PointOuter({ x, y }: { x: number; y: number; }) {
     const bind = useDrag(({ down, target, movement: [mx, my] }) => {
         setIsDown(down);
         
-        down && target && setTimeout(() => (target as SVGCircleElement).style.cursor = 'move', 0);
+        //down && target && setTimeout(() => (target as SVGCircleElement).style.cursor = 'move', 0);
 
         if (!mx && !my) {
             return;
@@ -32,12 +32,14 @@ function PointOuter({ x, y }: { x: number; y: number; }) {
         <circle
             className={classNames(
                 "stroke-orange-500 fill-orange-500/40 touch-none",
+                //"hover:cursor-crosshair",
+                "hover:cursor-tm-move",
                 isDown ? "stroke-green-500 stroke-[.1]" : ""
             )}
             cx={x}
             cy={y}
             r={isDown ? '.5' : '.3'}
-            style={{ cursor: isDown ? 'crosshair' : 'default' }}
+            //style={{ cursor: isDown ? 'crosshair' : 'default' }}
             {...bind()}
         />
     );

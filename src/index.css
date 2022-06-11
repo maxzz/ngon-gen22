@@ -25,3 +25,9 @@
         @apply flex items-center justify-center;
     }
 }
+
+@layer components {
+    .cursor-tm-move {
+        cursor: url("./assets/cursors/tm-move.svg") 0 0, auto;
+    }
+}
