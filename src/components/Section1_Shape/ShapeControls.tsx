@@ -82,10 +82,10 @@ function SwapCheckbox() {
     );
 }
 
-function ViewOptions() {
+function ViewOptions({ swap }: { swap: boolean | undefined; }) {
     return (
         <div className="grid grid-cols-[auto,auto,1fr] gap-x-1">
-            <div className="place-self-center w-2 h-2 bg-orange-500/50 rounded-full"></div>
+            <div className={classNames("place-self-center w-2 h-2 rounded-full", swap? "bg-blue-500/50": "bg-orange-500/50")}></div>
             <div className="">Show outer:</div>
 
             <div className="flex items-center space-x-2">
@@ -99,7 +99,7 @@ function ViewOptions() {
                 </label>
             </div>
 
-            <div className="place-self-center w-2 h-2 bg-blue-500/50 rounded-full"></div>
+            <div className={classNames("place-self-center w-2 h-2 rounded-full", swap? "bg-orange-500/50": "bg-blue-500/50")}></div>
             <div className="">Show inner:</div>
 
             <div className="flex items-center space-x-2">
@@ -184,9 +184,9 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
 
     //const fn = debounce(setShapeParams, 100);
     //const fn = debounce(setShapeParams, 100);
-    // const fn = useCallback(debounce(setShapeParams, 100), []);
+    const fn = useCallback(debounce(setShapeParams, 100), []);
     //const fn = useCallback(() => debounce(setShapeParams, 500), []);
-    const fn = setShapeParams;
+    // const fn = setShapeParams;
 
     return (
         <div className={classNames("px-2 py-4 text-xs bg-primary-200 flex flex-col space-y-2 cursor-default", className)} {...rest}>
@@ -211,7 +211,7 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 <div className="self-end pr-3 flex flex-col items-end space-y-2">
                     <ViewBoxSize />
                     <ResetButton />
-                    <ViewOptions />
+                    <ViewOptions swap={shapeParams.swap} />
                     <SwapCheckbox />
                     {/* className="self-end" */}
                 </div>
