@@ -26,12 +26,12 @@ export type GeneratorResult = {
 };
 
 function isInnerPoint(idx: number, innerN: number, swap?: boolean): boolean {
-    const v= idx % innerN !== 0;
+    const v = idx % innerN !== 0;
     return swap ? !v : v;
 }
 
 function isOuterPoint(idx: number, innerN: number, swap?: boolean): boolean {
-    const v= idx % innerN === 0;
+    const v = idx % innerN === 0;
     return swap ? !v : v;
 }
 
@@ -59,18 +59,18 @@ export function generate(params: NewShapeParams): GeneratorResult {
     points = points.map(([x, y]) => [rnd2(x), rnd2(y)]);
 
     // generate line
-    let d = `M${points[0][0]},${points[0][1]}` +
+    let d = points.length ? `M${points[0][0]},${points[0][1]}` +
         points.map(([x, y], index) => {
             return !index ? '' : `L${x},${y}`;
         }).join('') +
-        `z`;
+        `z` : '';
 
     return {
         d,
         points,
         start: {
-            cx: points[0][0],
-            cy: points[0][1],
+            cx: points[0]?.[0] || 0,
+            cy: points[0]?.[1] || 0,
         },
         center: {
             x: params.w / 2,

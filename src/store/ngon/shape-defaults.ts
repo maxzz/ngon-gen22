@@ -37,8 +37,8 @@ export function initalValueShapeParams(/*stored?: string*/): NewShapeParams {
 }
 
 export const initialValueNewShapeParamsMeta: NewShapeParamsMeta = {
-    outerN: { label: 'outer points', min: 1, max: 100, step: 1, digits: 0, },
-    innerN: { label: 'inner lines', min: 1, max: 100, step: 1, digits: 0, hint: 'divide a line between two outer points into n lines' },
+    outerN: { label: 'outer points', min: 1, max: 50, step: 1, digits: 0, },
+    innerN: { label: 'inner lines', min: 1, max: 10, step: 1, digits: 0, hint: 'divide a line between two outer points into n lines' },
     outerX: { label: 'outer X', min: -100, max: 100, step: 0.01, linkKey: 'outerY', link: true, },
     outerY: { label: 'outer Y', min: -100, max: 100, step: 0.01, linkKey: 'outerX' },
     innerX: { label: 'inner X', min: -100, max: 100, step: 0.01, linkKey: 'innerY', link: true, },
