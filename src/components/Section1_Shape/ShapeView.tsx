@@ -1,34 +1,31 @@
 import React, { HTMLAttributes, useState } from "react";
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
 import { generate, GeneratorResult, pointsToLines, separatePoints } from "@/store/ngon/generator";
 import { useDrag } from "@use-gesture/react";
-import { rnd2 } from "@/utils/numbers";
 import { NewShapeParams } from "@/store/ngon/shape";
 import { classNames } from "@/utils/classnames";
+import { rnd2 } from "@/utils/numbers";
 
-const enum PointTyp {
+const enum PointType {
     inner,
     outer,
-    start,
+    //start,
 }
 
-function Point({ x, y, keyX, keyY }: { x: number; y: number; keyX: keyof NewShapeParams; keyY: keyof NewShapeParams; }) {
+function Point({ x, y, pointType }: { x: number; y: number; pointType: PointType }) {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
+
+    const isOuter = pointType === PointType.outer;
+    const keyX: keyof NewShapeParams = isOuter ? "outerX" : "innerX";
+    const keyY: keyof NewShapeParams = isOuter ? "outerY" : "innerY";
 
     const [isDown, setIsDown] = useState(false);
     const bind = useDrag(({ down, movement: [mx, my], memo = { x: shapeParams[keyX], y: shapeParams[keyY] } }) => {
         setIsDown(down);
-
-        if (!mx && !my) {
-            return;
-        }
-
-        setShapeParams((p) => ({ ...p, [keyX]: memo.x + mx, [keyY]: memo.y + my }));
-
+        (mx || my) && setShapeParams((p) => ({ ...p, [keyX]: rnd2(memo.x + mx), [keyY]: rnd2(memo.y + my) }));
         return memo;
     });
-    const isOuter = keyX === 'outerX';
 
     return (
         <circle
@@ -37,10 +34,7 @@ function Point({ x, y, keyX, keyY }: { x: number; y: number; keyX: keyof NewShap
                 isOuter ? "stroke-orange-500 fill-orange-500/40" : "stroke-blue-500 fill-blue-500/40",
                 isDown && "stroke-green-500 stroke-[.1]",
             )}
-            cx={x}
-            cy={y}
-            r={isDown ? '.5' : '.3'}
-            {...bind()}
+            cx={x} cy={y} r={isDown ? '.5' : '.3'} {...bind()}
         />
     );
 }
@@ -62,12 +56,12 @@ export function ViewHelpers({ shapeParams, shape }: { shapeParams: NewShapeParam
 
             {showOuterDots && <circle className="stroke-primary-700" cx={shape.start.cx} cy={shape.start.cy} r=".5" />}
 
-            {showOuterDots && outerPts.map(([x, y], idx) => <Point x={x} y={y} keyX={'outerX'} keyY={'outerY'} key={idx} />)}
+            {showOuterDots && outerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.outer} key={idx} />)}
 
             {/* Inner */}
             {showInnerLines && <path className="stroke-blue-500" strokeDasharray={'.2'} d={inner.join('')} />}
 
-            {showInnerDots && innerPts.map(([x, y], idx) => <Point x={x} y={y} keyX={'innerX'} keyY={'innerY'} key={idx} />)}
+            {showInnerDots && innerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.inner} key={idx} />)}
 
             {/* {showInnerDots && <circle className="stroke-primary-500 fill-green-500" cx={shape.start.cx} cy={shape.start.cy} r=".3" />} */}
         </g>
