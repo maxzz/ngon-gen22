@@ -21,39 +21,33 @@ function fn2(a: number, b: number) {
     return `${a}`.padStart(6, ' ') + ', ' + `${b}`.padEnd(6, ' ');
 }
 
-function PointOuter({ x, y }: { x: number; y: number; }) {
-    // const setShapeParams = useSetAtom(editorShapeParamsAtom);
+function PointOuter({ x, y, keyX, keyY }: { x: number; y: number; keyX: keyof NewShapeParams; keyY: keyof NewShapeParams; }) {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
 
     const [isDown, setIsDown] = useState(false);
-    const bind = useDrag(({ down, movement: [mx, my], memo = { x: shapeParams.outerX, y: shapeParams.outerY } }) => {
+    const bind = useDrag(({ down, movement: [mx, my], memo = { x: shapeParams[keyX], y: shapeParams[keyY] } }) => {
         setIsDown(down);
 
         if (!mx && !my) {
             return;
         }
 
-        // setShapeParams((p) => ({ ...p, outerX: p.outerX + mx, outerY: p.outerX + my }));
-        setShapeParams((p) => ({ ...p, outerX: memo.x + mx, outerY: memo.y + my }));
-
-        console.log('delta', fn2(rnd2(mx), rnd2(my)), 'x,y', fn2(x, y), 'memo: ', fn2(memo.x, memo.y));
+        setShapeParams((p) => ({ ...p, [keyX]: memo.x + mx, [keyY]: memo.y + my }));
 
         return memo;
     });
-    isDown && console.log('render', 'x,y', fn2(x, y));
+    const isOuter = keyX === 'outerX';
 
     return (
         <circle
             className={classNames(
-                "stroke-orange-500 fill-orange-500/40 touch-none",
-                //"hover:cursor-crosshair",
-                "hover:cursor-tm-move",
-                isDown ? "stroke-green-500 stroke-[.1]" : ""
+                "touch-none hover:cursor-tm-move",
+                isOuter ? "stroke-orange-500 fill-orange-500/40" : "stroke-blue-500 fill-blue-500/40",
+                isDown && "stroke-green-500 stroke-[.1]",
             )}
             cx={x}
             cy={y}
             r={isDown ? '.5' : '.3'}
-            //style={{ cursor: isDown ? 'crosshair' : 'default' }}
             {...bind()}
         />
     );
@@ -80,14 +74,14 @@ export function ViewHelpers({ shapeParams, shape }: { shapeParams: NewShapeParam
             {/* Outer */}
             {showOuterLines && <path className="stroke-orange-500" strokeDasharray={'.2'} d={outer.join('')} />}
 
-            {showOuterDots && outerPts.map(([x, y], idx) => <PointOuter x={x} y={y} key={idx} />)}
-
             {showOuterDots && <circle className="stroke-primary-700" cx={shape.start.cx} cy={shape.start.cy} r=".5" />}
+            {showOuterDots && outerPts.map(([x, y], idx) => <PointOuter x={x} y={y} keyX={'outerX'} keyY={'outerY'} key={idx} />)}
 
             {/* Inner */}
             {showInnerLines && <path className="stroke-blue-500" strokeDasharray={'.2'} d={inner.join('')} />}
 
-            {showInnerDots && innerPts.map(([x, y], idx) => <PointInner x={x} y={y} key={idx} />)}
+            {/* {showInnerDots && innerPts.map(([x, y], idx) => <PointInner x={x} y={y} key={idx} />)} */}
+            {showInnerDots && innerPts.map(([x, y], idx) => <PointOuter x={x} y={y} keyX={'innerX'} keyY={'innerY'} key={idx} />)}
 
             {/* {showInnerDots && <circle className="stroke-primary-500 fill-green-500" cx={shape.start.cx} cy={shape.start.cy} r=".3" />} */}
         </g>
