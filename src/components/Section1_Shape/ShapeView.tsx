@@ -30,7 +30,8 @@ function Point({ x, y, pointType }: { x: number; y: number; pointType: PointType
     return (
         <circle
             className={classNames(
-                "touch-none hover:cursor-tm-move",
+                // "touch-none hover:cursor-tm-move",
+                "touch-none hover:cursor-tm-move2",
                 isOuter ? "stroke-orange-500 fill-orange-500/40" : "stroke-blue-500 fill-blue-500/40",
                 isDown && "stroke-green-500 stroke-[.1]",
             )}

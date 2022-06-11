@@ -18,7 +18,7 @@ export function IconGithubLogo({ title, ...rest }: SVGProps<SVGSVGElement> & HTM
     );
 }
 
-export function IconLinkedNo({ title, ...rest }: SVGProps<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
+function IconLinkedNo({ title, ...rest }: SVGProps<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
         <svg viewBox="0 0 24 24" {...rest}>
             {title && <title>{title}</title>}
@@ -28,7 +28,7 @@ export function IconLinkedNo({ title, ...rest }: SVGProps<SVGSVGElement> & HTMLA
     );
 }
 
-export function IconLinkedOrg({ title, ...rest }: SVGProps<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
+function IconLinkedOrg({ title, ...rest }: SVGProps<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
         <svg viewBox="0 0 24 24" {...rest}>
             {title && <title>{title}</title>}
@@ -38,7 +38,7 @@ export function IconLinkedOrg({ title, ...rest }: SVGProps<SVGSVGElement> & HTML
     );
 }
 
-export function IconLinked({ title, ...rest }: SVGProps<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
+function IconLinked({ title, ...rest }: SVGProps<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
         <svg viewBox="0 0 24 24" {...rest}>
             {title && <title>{title}</title>}
@@ -55,7 +55,7 @@ export function IconLinked({ title, ...rest }: SVGProps<SVGSVGElement> & HTMLAtt
     );
 }
 
-export function IconLinkedRotated({ title, ...rest }: SVGProps<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
+function IconLinkedRotated({ title, ...rest }: SVGProps<SVGSVGElement> & HTMLAttributes<SVGSVGElement>) {
     return (
         <svg viewBox="0 0 24 24" {...rest}>
             {title && <title>{title}</title>}
