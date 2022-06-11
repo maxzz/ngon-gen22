@@ -13,7 +13,7 @@ const enum PointType {
     //start,
 }
 
-function Point({ x, y, pointType }: { x: number; y: number; pointType: PointType }) {
+function Point({ x, y, pointType, showDots }: { x: number; y: number; pointType: PointType; showDots: boolean; }) {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
 
     const isOuter = pointType === PointType.outer;
@@ -31,7 +31,7 @@ function Point({ x, y, pointType }: { x: number; y: number; pointType: PointType
         <circle
             className={classNames(
                 "touch-none hover:cursor-tm-move",
-                isOuter ? "stroke-orange-500 fill-orange-500/40" : "stroke-blue-500 fill-blue-500/40",
+                !showDots ? "" : isOuter ? "stroke-orange-500 fill-orange-500/40" : "stroke-blue-500 fill-blue-500/40",
                 isDown && "stroke-green-500 stroke-[.1]",
             )}
             cx={x} cy={y} r={isDown ? '.5' : '.3'} {...bind()}
@@ -56,12 +56,14 @@ export function ViewHelpers({ shapeParams, shape }: { shapeParams: NewShapeParam
 
             {showOuterDots && <circle className="stroke-primary-700" cx={shape.start.cx} cy={shape.start.cy} r=".5" />}
 
-            {showOuterDots && outerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.outer} key={idx} />)}
+            {/* {showOuterDots && outerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.outer} key={idx} />)} */}
+            {outerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.outer} key={idx} showDots={showOuterDots} />)}
 
             {/* Inner */}
             {showInnerLines && <path className="stroke-blue-500" strokeDasharray={'.2'} d={inner.join('')} />}
 
-            {showInnerDots && innerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.inner} key={idx} />)}
+            {/* {showInnerDots && innerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.inner} key={idx} />)} */}
+            {innerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.inner} key={idx} showDots={showInnerDots} />)}
 
             {/* {showInnerDots && <circle className="stroke-primary-500 fill-green-500" cx={shape.start.cx} cy={shape.start.cy} r=".3" />} */}
         </g>
