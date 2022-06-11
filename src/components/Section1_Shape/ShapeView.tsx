@@ -13,15 +13,7 @@ const enum PointTyp {
     start,
 }
 
-function fn(n: number) {
-    return `${n}`.padStart(6, ' ');
-}
-
-function fn2(a: number, b: number) {
-    return `${a}`.padStart(6, ' ') + ', ' + `${b}`.padEnd(6, ' ');
-}
-
-function PointOuter({ x, y, keyX, keyY }: { x: number; y: number; keyX: keyof NewShapeParams; keyY: keyof NewShapeParams; }) {
+function Point({ x, y, keyX, keyY }: { x: number; y: number; keyX: keyof NewShapeParams; keyY: keyof NewShapeParams; }) {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
 
     const [isDown, setIsDown] = useState(false);
@@ -53,12 +45,6 @@ function PointOuter({ x, y, keyX, keyY }: { x: number; y: number; keyX: keyof Ne
     );
 }
 
-function PointInner({ x, y }: { x: number; y: number; }) {
-    return (
-        <circle className="stroke-blue-500 fill-blue-500/40" cx={x} cy={y} r=".3" />
-    );
-}
-
 export function ViewHelpers({ shapeParams, shape }: { shapeParams: NewShapeParams; shape: GeneratorResult; }) {
     const { outerPts, innerPts } = separatePoints(shape.points, shapeParams.innerN, shapeParams.swap);
 
@@ -75,13 +61,13 @@ export function ViewHelpers({ shapeParams, shape }: { shapeParams: NewShapeParam
             {showOuterLines && <path className="stroke-orange-500" strokeDasharray={'.2'} d={outer.join('')} />}
 
             {showOuterDots && <circle className="stroke-primary-700" cx={shape.start.cx} cy={shape.start.cy} r=".5" />}
-            {showOuterDots && outerPts.map(([x, y], idx) => <PointOuter x={x} y={y} keyX={'outerX'} keyY={'outerY'} key={idx} />)}
+
+            {showOuterDots && outerPts.map(([x, y], idx) => <Point x={x} y={y} keyX={'outerX'} keyY={'outerY'} key={idx} />)}
 
             {/* Inner */}
             {showInnerLines && <path className="stroke-blue-500" strokeDasharray={'.2'} d={inner.join('')} />}
 
-            {/* {showInnerDots && innerPts.map(([x, y], idx) => <PointInner x={x} y={y} key={idx} />)} */}
-            {showInnerDots && innerPts.map(([x, y], idx) => <PointOuter x={x} y={y} keyX={'innerX'} keyY={'innerY'} key={idx} />)}
+            {showInnerDots && innerPts.map(([x, y], idx) => <Point x={x} y={y} keyX={'innerX'} keyY={'innerY'} key={idx} />)}
 
             {/* {showInnerDots && <circle className="stroke-primary-500 fill-green-500" cx={shape.start.cx} cy={shape.start.cy} r=".3" />} */}
         </g>
