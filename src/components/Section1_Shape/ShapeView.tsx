@@ -56,13 +56,11 @@ export function ViewHelpers({ shapeParams, shape }: { shapeParams: NewShapeParam
 
             {showOuterDots && <circle className="stroke-primary-700" cx={shape.start.cx} cy={shape.start.cy} r=".5" />}
 
-            {/* {showOuterDots && outerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.outer} key={idx} />)} */}
             {outerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.outer} key={idx} showDots={showOuterDots} />)}
 
             {/* Inner */}
             {showInnerLines && <path className="stroke-blue-500" strokeDasharray={'.2'} d={inner.join('')} />}
 
-            {/* {showInnerDots && innerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.inner} key={idx} />)} */}
             {innerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.inner} key={idx} showDots={showInnerDots} />)}
 
             {/* {showInnerDots && <circle className="stroke-primary-500 fill-green-500" cx={shape.start.cx} cy={shape.start.cy} r=".3" />} */}
