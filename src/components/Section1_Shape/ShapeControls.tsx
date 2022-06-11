@@ -149,8 +149,6 @@ function HintButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
 type NewShapeParamsNumbers = Omit<NewShapeParams, 'id' | 'genId' | 'swap'>;
 
 function GroupControls({ members, setShapeParams }: { members: Partial<NewShapeParamsNumbers>; setShapeParams: (update: SetStateAction<NewShapeParams>) => void; }) {
-    // useEffect(() => {
-    // }, []);
     const shapeControls = Object.entries(members).map(([key, val]) => {
         const meta = initialValueNewShapeParamsMeta[key as keyof NewShapeParamsNumbers];
         return meta && (
@@ -160,12 +158,7 @@ function GroupControls({ members, setShapeParams }: { members: Partial<NewShapeP
                 max={meta.max}
                 step={meta.step}
                 linkWithNext={meta.link}
-                // onChange={(value) => setShapeParams((p) => ({ ...p, [key]: meta.digits === 0 ? Math.floor(value) : value }))}
-                onChange={(value) => setShapeParams((p) => {
-                    console.log('change', meta.digits === 0 ? Math.floor(value) : value);
-
-                    return { ...p, [key]: meta.digits === 0 ? Math.floor(value) : value };
-                })}
+                onChange={(value) => setShapeParams((p) => ({ ...p, [key]: meta.digits === 0 ? Math.floor(value) : value }))}
                 value={val}
                 key={key}
                 title={meta.hint}
@@ -182,11 +175,7 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
     const shapeMembers = { outerN, innerN, outerX, outerY, innerX, innerY, stroke, };
     const sceneMembers = { w, h, ofsX, ofsY, scale, };
 
-    //const fn = debounce(setShapeParams, 100);
-    //const fn = debounce(setShapeParams, 100);
-    const fn = useCallback(debounce(setShapeParams, 100), []);
-    //const fn = useCallback(() => debounce(setShapeParams, 500), []);
-    // const fn = setShapeParams;
+    const bouncedSet = useCallback(debounce(setShapeParams, 100), []);
 
     return (
         <div className={classNames("px-2 py-4 text-xs bg-primary-200 flex flex-col space-y-2 cursor-default", className)} {...rest}>
@@ -194,16 +183,13 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
             {/* <Separator label="Shape" /> */}
 
             <div className="">
-                {/* {shapeControls} */}
-                {/* <GroupControls members={shapeMembers} setShapeParams={setShapeParams} /> */}
-                <GroupControls members={shapeMembers} setShapeParams={fn} />
+                <GroupControls members={shapeMembers} setShapeParams={bouncedSet} />
             </div>
 
             <Separator label="Box" />
 
             <div className="">
-                {/* {sceneControls} */}
-                <GroupControls members={sceneMembers} setShapeParams={setShapeParams} />
+                <GroupControls members={sceneMembers} setShapeParams={bouncedSet} />
             </div>
 
             <div className="flex justify-between">
@@ -213,7 +199,6 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                     <ResetButton />
                     <ViewOptions swap={shapeParams.swap} />
                     <SwapCheckbox />
-                    {/* className="self-end" */}
                 </div>
             </div>
         </div>
