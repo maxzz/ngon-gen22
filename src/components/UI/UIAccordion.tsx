@@ -1,50 +1,22 @@
 import React, { useState } from 'react';
 import { useMeasure } from 'react-use';
 import { a, config, useSpring } from '@react-spring/web';
-
-function disableHiddenChildren(open: boolean, element: HTMLElement | null | undefined) {
-    if (!element) return;
-
-    const inputs = [...(element.querySelectorAll('input'))];
-    if (open) {
-        inputs.forEach((item) => {
-            item.removeAttribute('disabled');
-        });
-    } else {
-        inputs.forEach((item) => {
-            item.setAttribute('disabled', 'true');
-        });
-    }
-    
-    console.log('222', open, element);
-}
+import { disableHiddenChildren } from '@/utils/disableHiddenChildren';
 
 export function UIAccordion({ open, children }: { open: boolean, children: React.ReactNode; }) {
-    const [ref, { height, top }] = useMeasure<HTMLDivElement>();
-    const [el, setEl] = useState<HTMLDivElement>();
+    const [refFn, { height, top }] = useMeasure<HTMLDivElement>();
+    const [refEl, setEl] = useState<HTMLDivElement>();
     const [firstRun, setFirstRun] = React.useState(true);
     const animation = useSpring({
         overflow: "hidden",
         height: open ? height + top : 0,
-        ena: (() => {
-            const inputs = el ? [...(el.querySelectorAll('input'))] : [];
-            if (open) {
-                inputs.forEach((item) => {
-                    item.removeAttribute('disabled');
-                });
-            } else {
-                inputs.forEach((item) => {
-                    item.setAttribute('disabled', 'true');
-                });
-            }
-            console.log('111', open, el);
-        })(),
+        ena: disableHiddenChildren(open, refEl),
         config: firstRun ? { duration: 0 } : { mass: 0.2, tension: 492, clamp: true },
         onRest: () => firstRun && setFirstRun(false),
     });
     return (
         <a.div style={animation}>
-            <div ref={(el) => { el && (setEl(el), ref(el)); }}>
+            <div ref={(el) => { el && (setEl(el), refFn(el)); }}>
                 {children}
             </div>
         </a.div>
