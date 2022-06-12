@@ -83,21 +83,16 @@ function ShowAllCheckbox() { //TODO: make it dropdown
     );
 }
 
-function ShowAllSection({ title, children }: { title: React.ReactNode; children: React.ReactNode; }) {
+function ShowAllSection({ label, children }: { label: React.ReactNode; children: React.ReactNode; } & HTMLAttributes<HTMLDivElement>) {
     const [open, setOpen] = useAtom(viewboxOptionAtoms.showAllAtom);
-    return (
-        <div>
-            <div
-                className="pl-4 px-2 py-2 bg-title4 text-stone-100 uppercase rounded flex items-center justify-between select-none cursor-pointer font-ui"
-                onClick={() => setOpen(v => !v)}
-            >
-                {title}
-            </div>
-            <UIAccordion toggle={open}>
-                {children}
-            </UIAccordion>
+    return (<>
+        <div onClick={() => setOpen(v => !v)}>
+            {label}
         </div>
-    );
+        <UIAccordion toggle={open}>
+            {children}
+        </UIAccordion>
+    </>);
 }
 
 function SwapCheckbox() {
@@ -220,20 +215,27 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 <GroupControls members={sceneMembers} setShapeParams={bouncedSet} />
             </div>
 
-            <div className="flex justify-between">
+            <div className="grid grid-cols-[min-content,1fr]">
                 <HintButton />
-                <div className="self-end pr-3 flex flex-col items-end space-y-2">
+
+                <div className="pr-3 flex flex-col items-end space-y-2">
                     <ViewBoxSize />
                     <ResetButton />
+                </div>
 
-                    <ShowAllSection title="Gadgets">
-                        {/* <ShowAllCheckbox /> */}
-
-                        <ViewOptions swap={shapeParams.swap} />
-                        <SwapCheckbox />
+                <div className="col-span-full">
+                    <ShowAllSection label={<Separator label="gadgets" />}>
+                        <div className="flex flex-col items-end">
+                            <ViewOptions swap={shapeParams.swap} />
+                        </div>
                     </ShowAllSection>
+                    <div className="flex flex-col items-end">
+                        <SwapCheckbox />
+                    </div>
+
                 </div>
             </div>
+
         </div>
     );
 }
