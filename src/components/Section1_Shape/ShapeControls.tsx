@@ -98,7 +98,7 @@ function ShowAllSection({ children }: { children: React.ReactNode; } & HTMLAttri
             }
             onClick={() => setOpen(v => !v)}
         />
-        <UIAccordion toggle={open}>
+        <UIAccordion open={open}>
             {children}
         </UIAccordion>
     </>);

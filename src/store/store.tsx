@@ -122,8 +122,6 @@ export const editorShapeAtom = atom(
     (get) => {
         const params = get(editorShapeParamsAtom);
         const shape = generate(params);
-        console.log('generate');
-
         return shape;
     }
 );

@@ -1,24 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useMeasure } from 'react-use';
 import { a, config, useSpring } from '@react-spring/web';
 
-export function UIAccordion({ toggle, children }: { toggle: boolean, children: React.ReactNode; }) {
+function disableHiddenChildren(open: boolean, element: HTMLElement | null | undefined) {
+    if (!element) return;
+
+    const inputs = [...(element.querySelectorAll('input'))];
+    if (open) {
+        inputs.forEach((item) => {
+            item.removeAttribute('disabled');
+        });
+    } else {
+        inputs.forEach((item) => {
+            item.setAttribute('disabled', 'true');
+        });
+    }
+    
+    console.log('222', open, element);
+}
+
+export function UIAccordion({ open, children }: { open: boolean, children: React.ReactNode; }) {
     const [ref, { height, top }] = useMeasure<HTMLDivElement>();
+    const [el, setEl] = useState<HTMLDivElement>();
     const [firstRun, setFirstRun] = React.useState(true);
     const animation = useSpring({
         overflow: "hidden",
-        height: toggle ? height + top : 0,
+        height: open ? height + top : 0,
+        ena: (() => {
+            const inputs = el ? [...(el.querySelectorAll('input'))] : [];
+            if (open) {
+                inputs.forEach((item) => {
+                    item.removeAttribute('disabled');
+                });
+            } else {
+                inputs.forEach((item) => {
+                    item.setAttribute('disabled', 'true');
+                });
+            }
+            console.log('111', open, el);
+        })(),
         config: firstRun ? { duration: 0 } : { mass: 0.2, tension: 492, clamp: true },
         onRest: () => firstRun && setFirstRun(false),
     });
     return (
-        <div>
-            <a.div style={animation}>
-                <div ref={ref}>
-                    {children}
-                </div>
-            </a.div>
-        </div>
+        <a.div style={animation}>
+            <div ref={(el) => { el && (setEl(el), ref(el)); }}>
+                {children}
+            </div>
+        </a.div>
     );
 }
 

@@ -1,7 +1,7 @@
 import { HTMLAttributes } from 'react';
 import { useAtomValue } from 'jotai';
 import { editorShapeAtom, editorShapeParamsAtom } from '@/store/store';
-import { generateSvg, pointsToLines } from '@/store/ngon/generator';
+import { generateSvg, } from '@/store/ngon/generator';
 import { a, easings, useSpring } from '@react-spring/web';
 import { ShapeView } from './ShapeView';
 import { ShapeControls } from './ShapeControls';
@@ -39,8 +39,7 @@ function SaveButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
 function ShapeViewText() {
     const shapeParams = useAtomValue(editorShapeParamsAtom);
     const shape = useAtomValue(editorShapeAtom);
-    const path = pointsToLines(shape.points, shape.center.x, shape.center.y);
-    const generated = generateSvg(path.join(''), shapeParams.w, shapeParams.h, shapeParams.stroke);
+    const generated = generateSvg(shape.d, shapeParams.w, shapeParams.h, shapeParams.stroke);
     return (
         <div className="px-2 py-1 h-32 text-xs bg-primary-100 border-primary-300 border overflow-hidden" style={{ ...previewBoxShadow }}>
 

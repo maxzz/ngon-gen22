@@ -16,7 +16,7 @@ export function UISection({ title, children, openAtom }: { title: React.ReactNod
             >
                 {title}
             </UISectionPane>
-            <UIAccordion toggle={open}>
+            <UIAccordion open={open}>
                 {children}
             </UIAccordion>
         </div>
