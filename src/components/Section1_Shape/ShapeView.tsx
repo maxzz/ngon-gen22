@@ -45,6 +45,7 @@ export function ViewHelpers({ shapeParams, shape }: { shapeParams: NewShapeParam
     const outer = pointsToLines(outerPts, shapeParams.ofsX, shapeParams.ofsY);
     const inner = pointsToLines(innerPts, shapeParams.ofsX, shapeParams.ofsY);
 
+    const showAll = useAtomValue(viewboxOptionAtoms.showAllAtom);
     const showOuterLines = useAtomValue(viewboxOptionAtoms.showOuterLinesAtom);
     const showInnerLines = useAtomValue(viewboxOptionAtoms.showInnerLinesAtom);
     const showOuterDots = useAtomValue(viewboxOptionAtoms.showOuterDotsAtom);
@@ -52,16 +53,16 @@ export function ViewHelpers({ shapeParams, shape }: { shapeParams: NewShapeParam
     return (
         <g className="stroke-[0.05]">
             {/* Outer */}
-            {showOuterLines && <path className="stroke-orange-500" strokeDasharray={'.2'} d={outer.join('')} />}
+            {showAll && showOuterLines && <path className="stroke-orange-500" strokeDasharray={'.2'} d={outer.join('')} />}
 
-            {showOuterDots && <circle className="stroke-primary-700" cx={shape.start.cx} cy={shape.start.cy} r=".5" />}
+            {showAll && showOuterDots && <circle className="stroke-primary-700" cx={shape.start.cx} cy={shape.start.cy} r=".5" />}
 
-            {outerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.outer} key={`o${idx}`} showDots={showOuterDots} />)}
+            {outerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.outer} key={`o${idx}`} showDots={showAll && showOuterDots} />)}
 
             {/* Inner */}
-            {showInnerLines && <path className="stroke-blue-500" strokeDasharray={'.2'} d={inner.join('')} />}
+            {showAll && showInnerLines && <path className="stroke-blue-500" strokeDasharray={'.2'} d={inner.join('')} />}
 
-            {innerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.inner} key={`i${idx}`} showDots={showInnerDots} />)}
+            {innerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.inner} key={`i${idx}`} showDots={showAll && showInnerDots} />)}
 
             {/* {showInnerDots && <circle className="stroke-primary-500 fill-green-500" cx={shape.start.cx} cy={shape.start.cy} r=".3" />} */}
         </g>
@@ -72,9 +73,25 @@ export function ShapeView(props: HTMLAttributes<SVGSVGElement>) {
     const shapeParams = useAtomValue(editorShapeParamsAtom);
     const shape = useAtomValue(editorShapeAtom);
     return (
-        <svg viewBox={`0 0 ${shapeParams.w} ${shapeParams.h}`} className="w-full h-full fill-transparent" {...props} preserveAspectRatio="none">
+        <svg
+            className="w-full h-full fill-transparent"
+            viewBox={`0 0 ${shapeParams.w} ${shapeParams.h}`}
+            preserveAspectRatio="none"
+            
+            onClick={(e) => console.log('eve', e)} //TODO: single click handler
+
+            {...props}
+        >
             <path className="stroke-primary-900" style={{ strokeWidth: shapeParams.stroke }} d={shape.d} />
             <ViewHelpers shapeParams={shapeParams} shape={shape} />
         </svg>
     );
 }
+
+//TODO: single click handler
+//TODO: triangles shading
+//TODO: curves vs. lines
+//TODO: divide inner lines to sub-lines
+//TODO: preview svg instead of text preview
+//TODO: implement hint tooltip
+//TODO: box size goes to the viewbox as overlay

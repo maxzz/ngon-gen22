@@ -72,6 +72,16 @@ function CheckboxWitAtom({ valueAtom }: { valueAtom: PrimitiveAtom<boolean>; }) 
     );
 }
 
+function ShowAllCheckbox() { //TODO: make it dropdown
+    const [showAll, setShowAll] = useAtom(viewboxOptionAtoms.showAllAtom);
+    return (
+        <label className="flex items-center space-x-1" title="The old algorithm used swap by mistake">
+            <div className="">Show helpers</div>
+            <Checkbox value={showAll} setValue={() => setShowAll(p => !p)} />
+        </label>
+    );
+}
+
 function SwapCheckbox() {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
     return (
@@ -85,7 +95,7 @@ function SwapCheckbox() {
 function ViewOptions({ swap }: { swap: boolean | undefined; }) {
     return (
         <div className="grid grid-cols-[auto,auto,1fr] gap-x-1">
-            <div className={classNames("place-self-center w-2 h-2 rounded-full", swap? "bg-blue-500/50": "bg-orange-500/50")}></div>
+            <div className={classNames("place-self-center w-2 h-2 rounded-full", swap ? "bg-blue-500/50" : "bg-orange-500/50")}></div>
             <div className="">Show outer:</div>
 
             <div className="flex items-center space-x-2">
@@ -99,7 +109,7 @@ function ViewOptions({ swap }: { swap: boolean | undefined; }) {
                 </label>
             </div>
 
-            <div className={classNames("place-self-center w-2 h-2 rounded-full", swap? "bg-orange-500/50": "bg-blue-500/50")}></div>
+            <div className={classNames("place-self-center w-2 h-2 rounded-full", swap ? "bg-orange-500/50" : "bg-blue-500/50")}></div>
             <div className="">Show inner:</div>
 
             <div className="flex items-center space-x-2">
@@ -197,6 +207,7 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 <div className="self-end pr-3 flex flex-col items-end space-y-2">
                     <ViewBoxSize />
                     <ResetButton />
+                    <ShowAllCheckbox />
                     <ViewOptions swap={shapeParams.swap} />
                     <SwapCheckbox />
                 </div>

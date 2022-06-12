@@ -1,4 +1,4 @@
-import { atom, Getter } from 'jotai';
+import { Atom, atom, Getter } from 'jotai';
 import { Atomize, atomWithCallback, LoadingDataState, loadingDataStateInit } from '@/hooks/atomsX';
 import { debounce } from '@/utils/debounce';
 import { toastError } from '@/components/UI/UiToaster';
@@ -21,6 +21,7 @@ namespace Storage {
         open1: false,
         shapeParams: initalValueShapeParams(),
         viewboxOptions: {
+            showAll: false,
             showInnerLines: false,
             showOuterLines: false,
             showInnerDots: false,
@@ -45,6 +46,7 @@ namespace Storage {
             open1: get(section1_OpenAtom),
             shapeParams: get(editorShapeParamsAtom),
             viewboxOptions: {
+                showAll: get(viewboxOptionAtoms.showAllAtom),
                 showInnerLines: get(viewboxOptionAtoms.showInnerLinesAtom),
                 showOuterLines: get(viewboxOptionAtoms.showOuterLinesAtom),
                 showInnerDots: get(viewboxOptionAtoms.showInnerDotsAtom),
@@ -121,7 +123,7 @@ export const editorShapeAtom = atom(
         const params = get(editorShapeParamsAtom);
         const shape = generate(params);
         console.log('generate');
-        
+
         return shape;
     }
 );
@@ -129,6 +131,7 @@ export const editorShapeAtom = atom(
 // Controls
 
 type ViewboxOptions = {
+    showAll: boolean;           // override current show values at once, i.e. open (interested) or closed (don't bother me)
     showInnerLines: boolean;
     showOuterLines: boolean;
     showInnerDots: boolean;
@@ -136,6 +139,7 @@ type ViewboxOptions = {
 };
 
 export const viewboxOptionAtoms: Atomize<ViewboxOptions> = {
+    showAllAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showAll, Storage.save),
     showInnerLinesAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showInnerLines, Storage.save),
     showOuterLinesAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showOuterLines, Storage.save),
     showInnerDotsAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showInnerDots, Storage.save),
