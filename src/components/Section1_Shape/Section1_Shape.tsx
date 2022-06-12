@@ -1,6 +1,9 @@
 import { a, easings, useSpring } from '@react-spring/web';
 import { ShapeView } from './ShapeView';
 import { ShapeControls } from './ShapeControls';
+import { useAtomValue } from 'jotai';
+import { editorShapeAtom, editorShapeParamsAtom } from '@/store/store';
+import { generateSvg, pointsToLines } from '@/store/ngon/generator';
 
 const previewBoxShadow = { boxShadow: '0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12)', };
 
@@ -16,15 +19,15 @@ function ShapeViewContainer() {
 }
 
 function ShapeViewText() {
+    const shapeParams = useAtomValue(editorShapeParamsAtom);
+    const shape = useAtomValue(editorShapeAtom);
+    const path = pointsToLines(shape.points, shape.center.x, shape.center.y);
+    const generated = generateSvg(path.join(''), shapeParams.w, shapeParams.h, shapeParams.stroke);
     return (
         <div className="px-2 py-1 h-32 text-xs bg-primary-100 border-primary-300 border overflow-hidden" style={{ ...previewBoxShadow }}>
             <div className="h-full overflow-overlay">
                 <div className="pr-4">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam corporis eaque fuga, repellendus excepturi facere modi laboriosam ducimus? Omnis vero voluptatem in sunt id unde accusantium cupiditate doloribus vitae voluptatibus.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam corporis eaque fuga, repellendus excepturi facere modi laboriosam ducimus? Omnis vero voluptatem in sunt id unde accusantium cupiditate doloribus vitae voluptatibus.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam corporis eaque fuga, repellendus excepturi facere modi laboriosam ducimus? Omnis vero voluptatem in sunt id unde accusantium cupiditate doloribus vitae voluptatibus.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam corporis eaque fuga, repellendus excepturi facere modi laboriosam ducimus? Omnis vero voluptatem in sunt id unde accusantium cupiditate doloribus vitae voluptatibus.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam corporis eaque fuga, repellendus excepturi facere modi laboriosam ducimus? Omnis vero voluptatem in sunt id unde accusantium cupiditate doloribus vitae voluptatibus.
+                    {generated}
                 </div>
             </div>
         </div>

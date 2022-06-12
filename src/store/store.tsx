@@ -4,6 +4,7 @@ import { debounce } from '@/utils/debounce';
 import { toastError } from '@/components/UI/UiToaster';
 import { initalValueShapeParams } from './ngon/shape-defaults';
 import { NewShapeParams } from './ngon/shape';
+import { generate } from './ngon/generator';
 
 //#region LocalStorage
 
@@ -49,7 +50,7 @@ namespace Storage {
                 showInnerDots: get(viewboxOptionAtoms.showInnerDotsAtom),
                 showOuterDots: get(viewboxOptionAtoms.showOuterDotsAtom),
             }
-            };
+        };
         localStorage.setItem(KEY, JSON.stringify(newStore));
     }, 1000);
 
@@ -114,6 +115,16 @@ export const section1_OpenAtom = atomWithCallback<boolean>(Storage.initialData.o
 // Shapes
 
 export const editorShapeParamsAtom = atomWithCallback(Storage.initialData.shapeParams, Storage.save);
+
+export const editorShapeAtom = atom(
+    (get) => {
+        const params = get(editorShapeParamsAtom);
+        const shape = generate(params);
+        console.log('generate');
+        
+        return shape;
+    }
+);
 
 // Controls
 

@@ -91,3 +91,8 @@ export function separatePoints(points: [number, number][], innerN: number, swap?
 export function pointsToLines(pts: [number, number][], centerX: number, centerY: number) {
     return pts.map(([x, y]) => `M${centerX},${centerY}L${x},${y}`);
 }
+
+export function generateSvg(path: string, w: number, h: number, stroke: number) {
+    let style = `<style> path { stroke-width: ${stroke}; fill: none; stroke: red; } </style>`;
+    return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">\n    <path d="${path}"/>\n    ${style}\n</svg>`;
+}

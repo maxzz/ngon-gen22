@@ -1,3 +1,5 @@
+import { NewShapeParams } from './shape';
+
 //import { ref, computed } from '@vue/composition-api';
 //import { StorageNgon, ShapeNgon, ShapeNgonFromSaved, ShapeNgonToSaved, uniqueId } from './shape-types';
 //import { defaultShapes } from './default-shapes';
@@ -61,7 +63,3 @@ export function previewShapes(sp: ShapeNgon) {
     };
 } //previewShapes()
 */
-export function generatedSvg(path: string, w: number, h: number, stroke: number) {
-    let style = `<style> path { stroke-width: ${stroke}; fill: none; stroke: red; } </style>`;
-    return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">\n    <path d="${path}"/>\n    ${style}\n</svg>`;
-}

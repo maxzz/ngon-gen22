@@ -1,6 +1,6 @@
 import React, { HTMLAttributes, useState } from "react";
 import { useAtom, useAtomValue } from "jotai";
-import { editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
+import { editorShapeAtom, editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
 import { generate, GeneratorResult, pointsToLines, separatePoints } from "@/store/ngon/generator";
 import { useDrag } from "@use-gesture/react";
 import { NewShapeParams } from "@/store/ngon/shape";
@@ -56,12 +56,12 @@ export function ViewHelpers({ shapeParams, shape }: { shapeParams: NewShapeParam
 
             {showOuterDots && <circle className="stroke-primary-700" cx={shape.start.cx} cy={shape.start.cy} r=".5" />}
 
-            {outerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.outer} key={idx} showDots={showOuterDots} />)}
+            {outerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.outer} key={`o${idx}`} showDots={showOuterDots} />)}
 
             {/* Inner */}
             {showInnerLines && <path className="stroke-blue-500" strokeDasharray={'.2'} d={inner.join('')} />}
 
-            {innerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.inner} key={idx} showDots={showInnerDots} />)}
+            {innerPts.map(([x, y], idx) => <Point x={x} y={y} pointType={PointType.inner} key={`i${idx}`} showDots={showInnerDots} />)}
 
             {/* {showInnerDots && <circle className="stroke-primary-500 fill-green-500" cx={shape.start.cx} cy={shape.start.cy} r=".3" />} */}
         </g>
@@ -70,7 +70,7 @@ export function ViewHelpers({ shapeParams, shape }: { shapeParams: NewShapeParam
 
 export function ShapeView(props: HTMLAttributes<SVGSVGElement>) {
     const shapeParams = useAtomValue(editorShapeParamsAtom);
-    const shape = generate(shapeParams);
+    const shape = useAtomValue(editorShapeAtom);
     return (
         <svg viewBox={`0 0 ${shapeParams.w} ${shapeParams.h}`} className="w-full h-full fill-transparent" {...props} preserveAspectRatio="none">
             <path className="stroke-primary-900" style={{ strokeWidth: shapeParams.stroke }} d={shape.d} />
