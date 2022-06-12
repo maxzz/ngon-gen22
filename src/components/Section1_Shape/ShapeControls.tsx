@@ -7,6 +7,7 @@ import { classNames } from "@/utils/classnames";
 import { debounce } from "@/utils/debounce";
 import { NewSlider } from "../UI/NewSlider";
 import useFloatInput from "@/hooks/useFloatInput";
+import { UIAccordion } from "../UI/UIAccordion";
 
 function Separator({ label, tall = true, className, ...rest }: { label?: string; tall?: boolean; } & HTMLAttributes<HTMLDivElement>) {
     return (
@@ -75,10 +76,27 @@ function CheckboxWitAtom({ valueAtom }: { valueAtom: PrimitiveAtom<boolean>; }) 
 function ShowAllCheckbox() { //TODO: make it dropdown
     const [showAll, setShowAll] = useAtom(viewboxOptionAtoms.showAllAtom);
     return (
-        <label className="flex items-center space-x-1" title="The old algorithm used swap by mistake">
+        <label className="flex items-center space-x-1">
             <div className="">Show helpers</div>
             <Checkbox value={showAll} setValue={() => setShowAll(p => !p)} />
         </label>
+    );
+}
+
+function ShowAllSection({ title, children }: { title: React.ReactNode; children: React.ReactNode; }) {
+    const [open, setOpen] = useAtom(viewboxOptionAtoms.showAllAtom);
+    return (
+        <div>
+            <div
+                className="pl-4 px-2 py-2 bg-title4 text-stone-100 uppercase rounded flex items-center justify-between select-none cursor-pointer font-ui"
+                onClick={() => setOpen(v => !v)}
+            >
+                {title}
+            </div>
+            <UIAccordion toggle={open}>
+                {children}
+            </UIAccordion>
+        </div>
     );
 }
 
@@ -207,9 +225,13 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 <div className="self-end pr-3 flex flex-col items-end space-y-2">
                     <ViewBoxSize />
                     <ResetButton />
-                    <ShowAllCheckbox />
-                    <ViewOptions swap={shapeParams.swap} />
-                    <SwapCheckbox />
+
+                    <ShowAllSection title="Gadgets">
+                        {/* <ShowAllCheckbox /> */}
+
+                        <ViewOptions swap={shapeParams.swap} />
+                        <SwapCheckbox />
+                    </ShowAllSection>
                 </div>
             </div>
         </div>
