@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useCallback, useEffect } from "react";
+import React, { HTMLAttributes, ReactNode, useCallback, useEffect } from "react";
 import { PrimitiveAtom, SetStateAction, useAtom, useSetAtom } from "jotai";
 import { editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
 import { NewShapeParams } from "@/store/ngon/shape";
@@ -8,15 +8,18 @@ import { debounce } from "@/utils/debounce";
 import { NewSlider } from "../UI/NewSlider";
 import useFloatInput from "@/hooks/useFloatInput";
 import { UIAccordion } from "../UI/UIAccordion";
+import { UIArrow } from "../UI/UIArrow";
 
-function Separator({ label, tall = true, className, ...rest }: { label?: string; tall?: boolean; } & HTMLAttributes<HTMLDivElement>) {
+function Separator({ label, tall = true, className, ...rest }: { label?: ReactNode; tall?: boolean; } & HTMLAttributes<HTMLDivElement>) {
     return (
         <div className={classNames("relative select-none", className)} {...rest}>
             <div className="absolute inset-0 flex items-center" aria-hidden="true">
                 <div className="w-full border-t-primary-300 border-t"></div>
             </div>
             <div className={tall ? "relative flex justify-center" : "absolute inset-0 flex items-center justify-center"}>
-                <span className="px-2 pb-1 bg-primary-200">{label}</span>
+                <span className="px-2 pb-1 bg-primary-200">
+                    {label}
+                </span>
             </div>
         </div>
     );
@@ -83,12 +86,18 @@ function ShowAllCheckbox() { //TODO: make it dropdown
     );
 }
 
-function ShowAllSection({ label, children }: { label: React.ReactNode; children: React.ReactNode; } & HTMLAttributes<HTMLDivElement>) {
+function ShowAllSection({ children }: { children: React.ReactNode; } & HTMLAttributes<HTMLDivElement>) {
     const [open, setOpen] = useAtom(viewboxOptionAtoms.showAllAtom);
     return (<>
-        <div onClick={() => setOpen(v => !v)}>
-            {label}
-        </div>
+        <Separator
+            label={
+                <div className="flex items-center cursor-pointer">
+                    <div className="">Gadgets</div>
+                    <UIArrow className="w-4 h-4 pt-1 text-primary-500" open={open} />
+                </div>
+            }
+            onClick={() => setOpen(v => !v)}
+        />
         <UIAccordion toggle={open}>
             {children}
         </UIAccordion>
@@ -215,24 +224,23 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 <GroupControls members={sceneMembers} setShapeParams={bouncedSet} />
             </div>
 
-            <div className="grid grid-cols-[min-content,1fr]">
-                <HintButton />
-
-                <div className="pr-3 flex flex-col items-end space-y-2">
+            <div className="grid select-none">
+                <div className="col-span-full pr-3 flex flex-col items-end space-y-2">
                     <ViewBoxSize />
                     <ResetButton />
                 </div>
 
-                <div className="col-span-full">
-                    <ShowAllSection label={<Separator label="gadgets" />}>
-                        <div className="flex flex-col items-end">
+                <div className="">
+                    <ShowAllSection>
+                        <div className="px-3 pt-1 flex flex-col items-end">
                             <ViewOptions swap={shapeParams.swap} />
                         </div>
                     </ShowAllSection>
-                    <div className="flex flex-col items-end">
+
+                    <div className="mt-2 px-3 flex justify-between">
+                        <HintButton />
                         <SwapCheckbox />
                     </div>
-
                 </div>
             </div>
 
