@@ -26,6 +26,12 @@
     }
 }
 
+@layer components {
+    circle.tm-point-down {
+        @apply stroke-green-500 stroke-[.1];
+    }
+}
+
 /* @layer components {
     .cursor-tm-move {
         cursor: url("./assets/cursors/tm-move.svg") 0 0, auto;
