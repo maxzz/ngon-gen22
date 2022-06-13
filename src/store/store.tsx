@@ -21,6 +21,7 @@ namespace Storage {
         open1: false,
         shapeParams: initalValueShapeParams(),
         viewboxOptions: {
+            showBox: false,
             showAll: false,
             showInnerLines: false,
             showOuterLines: false,
@@ -46,6 +47,7 @@ namespace Storage {
             open1: get(section1_OpenAtom),
             shapeParams: get(editorShapeParamsAtom),
             viewboxOptions: {
+                showBox: get(viewboxOptionAtoms.showBoxAtom),
                 showAll: get(viewboxOptionAtoms.showAllAtom),
                 showInnerLines: get(viewboxOptionAtoms.showInnerLinesAtom),
                 showOuterLines: get(viewboxOptionAtoms.showOuterLinesAtom),
@@ -129,6 +131,7 @@ export const editorShapeAtom = atom(
 // Controls
 
 type ViewboxOptions = {
+    showBox: boolean;           // show box controls
     showAll: boolean;           // override current show values at once, i.e. open (interested) or closed (don't bother me)
     showInnerLines: boolean;
     showOuterLines: boolean;
@@ -137,6 +140,7 @@ type ViewboxOptions = {
 };
 
 export const viewboxOptionAtoms: Atomize<ViewboxOptions> = {
+    showBoxAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showBox, Storage.save),
     showAllAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showAll, Storage.save),
     showInnerLinesAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showInnerLines, Storage.save),
     showOuterLinesAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showOuterLines, Storage.save),

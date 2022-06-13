@@ -86,13 +86,13 @@ function ShowAllCheckbox() { //TODO: make it dropdown
     );
 }
 
-function ShowAllSection({ children }: { children: React.ReactNode; } & HTMLAttributes<HTMLDivElement>) {
-    const [open, setOpen] = useAtom(viewboxOptionAtoms.showAllAtom);
+function ShowAllSection({ label, openAtom, children }: { label: string; openAtom: PrimitiveAtom<boolean>; children: React.ReactNode; } & HTMLAttributes<HTMLDivElement>) {
+    const [open, setOpen] = useAtom(openAtom);
     return (<>
         <Separator
             label={
                 <div className="flex items-center cursor-pointer">
-                    <div className="">Gadgets</div>
+                    <div className="">{label}</div>
                     <UIArrow className="w-4 h-4 pt-1 text-primary-500" open={open} />
                 </div>
             }
@@ -220,9 +220,14 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
 
             <Separator label="Box" />
 
-            <div className="">
-                <GroupControls members={sceneMembers} setShapeParams={bouncedSet} />
-            </div>
+            {/* <div className="">
+                <GroupControls members={sceneMembers} setShapeParams={bouncedSet} />                
+            </div> */}
+            <ShowAllSection label="Box" openAtom={viewboxOptionAtoms.showBoxAtom}>
+                <div className="px-3 pt-1 flex flex-col items-end">
+                    <GroupControls members={sceneMembers} setShapeParams={bouncedSet} />
+                </div>
+            </ShowAllSection>
 
             <div className="grid select-none">
                 <div className="col-span-full pr-3 flex flex-col items-end space-y-2">
@@ -231,7 +236,7 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 </div>
 
                 <div className="">
-                    <ShowAllSection>
+                    <ShowAllSection label="Gadgets" openAtom={viewboxOptionAtoms.showAllAtom}>
                         <div className="px-3 pt-1 flex flex-col items-end">
                             <ViewOptions swap={shapeParams.swap} />
                         </div>
