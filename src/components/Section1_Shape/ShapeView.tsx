@@ -87,7 +87,9 @@ export function ShapeView(props: HTMLAttributes<SVGSVGElement>) {
         return memo;
     });
 
-    const { x: cx, y: cy } = shape.center;
+    // const { x: cx, y: cy } = shape.center;
+    const cx = shapeParams.ofsX; const cy = shapeParams.ofsY;
+
     const shades = [];
 
     for (let i = 0; i < shape.points.length - 1; i = i + 2) {
