@@ -96,3 +96,18 @@ export function generateSvg(path: string, w: number, h: number, stroke: number) 
     let style = `<style> path { stroke-width: ${stroke}; fill: none; stroke: red; } </style>`;
     return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">\n    <path d="${path}"/>\n    ${style}\n</svg>`;
 }
+
+export function createShading(shapeParams: NewShapeParams, shape: GeneratorResult) {
+    const shades = [];
+
+    // const { x: cx, y: cy } = shape.center;
+    const cx = shapeParams.ofsX; const cy = shapeParams.ofsY;
+
+    for (let i = 0; i < shape.points.length - 1; i = i + 2) {
+        const a = shape.points[i];
+        const b = shape.points[i + 1];
+        shades.push(`M${cx} ${cy}L${a[0]} ${a[1]}L${b[0]} ${b[1]}z`);
+    }
+
+    return shades;
+}

@@ -2,7 +2,7 @@ import React, { HTMLAttributes } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import { editorShapeAtom, editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
 import { NewShapeParams } from "@/store/ngon/shape";
-import { GeneratorResult, pointsToLines, separatePoints } from "@/store/ngon/generator";
+import { createShading, GeneratorResult, pointsToLines, separatePoints } from "@/store/ngon/generator";
 import { useDrag } from "@use-gesture/react";
 import { classNames } from "@/utils/classnames";
 import { rnd2 } from "@/utils/numbers";
@@ -87,19 +87,6 @@ export function ShapeView(props: HTMLAttributes<SVGSVGElement>) {
         return memo;
     });
 
-    // const { x: cx, y: cy } = shape.center;
-    const cx = shapeParams.ofsX; const cy = shapeParams.ofsY;
-
-    const shades = [];
-
-    for (let i = 0; i < shape.points.length - 1; i = i + 2) {
-        const a = shape.points[i];
-        const b = shape.points[i + 1];
-        shades.push(`M${cx} ${cy}L${a[0]} ${a[1]}L${b[0]} ${b[1]}z`);
-    }
-
-    //console.log('shades', shades);
-
     return (
         <svg
             className="w-full h-full fill-transparent touch-none"
@@ -110,7 +97,7 @@ export function ShapeView(props: HTMLAttributes<SVGSVGElement>) {
         >
             <path className="stroke-primary-900" style={{ strokeWidth: shapeParams.stroke }} d={shape.d} />
 
-            <path className="stroke-transparent fill-primary-300/30" style={{ strokeWidth: shapeParams.stroke }} d={shades.join('')} />
+            {/* <path className="stroke-transparent fill-primary-300/30" style={{ strokeWidth: shapeParams.stroke }} d={createShading(shapeParams, shape).join('')} /> */}
 
             <ShapeViewGadgets shapeParams={shapeParams} shape={shape} />
         </svg>
