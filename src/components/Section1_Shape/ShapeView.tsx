@@ -22,9 +22,8 @@ function Points(points: [number, number][], pointType: PointType, showDots: bool
                 "touch-none hover:cursor-tm-move",
                 isOuter ? "outer-pt" : "inner-pt",
                 !showDots ? "" : isOuter ? "stroke-orange-500 fill-orange-500/40" : "stroke-blue-500 fill-blue-500/40",
-                //isDown && "stroke-green-500 stroke-[.1]",
             )}
-            cx={x} cy={y} r={'.3'} //r={isDown ? '.5' : '.3'}
+            cx={x} cy={y} r={'.3'}
             key={`${pointType}_${idx}`}
         />
     ));
@@ -66,30 +65,25 @@ export function ShapeView(props: HTMLAttributes<SVGSVGElement>) {
     const shape = useAtomValue(editorShapeAtom);
 
     const { outerX, outerY, innerX, innerY, } = shapeParams;
-
-    const bind = useDrag(({ first, last, target, movement: [mx, my], memo = { outerX, outerY, innerX, innerY, } }) => {
-        const className = (target as Element).classList;
-
-        const pointType = className.contains('inner-pt') ? PointType.inner : className.contains('outer-pt') ? PointType.outer : PointType.none;
-        if (pointType !== PointType.none) {
-            if (first) {
-                (target as Element).classList.add('tm-point-down');
-                (target as Element).setAttribute('r', '.5');
-            }
-
-            if (last) {
-                (target as Element).classList.remove('tm-point-down');
-                (target as Element).setAttribute('r', '.3');
-            }
-
-            if (pointType === PointType.outer || pointType === PointType.inner) {
-                const keyX: keyof NewShapeParams = pointType === PointType.outer ? "outerX" : "innerX";
-                const keyY: keyof NewShapeParams = pointType === PointType.outer ? "outerY" : "innerY";
-
-                (mx || my) && setShapeParams((p) => ({ ...p, [keyX]: rnd2(memo[keyX] + mx), [keyY]: rnd2(memo[keyY] + my) }));
-            }
+    const bind = useDrag(({ first, last, target, movement: [mx, my], memo = { outerX, outerY, innerX, innerY, pointType: PointType.none } }) => {
+        const circle = target as Element;
+        if (first) {
+            const classList = circle.classList;
+            memo.pointType = classList.contains('inner-pt') ? PointType.inner : classList.contains('outer-pt') ? PointType.outer : PointType.none;
         }
-        
+        if (memo.pointType !== PointType.none) {
+            if (first) {
+                memo.keyX = memo.pointType === PointType.outer ? "outerX" : "innerX";
+                memo.keyY = memo.pointType === PointType.outer ? "outerY" : "innerY";
+                circle.classList.add('tm-point-down');
+                circle.setAttribute('r', '.5');
+            }
+            if (last) {
+                circle.classList.remove('tm-point-down');
+                circle.setAttribute('r', '.3');
+            }
+            (mx || my) && setShapeParams((p) => ({ ...p, [memo.keyX]: rnd2(memo[memo.keyX] + mx), [memo.keyY]: rnd2(memo[memo.keyY] + my) }));
+        }
         return memo;
     });
 
