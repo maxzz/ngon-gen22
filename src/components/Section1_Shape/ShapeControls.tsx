@@ -76,33 +76,15 @@ function CheckboxWitAtom({ valueAtom }: { valueAtom: PrimitiveAtom<boolean>; }) 
     );
 }
 
-function ShowAllCheckbox() { //TODO: make it dropdown
-    const [showAll, setShowAll] = useAtom(viewboxOptionAtoms.showAllAtom);
-    return (
-        <label className="flex items-center space-x-1">
-            <div className="">Show helpers</div>
-            <Checkbox value={showAll} setValue={() => setShowAll(p => !p)} />
-        </label>
-    );
-}
-
-function ShowAllSection({ label, openAtom, children }: { label: string; openAtom: PrimitiveAtom<boolean>; children: React.ReactNode; } & HTMLAttributes<HTMLDivElement>) {
-    const [open, setOpen] = useAtom(openAtom);
-    return (<>
-        <Separator
-            label={
-                <div className="flex items-center cursor-pointer">
-                    <div className="">{label}</div>
-                    <UIArrow className="w-4 h-4 pt-1 text-primary-500" open={open} />
-                </div>
-            }
-            onClick={() => setOpen(v => !v)}
-        />
-        <UIAccordion open={open}>
-            {children}
-        </UIAccordion>
-    </>);
-}
+// function ShowAllCheckbox() { //TODO: make it dropdown
+//     const [showAll, setShowAll] = useAtom(viewboxOptionAtoms.showAllAtom);
+//     return (
+//         <label className="flex items-center space-x-1">
+//             <div className="">Show helpers</div>
+//             <Checkbox value={showAll} setValue={() => setShowAll(p => !p)} />
+//         </label>
+//     );
+// }
 
 function SwapCheckbox() {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
@@ -200,6 +182,24 @@ function GroupControls({ members, setShapeParams }: { members: Partial<NewShapeP
     return (<>{shapeControls}</>);
 }
 
+function ShowAllSection({ label, openAtom, children }: { label: string; openAtom: PrimitiveAtom<boolean>; children: React.ReactNode; } & HTMLAttributes<HTMLDivElement>) {
+    const [open, setOpen] = useAtom(openAtom);
+    return (<>
+        <Separator
+            label={
+                <div className="flex items-center cursor-pointer">
+                    <div className="">{label}</div>
+                    <UIArrow className="w-4 h-4 pt-1 text-primary-500" open={open} />
+                </div>
+            }
+            onClick={() => setOpen(v => !v)}
+        />
+        <UIAccordion open={open}>
+            {children}
+        </UIAccordion>
+    </>);
+}
+
 export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
     const { outerN, innerN, outerX, outerY, innerX, innerY, stroke, w, h, ofsX, ofsY, scale, } = shapeParams;
@@ -228,27 +228,25 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 </ShowAllSection>
             </div>
 
-            <div className="grid select-none">
-                {/* <div className="col-span-full pr-3 flex flex-col items-end space-y-2">
-                    <ViewBoxSize />
-                    <ResetButton />
-                </div> */}
+            <div className="">
+                <ShowAllSection label="Gadgets" openAtom={viewboxOptionAtoms.showAllAtom}>
+                    <div className="px-3 py-0.5 flex flex-col items-end">
+                        <ViewOptions swap={shapeParams.swap} />
+                    </div>
+                </ShowAllSection>
+            </div>
 
-                <div className="">
-                    <ShowAllSection label="Gadgets" openAtom={viewboxOptionAtoms.showAllAtom}>
-                        <div className="px-3 py-0.5 flex flex-col items-end">
-                            <ViewOptions swap={shapeParams.swap} />
-                        </div>
-                    </ShowAllSection>
-
-                    <div className="mt-2 pl-2 pr-3 flex items-center justify-between">
+            <div className="">
+                <ShowAllSection label="Utility" openAtom={viewboxOptionAtoms.showUtilsAtom}>
+                    <div className="pl-1 pr-3 flex items-center justify-between">
                         <div className="flex items-center space-x-2">
                             <HintButton />
                             <ResetButton />
                         </div>
+
                         <SwapCheckbox />
                     </div>
-                </div>
+                </ShowAllSection>
             </div>
 
         </div>
