@@ -210,7 +210,7 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
     const bouncedSet = useCallback(debounce(setShapeParams, 100), []);
 
     return (
-        <div className={classNames("px-2 py-4 text-xs bg-primary-200 flex flex-col space-y-2 cursor-default", className)} {...rest}>
+        <div className={classNames("px-2 py-4 text-xs bg-primary-200 flex flex-col space-y-1 cursor-default", className)} {...rest}>
 
             {/* <Separator label="Shape" /> */}
 
@@ -218,32 +218,34 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                 <GroupControls members={shapeMembers} setShapeParams={bouncedSet} />
             </div>
 
-            <Separator label="Box" />
+            {/* <Separator label="Box" /> */}
 
-            {/* <div className="">
-                <GroupControls members={sceneMembers} setShapeParams={bouncedSet} />                
-            </div> */}
-            <ShowAllSection label="Box" openAtom={viewboxOptionAtoms.showBoxAtom}>
-                <div className="px-3 pt-1 flex flex-col items-end">
-                    <GroupControls members={sceneMembers} setShapeParams={bouncedSet} />
-                </div>
-            </ShowAllSection>
+            <div className="">
+                <ShowAllSection label="Box" openAtom={viewboxOptionAtoms.showBoxAtom}>
+                    <div className="py-0.5 flex flex-col items-end">
+                        <GroupControls members={sceneMembers} setShapeParams={bouncedSet} />
+                    </div>
+                </ShowAllSection>
+            </div>
 
             <div className="grid select-none">
-                <div className="col-span-full pr-3 flex flex-col items-end space-y-2">
+                {/* <div className="col-span-full pr-3 flex flex-col items-end space-y-2">
                     <ViewBoxSize />
                     <ResetButton />
-                </div>
+                </div> */}
 
                 <div className="">
                     <ShowAllSection label="Gadgets" openAtom={viewboxOptionAtoms.showAllAtom}>
-                        <div className="px-3 pt-1 flex flex-col items-end">
+                        <div className="px-3 py-0.5 flex flex-col items-end">
                             <ViewOptions swap={shapeParams.swap} />
                         </div>
                     </ShowAllSection>
 
-                    <div className="mt-2 px-3 flex justify-between">
-                        <HintButton />
+                    <div className="mt-2 pl-2 pr-3 flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                            <HintButton />
+                            <ResetButton />
+                        </div>
                         <SwapCheckbox />
                     </div>
                 </div>
