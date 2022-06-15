@@ -53,7 +53,7 @@ export function NewSlider({ label, title, min, max, step = .01, labelWidth = '4.
             <div className="relative flex">
                 <input
                     className={classNames(
-                        "px-px w-8 text-[.6rem] text-right bg-primary-200 focus:bg-primary-50 rounded-sm",
+                        "px-px w-8 text-[.6rem] text-right bg-inherit focus:bg-white rounded-sm",
                         "outline-none focus:ring-1 ring-offset-2 ring-offset-primary-50 ring-primary-700/50",
                     )}
                     value={local}

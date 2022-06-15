@@ -7,7 +7,7 @@ import { ShapeView } from './ShapeView';
 import { ShapeControls } from './ShapeControls';
 import { classNames } from '@/utils/classnames';
 
-const previewBoxShadow = { boxShadow: '0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12)', };
+const previewBoxShadow = { boxShadow: '0 1px 1px -1px #00000018, 0 1px 1px 0 #00000024, 0 1px 3px 0 #0000001f', };
 
 function ShapeViewContainer() {
     const styles = useSpring({ scale: 1, from: { scale: .2 }, config: { duration: 2000, easing: easings.easeInOutElastic } });
