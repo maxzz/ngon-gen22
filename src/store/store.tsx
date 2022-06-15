@@ -15,7 +15,7 @@ namespace Storage {
         open: OpenSections;
         shapeParams: NewShapeParams;
         viewboxOptions: ViewboxOptions;
-        vaultShapes: string[];
+        vault: Vault;
     };
 
     export let initialData: Store = {
@@ -33,7 +33,9 @@ namespace Storage {
             showInnerDots: true,
             showOuterDots: true,
         },
-        vaultShapes: [],
+        vault: {
+            shapes: [],
+        }
     };
 
     function load() {
@@ -64,7 +66,9 @@ namespace Storage {
                 showInnerDots: get(viewboxOptionAtoms.showInnerDotsAtom),
                 showOuterDots: get(viewboxOptionAtoms.showOuterDotsAtom),
             },
-            vaultShapes: get(vaultShapesAtom),
+            vault: {
+                shapes: get(vaultAtoms.shapesAtom),
+            },
         };
         localStorage.setItem(KEY, JSON.stringify(newStore));
     }, 1000);
@@ -133,7 +137,7 @@ type OpenSections = {
 export const openSections: Atomize<OpenSections> = {
     presetsAtom: atomWithCallback<boolean>(Storage.initialData.open.presets, Storage.save),
     variantsAtom: atomWithCallback<boolean>(Storage.initialData.open.variants, Storage.save),
-}
+};
 
 // Editor shape
 
@@ -171,6 +175,14 @@ export const viewboxOptionAtoms: Atomize<ViewboxOptions> = {
 
 // Vault shapes
 
-export const vaultShapesAtom = atomWithCallback<string[]>(Storage.initialData.vaultShapes, Storage.save);
+type Vault = {
+    shapes: string[];
+};
+
+export const vaultAtoms: Atomize<Vault> = {
+    shapesAtom: atomWithCallback<string[]>(Storage.initialData.vault.shapes, Storage.save),
+}
+
+export const vaultShapesAtom = atomWithCallback<string[]>(Storage.initialData.vault.shapes, Storage.save);
 
 //////////////////////
