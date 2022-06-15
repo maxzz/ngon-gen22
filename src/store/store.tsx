@@ -36,7 +36,7 @@ namespace Storage {
             showOuterDots: true,
         },
         vaultData: {
-            shapes: defaultShapes,
+            shapes: [],
         }
     };
 
@@ -46,6 +46,8 @@ namespace Storage {
             try {
                 let obj = JSON.parse(s) as Store;
                 initialData = { ...initialData, ...obj };
+                
+                initialData.vaultData.shapes = initialData.vaultData?.shapes?.length ? initialData.vaultData.shapes : defaultShapes;
             } catch (error) {
             }
         }
