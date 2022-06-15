@@ -12,13 +12,16 @@ namespace Storage {
     const KEY = 'react-svg-shapes22-01';
 
     type Store = {
-        open1: boolean;
+        open: OpenSections;
         shapeParams: NewShapeParams;
         viewboxOptions: ViewboxOptions;
     };
 
     export let initialData: Store = {
-        open1: false,
+        open: {
+            presets: false,
+            variants: false,
+        },
         shapeParams: initalValueShapeParams(),
         viewboxOptions: {
             showBox: false,
@@ -45,7 +48,10 @@ namespace Storage {
 
     export const saveDebounced = debounce(function _save(get: Getter) {
         let newStore: Store = {
-            open1: get(section1_OpenAtom),
+            open: {
+                presets: get(openSections.presetsAtom),
+                variants: get(openSections.variantsAtom),
+            },
             shapeParams: get(editorShapeParamsAtom),
             viewboxOptions: {
                 showBox: get(viewboxOptionAtoms.showBoxAtom),
@@ -116,7 +122,15 @@ const correlateAtom = atom(
 
 // UI state
 
-export const section1_OpenAtom = atomWithCallback<boolean>(Storage.initialData.open1, Storage.save);
+type OpenSections = {
+    presets: boolean;   // shape collection previews
+    variants: boolean;  // multiplication
+};
+
+export const openSections: Atomize<OpenSections> = {
+    presetsAtom: atomWithCallback<boolean>(Storage.initialData.open.presets, Storage.save),
+    variantsAtom: atomWithCallback<boolean>(Storage.initialData.open.variants, Storage.save),
+}
 
 // Shapes
 

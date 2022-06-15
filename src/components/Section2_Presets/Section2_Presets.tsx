@@ -1,6 +1,6 @@
 import React, { HTMLAttributes } from 'react';
 import { useAtomValue } from 'jotai';
-import { editorShapeAtom, editorShapeParamsAtom, releaseNotesAtom, section1_OpenAtom } from '../../store/store';
+import { editorShapeAtom, editorShapeParamsAtom, openSections, releaseNotesAtom,  } from '../../store/store';
 import { UISection } from '../UI/UISection';
 import { classNames } from '@/utils/classnames';
 
@@ -39,7 +39,7 @@ function ShapePresets() {
 
 export function Section2_Presets() {
     return (
-        <UISection openAtom={section1_OpenAtom} title={"Presets"}>
+        <UISection openAtom={openSections.presetsAtom} title={"Presets"}>
             <ShapePresets />
         </UISection>
     );

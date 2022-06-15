@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAtomValue } from 'jotai';
-import { releaseNotesAtom, section1_OpenAtom } from '../../store/store';
+import { openSections, releaseNotesAtom, } from '../../store/store';
 import { UISection } from '../UI/UISection';
 
 function Multiplication() {
@@ -16,7 +16,7 @@ function Multiplication() {
 
 export function Section3_Multiplication() {
     return (
-        <UISection openAtom={section1_OpenAtom} title={"Multiplication"}>
+        <UISection openAtom={openSections.variantsAtom} title={"Multiplication"}>
             <Multiplication />
         </UISection>
     );
