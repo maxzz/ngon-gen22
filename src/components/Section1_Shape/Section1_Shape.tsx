@@ -57,7 +57,7 @@ function ShapeViewText() {
 
 export function Section1_Shape() {
     return (
-        <div className="grid grid-cols-[minmax(0,1fr),auto] gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr),auto] gap-4">
             <ShapeViewContainer />
             <ShapeControls className="border-primary-300 border" style={previewBoxShadow} />
             <div className="col-span-full">
