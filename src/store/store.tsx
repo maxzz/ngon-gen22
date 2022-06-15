@@ -5,6 +5,8 @@ import { toastError } from '@/components/UI/UiToaster';
 import { initalValueShapeParams } from './ngon/shape-defaults';
 import { NewShapeParams } from './ngon/shape';
 import { generate } from './ngon/generator';
+import { defaultShapes } from './ngon/shapes-vault-data';
+export { defaultShapes } from './ngon/shapes-vault-data';
 
 //#region LocalStorage
 
@@ -15,7 +17,7 @@ namespace Storage {
         open: OpenSections;
         shapeParams: NewShapeParams;
         viewboxOptions: ViewboxOptions;
-        vault: Vault;
+        vaultData: VaultData;
     };
 
     export let initialData: Store = {
@@ -33,8 +35,8 @@ namespace Storage {
             showInnerDots: true,
             showOuterDots: true,
         },
-        vault: {
-            shapes: [],
+        vaultData: {
+            shapes: defaultShapes,
         }
     };
 
@@ -66,8 +68,8 @@ namespace Storage {
                 showInnerDots: get(viewboxOptionAtoms.showInnerDotsAtom),
                 showOuterDots: get(viewboxOptionAtoms.showOuterDotsAtom),
             },
-            vault: {
-                shapes: get(vaultAtoms.shapesAtom),
+            vaultData: {
+                shapes: get(vaultData.shapesAtom),
             },
         };
         localStorage.setItem(KEY, JSON.stringify(newStore));
@@ -175,14 +177,14 @@ export const viewboxOptionAtoms: Atomize<ViewboxOptions> = {
 
 // Vault shapes
 
-type Vault = {
+type VaultData = {
     shapes: string[];
 };
 
-export const vaultAtoms: Atomize<Vault> = {
-    shapesAtom: atomWithCallback<string[]>(Storage.initialData.vault.shapes, Storage.save),
+export const vaultData: Atomize<VaultData> = {
+    shapesAtom: atomWithCallback<string[]>(Storage.initialData.vaultData.shapes, Storage.save),
 }
 
-export const vaultShapesAtom = atomWithCallback<string[]>(Storage.initialData.vault.shapes, Storage.save);
+export const vaultShapesAtom = atomWithCallback<string[]>(Storage.initialData.vaultData.shapes, Storage.save);
 
 //////////////////////

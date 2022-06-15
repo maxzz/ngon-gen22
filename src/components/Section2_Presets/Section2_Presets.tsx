@@ -1,8 +1,9 @@
 import React, { HTMLAttributes } from 'react';
 import { useAtomValue } from 'jotai';
-import { editorShapeAtom, editorShapeParamsAtom, openSections, releaseNotesAtom,  } from '../../store/store';
+import { editorShapeAtom, editorShapeParamsAtom, openSections, vaultData,  } from '@/store/store';
 import { UISection } from '../UI/UISection';
 import { classNames } from '@/utils/classnames';
+import { IO, StorageNgon } from '@/store/ngon/shape-io';
 
 export function ShapeView({ className, ...rest }: HTMLAttributes<SVGSVGElement>) {
     const shapeParams = useAtomValue(editorShapeParamsAtom);
@@ -19,9 +20,12 @@ export function ShapeView({ className, ...rest }: HTMLAttributes<SVGSVGElement>)
     );
 }
 
-
 function ShapePresets() {
-    const releaseNotes = useAtomValue(releaseNotesAtom);
+    const shapes = useAtomValue(vaultData.shapesAtom);
+    const shapeParamArray = shapes.map((shapeStr) => {
+        const p = JSON.parse(shapeStr) as StorageNgon;
+        const newShape = IO.ShapeNgonFromStorage(p);
+    })
     return (
         <div className="py-2">
             <div className="max-h-96 px-4 overflow-y-auto bg-primary-100">
