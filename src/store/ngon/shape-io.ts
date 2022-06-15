@@ -1,5 +1,6 @@
-import { NewShapeParams, Point2D, ShapeNgon } from "./shape";
-import { CONST, CONST_NAMES } from "./shape-defaults";
+import { NewShapeParams, Point2D } from "./shape";
+import { CONST, CONST_NAMES, initalValueShapeParams } from "./shape-defaults";
+import { generate, GeneratorResult } from "./generator";
 import { uuid } from "@/utils/uuid";
 
 // Storage formats
@@ -67,4 +68,23 @@ export namespace IO {
         };
         return rv;
     }
+
+    export type ConvertResult = {
+        error: string;
+        shapeParams: NewShapeParams;
+        shape: GeneratorResult;
+    };
+
+    export function shapeFromString(shapeStr: string): ConvertResult  {
+        const p = JSON.parse(shapeStr) as StorageNgon;
+        const shapeParams = {...initalValueShapeParams(), ...ShapeNgonFromStorage(p)};
+        const shape = generate(shapeParams);
+        return {
+            error: '',
+            shapeParams,
+            shape,
+        };
+        
+    }
+
 } //namespace IO

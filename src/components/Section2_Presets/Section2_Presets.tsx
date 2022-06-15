@@ -24,14 +24,13 @@ export function ShapeView({ shapeParams, shape, className, ...rest }: { shapePar
 function ShapePresets() {
     const shapes = useAtomValue(vaultData.shapesAtom);
     const shapeParamArray = shapes.map((shapeStr) => {
-        const p = JSON.parse(shapeStr) as StorageNgon;
-        const shapeParams = {...initalValueShapeParams(), ...IO.ShapeNgonFromStorage(p)};
-        const shape = generate(shapeParams);
-        return {
-            shapeParams,
-            shape,
-        };
-    });
+        const res = IO.shapeFromString(shapeStr);
+        return res.error ? undefined : res;
+    // }).filter(Boolean) as Omit<IO.ConvertResult, 'undefined'>[];
+    // }).filter<IO.ConvertResult>(Boolean);
+    // }).filter<Exclude<IO.ConvertResult, undefined>>(Boolean);
+    // }).filter(Boolean) as Exclude<IO.ConvertResult, undefined>[];
+    }).filter(Boolean) as Exclude<ReturnType<typeof IO.shapeFromString>, undefined>[];
     return (
         <div className="py-2">
             <div className="max-h-96 px-4 overflow-y-auto bg-primary-100">
