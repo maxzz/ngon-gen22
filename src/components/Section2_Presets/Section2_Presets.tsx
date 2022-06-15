@@ -6,6 +6,7 @@ import { IO, StorageNgon } from '@/store/ngon/shape-io';
 import { generate, GeneratorResult } from '@/store/ngon/generator';
 import { UISection } from '../UI/UISection';
 import { classNames } from '@/utils/classnames';
+import { initalValueShapeParams } from '@/store/ngon/shape-defaults';
 
 export function ShapeView({ shapeParams, shape, className, ...rest }: { shapeParams: NewShapeParams, shape: GeneratorResult; } & HTMLAttributes<SVGSVGElement>) {
     return (
@@ -24,7 +25,7 @@ function ShapePresets() {
     const shapes = useAtomValue(vaultData.shapesAtom);
     const shapeParamArray = shapes.map((shapeStr) => {
         const p = JSON.parse(shapeStr) as StorageNgon;
-        const shapeParams = IO.ShapeNgonFromStorage(p);
+        const shapeParams = {...initalValueShapeParams(), ...IO.ShapeNgonFromStorage(p)};
         const shape = generate(shapeParams);
         return {
             shapeParams,
