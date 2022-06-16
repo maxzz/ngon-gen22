@@ -38,7 +38,7 @@ function ShapePresets() {
         const arr = shapes.map((shapeStr) => {
             const res = IO.shapeFromString(shapeStr);
             if (typeof res === 'string') {
-                toastError(res);
+                toastError(res); //TODO: we can now use faildedShapesAtom if need it for later.
             } else {
                 return res;
             }
