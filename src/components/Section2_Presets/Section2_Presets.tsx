@@ -7,6 +7,7 @@ import { GeneratorResult } from '@/store/ngon/generator';
 import { UISection } from '../UI/UISection';
 import { classNames } from '@/utils/classnames';
 import { isNonNull } from '@/utils/tsX';
+import { toastError } from '../UI/UiToaster';
 
 export function ShapeView({ shapeParams, shape, className, ...rest }: { shapeParams: NewShapeParams, shape: GeneratorResult; } & HTMLAttributes<SVGSVGElement>) {
     const setShapeParams = useSetAtom(editorShapeParamsAtom);
@@ -27,7 +28,11 @@ function ShapePresets() {
     const shapes = useAtomValue(vaultData.shapesAtom);
     const shapeParamArray = shapes.map((shapeStr) => {
         const res = IO.shapeFromString(shapeStr);
-        return typeof res === 'string' ? null : res;
+        if (typeof res === 'string') {
+            toastError(res);
+        } else {
+            return res;
+        }
     }).filter(isNonNull);
     return (
         <div className="py-2">
