@@ -193,18 +193,23 @@ export const vaultShapesAtom = atomWithCallback<string[]>(Storage.initialData.va
 
 export const vaultParsedshapesAtom = atom(
     (get) => {
-        const shapes = get(vaultShapesAtom);
+        const vaultShapes = get(vaultShapesAtom);
 
-        const arr = shapes.map((shapeStr) => {
+        const failedShapes: string[] = [];
+
+        const parsedShapes = vaultShapes.map((shapeStr) => {
             const res = IO.shapeFromString(shapeStr);
             if (typeof res === 'string') {
-                toastError(res);
+                failedShapes.push(res);
             } else {
                 return res;
             }
         }).filter(isNonNull);
 
-        return arr;
+        return {
+            parsedShapes,
+            failedShapes,
+        };
     }
 );
 

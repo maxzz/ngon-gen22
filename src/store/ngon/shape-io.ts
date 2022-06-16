@@ -101,7 +101,7 @@ export namespace IO {
             const storeData = ShapeNgonFromStorage(p);
             const shapeParams = { ...initalValueShapeParams(), ...storeData.params };
             const shape = generate(shapeParams);
-            JSON.parse('');
+            JSON.parse(''); // to debug error behaviour
             return {
                 shapeParams,
                 shape,

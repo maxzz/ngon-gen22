@@ -26,7 +26,7 @@ export function ShapeView({ shapeParams, shape, className, ...rest }: { shapePar
 
 function ShapePresets() {
     const shapes = useAtomValue(vaultData.shapesAtom);
-    const vaultParsedshapes = useAtomValue(vaultParsedshapesAtom);
+    const { parsedShapes, failedShapes } = useAtomValue(vaultParsedshapesAtom);
 
     // const shapes = useAtomValue(vaultData.shapesAtom);
     // const [shapeParamArray, setShapeParamArray] = useState<IO.ConvertResult[]>([]);
@@ -55,7 +55,7 @@ function ShapePresets() {
         <div className="py-2">
             <div className="max-h-96 px-4 overflow-y-auto bg-primary-100">
                 <div className="py-4 grid grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-1">
-                    {vaultParsedshapes.map(({ shapeParams, shape }, idx) => (
+                    {parsedShapes.map(({ shapeParams, shape }, idx) => (
                         <ShapeView shapeParams={shapeParams} shape={shape} key={idx} />
                     ))}
                 </div>
