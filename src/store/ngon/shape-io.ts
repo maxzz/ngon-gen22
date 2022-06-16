@@ -5,32 +5,45 @@ import { uuid } from "@/utils/uuid";
 
 // Storage formats
 
-export interface StorageScene { // Persistent format of Scene
-    w: number;          // Scene.w
-    h: number;          // Scene.h
-    cx?: number;        // Scene.ofsX
-    cy?: number;        // Scene.ofsY
-    z?: number;         // Scene.scale
-}
+namespace StorageData {
 
-export interface StorageNgon { // Persistent format of ShapeParams
-    na: number;         // ShapeNgon.nOuter
-    nb: number;         // ShapeNgon.nInner
-    lna: Point2D;       // ShapeNgon.lenOuter
-    lnb: Point2D;       // ShapeNgon.lenInner
-    stk?: number;       //
-    scn: StorageScene;  //
-    id?: string;        // ShapeNgon.id
-    gen?: string;       // ShapeNgon.gen
-}
+    export interface Scene { // Persistent format of Scene
+        w: number;          // Scene.w
+        h: number;          // Scene.h
+        cx?: number;        // Scene.ofsX
+        cy?: number;        // Scene.ofsY
+        z?: number;         // Scene.scale
+    }
+
+    export interface Gadgets {
+        iLn: boolean;       // Show inner lines
+        oLn: boolean;       // Show outer lines
+        iDt: boolean;       // Show inner dots
+        oDt: boolean;       // Show outer dots
+        swp: boolean;       // swap inner and outer
+    }
+
+    export interface Ngon { // Persistent format of ShapeParams
+        na: number;         // ShapeNgon.nOuter
+        nb: number;         // ShapeNgon.nInner
+        lna: Point2D;       // ShapeNgon.lenOuter
+        lnb: Point2D;       // ShapeNgon.lenInner
+        stk?: number;       //
+        scn: Scene;  //
+        show?: Gadgets;
+        id?: string;        // ShapeNgon.id
+        gen?: string;       // ShapeNgon.gen
+    }
+
+} //namespace StorageFormat
 
 export namespace IO {
-    export function ShapeNgonToStorage(shape: NewShapeParams): StorageNgon {
-        let rv: StorageNgon = {
+    export function ShapeNgonToStorage(shape: NewShapeParams): StorageData.Ngon {
+        let rv: StorageData.Ngon = {
             na: shape.outerN,
             nb: shape.innerN,
-            lna: {x: shape.outerX, y: shape.outerY},
-            lnb: {x: shape.innerX, y: shape.innerY},
+            lna: { x: shape.outerX, y: shape.outerY },
+            lnb: { x: shape.innerX, y: shape.innerY },
             ...(shape.stroke !== CONST.defStroke && { stk: shape.stroke }),
             scn: {
                 w: shape.w,
@@ -45,7 +58,7 @@ export namespace IO {
         return rv;
     }
 
-    export function ShapeNgonFromStorage(storage: StorageNgon): NewShapeParams {
+    function ShapeNgonFromStorage(storage: StorageData.Ngon): NewShapeParams {
         let w = storage.scn && storage.scn.w || CONST.sceneSize;
         let h = storage.scn && storage.scn.h || CONST.sceneSize;
         let rv: NewShapeParams = {
@@ -73,18 +86,18 @@ export namespace IO {
         error: string;
         shapeParams: NewShapeParams;
         shape: GeneratorResult;
+        gadgets?: StorageData.Gadgets;
     };
 
-    export function shapeFromString(shapeStr: string): ConvertResult  {
-        const p = JSON.parse(shapeStr) as StorageNgon;
-        const shapeParams = {...initalValueShapeParams(), ...ShapeNgonFromStorage(p)};
+    export function shapeFromString(shapeStr: string): ConvertResult {
+        const p = JSON.parse(shapeStr) as StorageData.Ngon;
+        const shapeParams = { ...initalValueShapeParams(), ...ShapeNgonFromStorage(p) };
         const shape = generate(shapeParams);
         return {
             error: '',
             shapeParams,
             shape,
         };
-        
     }
 
 } //namespace IO

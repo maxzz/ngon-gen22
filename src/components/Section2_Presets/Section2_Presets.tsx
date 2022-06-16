@@ -11,7 +11,7 @@ export function ShapeView({ shapeParams, shape, className, ...rest }: { shapePar
     const setShapeParams = useSetAtom(editorShapeParamsAtom);
     return (
         <svg
-            className={classNames("fill-transparent touch-none bg-primary-50 border-white border-4", className)}
+            className={classNames("fill-transparent touch-none bg-primary-50 border-white border-4 cursor-pointer", className)}
             viewBox={`0 0 ${shapeParams.w} ${shapeParams.h}`}
             preserveAspectRatio="none"
             onClick={() => setShapeParams(shapeParams)}
