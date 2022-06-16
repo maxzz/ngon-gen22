@@ -6,6 +6,7 @@ import { IO } from '@/store/ngon/shape-io';
 import { GeneratorResult } from '@/store/ngon/generator';
 import { UISection } from '../UI/UISection';
 import { classNames } from '@/utils/classnames';
+import { isNonNull } from '@/utils/tsX';
 
 export function ShapeView({ shapeParams, shape, className, ...rest }: { shapeParams: NewShapeParams, shape: GeneratorResult; } & HTMLAttributes<SVGSVGElement>) {
     const setShapeParams = useSetAtom(editorShapeParamsAtom);
@@ -22,27 +23,12 @@ export function ShapeView({ shapeParams, shape, className, ...rest }: { shapePar
     );
 }
 
-//const isNonNull = <T>(x: T): x is NonNullable<T> => x != null;
-function isNonNull<T>(x: T): x is NonNullable<T> {
-    return !!x;
-}
-
 function ShapePresets() {
     const shapes = useAtomValue(vaultData.shapesAtom);
     const shapeParamArray = shapes.map((shapeStr) => {
         const res = IO.shapeFromString(shapeStr);
-        // return typeof res === 'string' ? undefined : res; //No
-        // return typeof res === 'string' ? undefined : res; //OK1
-        // return typeof res === 'string' ? false : res; //OK2
-        // return typeof res === 'string' ? undefined : res; //OK3
-
         return typeof res === 'string' ? null : res;
     }).filter(isNonNull);
-
-    //}).filter(Boolean); //No
-    // }).filter(Boolean) as Exclude<ReturnType<typeof IO.shapeFromString>, undefined | string>[]; //OK1
-    // }).filter(Boolean); //OK2
-    // }).filter(isNonNull); //OK3
     return (
         <div className="py-2">
             <div className="max-h-96 px-4 overflow-y-auto bg-primary-100">
