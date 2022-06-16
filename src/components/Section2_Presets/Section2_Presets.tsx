@@ -25,8 +25,12 @@ export function ShapeView({ shapeParams, shape, className, ...rest }: { shapePar
 }
 
 function ShapePresets() {
-    const shapes = useAtomValue(vaultData.shapesAtom);
+    //const shapes = useAtomValue(vaultData.shapesAtom);
     const { parsedShapes, failedShapes } = useAtomValue(vaultParsedshapesAtom);
+
+    useEffect(() => {
+        failedShapes.forEach((shape) => toastError(shape));
+    }, [failedShapes]);
 
     // const shapes = useAtomValue(vaultData.shapesAtom);
     // const [shapeParamArray, setShapeParamArray] = useState<IO.ConvertResult[]>([]);
