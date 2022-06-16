@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLAttributes, useEffect, useState } from 'react';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { editorShapeParamsAtom, openSections, vaultData, } from '@/store/store';
 import { NewShapeParams } from '@/store/ngon/shape';
@@ -26,14 +26,29 @@ export function ShapeView({ shapeParams, shape, className, ...rest }: { shapePar
 
 function ShapePresets() {
     const shapes = useAtomValue(vaultData.shapesAtom);
-    const shapeParamArray = shapes.map((shapeStr) => {
-        const res = IO.shapeFromString(shapeStr);
-        if (typeof res === 'string') {
-            toastError(res);
-        } else {
-            return res;
-        }
-    }).filter(isNonNull);
+    const [shapeParamArray, setShapeParamArray] = useState<IO.ConvertResult[]>([]);
+
+    useEffect(() => {
+        const arr = shapes.map((shapeStr) => {
+            const res = IO.shapeFromString(shapeStr);
+            if (typeof res === 'string') {
+                toastError(res);
+            } else {
+                return res;
+            }
+        }).filter(isNonNull);
+        setShapeParamArray(arr);
+    }, [shapes]);
+
+    // const shapeParamArray = shapes.map((shapeStr) => {
+    //     const res = IO.shapeFromString(shapeStr);
+    //     if (typeof res === 'string') {
+    //         toastError(res);
+    //     } else {
+    //         return res;
+    //     }
+    // }).filter(isNonNull);
+
     return (
         <div className="py-2">
             <div className="max-h-96 px-4 overflow-y-auto bg-primary-100">
