@@ -191,6 +191,8 @@ export const vaultData: Atomize<VaultData> = {
 
 export const vaultShapesAtom = atomWithCallback<string[]>(Storage.initialData.vaultData.shapes, Storage.save);
 
+//export const faildedShapesAtom = atom<string[]>([]);
+
 export const vaultParsedshapesAtom = atom(
     (get) => {
         const vaultShapes = get(vaultShapesAtom);
@@ -205,6 +207,8 @@ export const vaultParsedshapesAtom = atom(
                 return res;
             }
         }).filter(isNonNull);
+
+        failedShapes.push('failed test');
 
         return {
             parsedShapes,
