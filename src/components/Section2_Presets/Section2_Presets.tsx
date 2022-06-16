@@ -26,13 +26,15 @@ function ShapePresets() {
     const shapes = useAtomValue(vaultData.shapesAtom);
     const shapeParamArray = shapes.map((shapeStr) => {
         const res = IO.shapeFromString(shapeStr);
-        return res.error ? undefined : res;
-    }).filter(Boolean) as Exclude<ReturnType<typeof IO.shapeFromString>, undefined>[];
+        return typeof res === 'string' ? undefined : res;
+        // return typeof res === 'string' ? false : res;
+    // }).filter(Boolean);
+    }).filter(Boolean) as Exclude<ReturnType<typeof IO.shapeFromString>, undefined | string>[];
     return (
         <div className="py-2">
             <div className="max-h-96 px-4 overflow-y-auto bg-primary-100">
                 <div className="py-4 grid grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-1">
-                    {shapeParamArray.map(({data: { shapeParams, shape }}, idx) => (
+                    {shapeParamArray.map(({ shapeParams, shape }, idx) => (
                         <ShapeView shapeParams={shapeParams} shape={shape} key={idx} />
                     ))}
                 </div>

@@ -85,30 +85,23 @@ export namespace IO {
     }
 
     export type ConvertResult = {
-        data?: {
-            shapeParams: NewShapeParams;
-            shape: GeneratorResult;
-            gadgets?: StorageData.Gadgets;
-        },
-        error?: string;
+        shapeParams: NewShapeParams;
+        shape: GeneratorResult;
+        gadgets?: StorageData.Gadgets;
     };
 
-    export function shapeFromString(shapeStr: string): ConvertResult {
+    export function shapeFromString(shapeStr: string): ConvertResult | string {
         try {
             const p = JSON.parse(shapeStr) as StorageData.Ngon;
             const storeData = ShapeNgonFromStorage(p);
             const shapeParams = { ...initalValueShapeParams(), ...storeData.params };
             const shape = generate(shapeParams);
             return {
-                data: {
-                    shapeParams,
-                    shape,                    
-                }
+                shapeParams,
+                shape,
             };
         } catch (error) {
-            return {
-                error: 'cannot convert data',
-            };
+            return 'cannot convert data';
         }
     }
 
