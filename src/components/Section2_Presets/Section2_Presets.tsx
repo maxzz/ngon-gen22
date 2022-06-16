@@ -1,6 +1,6 @@
 import React, { HTMLAttributes } from 'react';
-import { useAtomValue } from 'jotai';
-import { openSections, vaultData, } from '@/store/store';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { editorShapeParamsAtom, openSections, vaultData, } from '@/store/store';
 import { NewShapeParams } from '@/store/ngon/shape';
 import { IO } from '@/store/ngon/shape-io';
 import { GeneratorResult } from '@/store/ngon/generator';
@@ -8,11 +8,13 @@ import { UISection } from '../UI/UISection';
 import { classNames } from '@/utils/classnames';
 
 export function ShapeView({ shapeParams, shape, className, ...rest }: { shapeParams: NewShapeParams, shape: GeneratorResult; } & HTMLAttributes<SVGSVGElement>) {
+    const setShapeParams = useSetAtom(editorShapeParamsAtom);
     return (
         <svg
             className={classNames("fill-transparent touch-none bg-primary-50 border-white border-4", className)}
             viewBox={`0 0 ${shapeParams.w} ${shapeParams.h}`}
             preserveAspectRatio="none"
+            onClick={() => setShapeParams(shapeParams)}
             {...rest}
         >
             <path className="stroke-primary-900" style={{ strokeWidth: shapeParams.stroke }} d={shape.d} />
