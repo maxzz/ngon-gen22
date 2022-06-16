@@ -90,19 +90,24 @@ export namespace IO {
         gadgets?: StorageData.Gadgets;
     };
 
+    /**
+     * Create shape from string.
+     * @param shapeStr packed string of StorageData.Ngon
+     * @returns ConvertResult or original string if failed to parse it.
+     */
     export function shapeFromString(shapeStr: string): ConvertResult | string {
         try {
             const p = JSON.parse(shapeStr) as StorageData.Ngon;
             const storeData = ShapeNgonFromStorage(p);
             const shapeParams = { ...initalValueShapeParams(), ...storeData.params };
             const shape = generate(shapeParams);
-            //JSON.parse('');
+            JSON.parse('');
             return {
                 shapeParams,
                 shape,
             };
         } catch (error) {
-            return 'cannot convert data';
+            return shapeStr;
         }
     }
 

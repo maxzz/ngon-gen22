@@ -6,6 +6,8 @@ import { initalValueShapeParams } from './ngon/shape-defaults';
 import { NewShapeParams } from './ngon/shape';
 import { generate } from './ngon/generator';
 import { defaultShapes } from './ngon/shapes-vault-data';
+import { IO } from './ngon/shape-io';
+import { isNonNull } from '@/utils/tsX';
 export { defaultShapes } from './ngon/shapes-vault-data';
 
 //#region LocalStorage
@@ -46,7 +48,7 @@ namespace Storage {
             try {
                 let obj = JSON.parse(s) as Store;
                 initialData = { ...initialData, ...obj };
-                
+
                 initialData.vaultData.shapes = initialData.vaultData?.shapes?.length ? initialData.vaultData.shapes : defaultShapes;
             } catch (error) {
             }
@@ -185,8 +187,25 @@ type VaultData = {
 
 export const vaultData: Atomize<VaultData> = {
     shapesAtom: atomWithCallback<string[]>(Storage.initialData.vaultData.shapes, Storage.save),
-}
+};
 
 export const vaultShapesAtom = atomWithCallback<string[]>(Storage.initialData.vaultData.shapes, Storage.save);
+
+export const vaultParsedshapesAtom = atom(
+    (get) => {
+        const shapes = get(vaultShapesAtom);
+
+        const arr = shapes.map((shapeStr) => {
+            const res = IO.shapeFromString(shapeStr);
+            if (typeof res === 'string') {
+                toastError(res);
+            } else {
+                return res;
+            }
+        }).filter(isNonNull);
+
+        return arr;
+    }
+);
 
 //////////////////////
