@@ -58,7 +58,7 @@ export namespace IO {
         return rv;
     }
 
-    function ShapeNgonFromStorage(storage: StorageData.Ngon): NewShapeParams {
+    function ShapeNgonFromStorage(storage: StorageData.Ngon): { params: NewShapeParams; } {
         let w = storage.scn && storage.scn.w || CONST.sceneSize;
         let h = storage.scn && storage.scn.h || CONST.sceneSize;
         let rv: NewShapeParams = {
@@ -79,25 +79,37 @@ export namespace IO {
             id: storage.id || uuid(),
             genId: storage.gen || CONST_NAMES.NAME_NGON,
         };
-        return rv;
+        return {
+            params: rv,
+        };
     }
 
     export type ConvertResult = {
-        error: string;
-        shapeParams: NewShapeParams;
-        shape: GeneratorResult;
-        gadgets?: StorageData.Gadgets;
+        data?: {
+            shapeParams: NewShapeParams;
+            shape: GeneratorResult;
+            gadgets?: StorageData.Gadgets;
+        },
+        error?: string;
     };
 
     export function shapeFromString(shapeStr: string): ConvertResult {
-        const p = JSON.parse(shapeStr) as StorageData.Ngon;
-        const shapeParams = { ...initalValueShapeParams(), ...ShapeNgonFromStorage(p) };
-        const shape = generate(shapeParams);
-        return {
-            error: '',
-            shapeParams,
-            shape,
-        };
+        try {
+            const p = JSON.parse(shapeStr) as StorageData.Ngon;
+            const storeData = ShapeNgonFromStorage(p);
+            const shapeParams = { ...initalValueShapeParams(), ...storeData.params };
+            const shape = generate(shapeParams);
+            return {
+                data: {
+                    shapeParams,
+                    shape,                    
+                }
+            };
+        } catch (error) {
+            return {
+                error: 'cannot convert data',
+            };
+        }
     }
 
 } //namespace IO

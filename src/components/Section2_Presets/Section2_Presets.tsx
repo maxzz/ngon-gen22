@@ -32,7 +32,7 @@ function ShapePresets() {
         <div className="py-2">
             <div className="max-h-96 px-4 overflow-y-auto bg-primary-100">
                 <div className="py-4 grid grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-1">
-                    {shapeParamArray.map(({ shapeParams, shape }, idx) => (
+                    {shapeParamArray.map(({data: { shapeParams, shape }}, idx) => (
                         <ShapeView shapeParams={shapeParams} shape={shape} key={idx} />
                     ))}
                 </div>
