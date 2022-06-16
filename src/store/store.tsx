@@ -193,6 +193,7 @@ export const vaultShapesAtom = atomWithCallback<string[]>(Storage.initialData.va
 
 //export const faildedShapesAtom = atom<string[]>([]);
 
+/*cannot clear failed messages from get()* /
 export const vaultParsedshapesAtom = atom(
     (get) => {
         const vaultShapes = get(vaultShapesAtom);
@@ -216,5 +217,5 @@ export const vaultParsedshapesAtom = atom(
         };
     }
 );
-
+/**/
 //////////////////////
