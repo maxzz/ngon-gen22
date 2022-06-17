@@ -88,7 +88,40 @@ namespace Storage {
 
 //#region ServerReleaseNotes
 
+type VaultData = {
+    shapes: string[];
+};
+
+export const vaultData: Atomize<VaultData> = {
+    shapesAtom: atomWithCallback<string[]>(Storage.initialData.vaultData.shapes, Storage.save),
+};
+
+type VaultSpapesArray = {
+    valid: string[];
+    failed: string[];
+}
+
 const releaseNotesStateAtom = atom<LoadingDataState<string>>(loadingDataStateInit());
+
+export const validShapesAtom = atom<string[]>([]);
+export const faildedShapesAtom = atom<string[]>([]);
+
+function parseVaultShapes(vaultShapes: string[]) {
+    const failedShapes: string[] = [];
+    const parsedShapes = vaultShapes.map((shapeStr) => {
+        const res = IO.shapeFromString(shapeStr);
+        if (typeof res === 'string') {
+            failedShapes.push(res);
+        } else {
+            return res;
+        }
+    }).filter(isNonNull);
+    //failedShapes.push('failed test');
+    return {
+        parsedShapes,
+        failedShapes,
+    };
+}
 
 const runFetchReleaseNotesAtom = atom(
     (get) => get(releaseNotesStateAtom),
@@ -133,7 +166,7 @@ const correlateAtom = atom(
     }
 );
 
-// UI state
+//#region UI state
 
 type OpenSections = {
     presets: boolean;   // shape collection previews
@@ -157,7 +190,9 @@ export const editorShapeAtom = atom(
     }
 );
 
-// editor controls
+//#endregion UI state
+
+//#region Editor controls
 
 type ViewboxOptions = {
     showBox: boolean;           // show box controls
@@ -179,15 +214,9 @@ export const viewboxOptionAtoms: Atomize<ViewboxOptions> = {
     showOuterDotsAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showOuterDots, Storage.save),
 };
 
-// Vault shapes
+//#endregion Editor controls
 
-type VaultData = {
-    shapes: string[];
-};
-
-export const vaultData: Atomize<VaultData> = {
-    shapesAtom: atomWithCallback<string[]>(Storage.initialData.vaultData.shapes, Storage.save),
-};
+//#region Vault shapes
 
 export const doSaveToVaultAtom = atom(null,
     (get, set,) => {
@@ -205,6 +234,13 @@ export const doRemoveFromVaultAtom = atom(null,
         set(vaultData.shapesAtom, newShapes);
     }
 );
+
+export const doLoadVaultAtom = atom(null,
+    (get, set, idx: number) => {
+    }
+);
+
+//#endregion Vault shapes
 
 //export const vaultShapesAtom = atomWithCallback<string[]>(Storage.initialData.vaultData.shapes, Storage.save);
 
