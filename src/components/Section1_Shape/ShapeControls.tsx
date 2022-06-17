@@ -1,6 +1,6 @@
 import React, { HTMLAttributes, ReactNode, useCallback, useEffect } from "react";
 import { PrimitiveAtom, SetStateAction, useAtom, useSetAtom } from "jotai";
-import { editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
+import { doSaveToVaultAtom, editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
 import { NewShapeParams } from "@/store/ngon/shape";
 import { initalValueShapeParams, initialValueNewShapeParamsMeta } from "@/store/ngon/shape-defaults";
 import { classNames } from "@/utils/classnames";
@@ -133,6 +133,28 @@ function ResetButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
     );
 }
 
+function SaveButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
+    const doSaveToVault = useSetAtom(doSaveToVaultAtom);
+    return (
+        <input
+            className={classNames(
+                "px-1 py-0.5 border-primary-400 border-dotted border rounded-sm shadow-sm",
+                "bg-primary-200 hover:bg-primary-300 focus:bg-primary-300",
+                "outline-none focus:ring-1 ring-offset-1 ring-offset-primary-50 ring-primary-700/50",
+                "active:scale-[.97] cursor-pointer",
+                className
+            )}
+            type="button"
+            title="Save to vault collection"
+            value="Save" {...rest}
+            onClick={doSaveToVault}
+        />
+    );
+}
+//TODO: delete shape
+//TODO: scroll to added shape
+//TODO: save gadgets state
+
 function HintButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     return (
         <div className={classNames("flex items-end", className)} {...rest}>
@@ -237,6 +259,7 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
                     <div className="flex items-center space-x-2">
                         <HintButton />
                         <ResetButton />
+                        <SaveButton />
                     </div>
 
                     <SwapCheckbox />

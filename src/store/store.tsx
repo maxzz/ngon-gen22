@@ -191,6 +191,14 @@ export const vaultData: Atomize<VaultData> = {
 
 export const vaultShapesAtom = atomWithCallback<string[]>(Storage.initialData.vaultData.shapes, Storage.save);
 
+export const doSaveToVaultAtom = atom(null,
+    (get, set, ) => {
+        const shapeParams = get(editorShapeParamsAtom);
+        const shapeStr = JSON.stringify(IO.ShapeNgonToStorage(shapeParams));
+        set(vaultData.shapesAtom, (p) => [...p, shapeStr]);
+    }
+);
+
 //export const faildedShapesAtom = atom<string[]>([]);
 
 /*cannot clear failed messages from get()* /
