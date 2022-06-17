@@ -189,15 +189,24 @@ export const vaultData: Atomize<VaultData> = {
     shapesAtom: atomWithCallback<string[]>(Storage.initialData.vaultData.shapes, Storage.save),
 };
 
-export const vaultShapesAtom = atomWithCallback<string[]>(Storage.initialData.vaultData.shapes, Storage.save);
-
 export const doSaveToVaultAtom = atom(null,
-    (get, set, ) => {
+    (get, set,) => {
         const shapeParams = get(editorShapeParamsAtom);
         const shapeStr = JSON.stringify(IO.ShapeNgonToStorage(shapeParams));
         set(vaultData.shapesAtom, (p) => [...p, shapeStr]);
     }
 );
+
+export const doRemoveFromVaultAtom = atom(null,
+    (get, set, idx: number) => {
+        //TODO: should have access by Id or by index is enough?
+        const shapes = get(vaultData.shapesAtom);
+        const newShapes = shapes.slice(0, idx).concat(shapes.slice(idx + 1));
+        set(vaultData.shapesAtom, newShapes);
+    }
+);
+
+//export const vaultShapesAtom = atomWithCallback<string[]>(Storage.initialData.vaultData.shapes, Storage.save);
 
 //export const faildedShapesAtom = atom<string[]>([]);
 
