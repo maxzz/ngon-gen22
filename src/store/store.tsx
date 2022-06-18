@@ -151,8 +151,7 @@ export const vaultSpapes: Atomize<VaultSpapesArray> = {
 function saveVaultShapes({ get, set }: { get: Getter, set: Setter; }) {
     const valid = get(vaultSpapes.validAtom);
     const failed = get(vaultSpapes.failedAtom);
-    const arr = [...IO.convertResultForVault(valid), ...failed];
-    set(_shapesAtom, arr);
+    set(_shapesAtom, [...IO.convertResultForVault(valid), ...failed]);
     Storage.saveDebounced(get);
 }
 

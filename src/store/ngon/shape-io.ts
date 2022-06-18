@@ -59,7 +59,7 @@ export namespace IO {
                 ...(shape.ofsY !== shape.h / 2 && { cy: shape.ofsY }),
                 ...(shape.scale !== 1 && { z: shape.scale }),
             },
-            ...(shape.swap && { swap: shape.swap }),
+            swap: shape.swap,
             id: shape.id,
             ...(shape.genId && shape.genId !== CONST_NAMES.NAME_NGON && { gen: shape.genId }),
         };
@@ -84,7 +84,7 @@ export namespace IO {
             ofsY: storage.scn && storage.scn.cy || h / 2,
             scale: storage.scn && storage.scn.z || 1,
 
-            swap: !!storage.swap,
+            ...(storage.swap !== undefined && {swap: !!storage.swap}),
             id: storage.id || uuid(),
             genId: storage.gen || CONST_NAMES.NAME_NGON,
         };
@@ -104,13 +104,13 @@ export namespace IO {
      * @param shapeStr packed string of StorageData.Ngon
      * @returns ConvertResult or original string if failed to parse it.
      */
-    export function shapeFromString(shapeStr: string): ConvertResult | string {
+    function shapeFromString(shapeStr: string): ConvertResult | string {
         try {
             const p = JSON.parse(shapeStr) as StorageData.Ngon;
             const storeData = ShapeNgonFromStorage(p);
             const shapeParams = { ...initalValueShapeParams(), ...storeData.params };
             const shape = generate(shapeParams);
-            //JSON.parse(''); // to debug error behaviour
+            //JSON.parse(''); // to trigger debug error
             return {
                 shapeParams,
                 shape,
@@ -131,6 +131,8 @@ export namespace IO {
                 return res;
             }
         }).filter(isNonNull);
+        // console.log('last', parsedShapes[parsedShapes.length - 1]?.shapeParams);
+        // console.log('last', parsedShapes.map((item) => item.shapeParams.swap));
         return {
             parsedShapes,
             failedShapes,
