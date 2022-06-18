@@ -131,8 +131,6 @@ export namespace IO {
                 return res;
             }
         }).filter(isNonNull);
-        // console.log('last', parsedShapes[parsedShapes.length - 1]?.shapeParams);
-        // console.log('last', parsedShapes.map((item) => item.shapeParams.swap));
         return {
             parsedShapes,
             failedShapes,

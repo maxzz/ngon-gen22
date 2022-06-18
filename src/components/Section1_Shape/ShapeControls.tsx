@@ -255,7 +255,7 @@ export function ShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElem
             </SubSection>
 
             <SubSection label="Utility" openAtom={viewboxOptionAtoms.showUtilsAtom}>
-                <div className="pl-1 pr-3 flex items-center justify-between">
+                <div className="pl-1 pr-3 py-2 flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                         <HintButton />
                         <ResetButton />
