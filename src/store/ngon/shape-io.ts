@@ -128,4 +128,11 @@ export namespace IO {
         };
     }
     
+    export function convertResultForVault(arr: ConvertResult[]): string[] {
+        return arr.map((item) => {
+            const ngon: StorageData.Ngon = IO.ShapeNgonToStorage(item.shapeParams);
+            return JSON.stringify(ngon);
+        });
+    }
+
 } //namespace IO

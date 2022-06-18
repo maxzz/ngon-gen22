@@ -1,14 +1,12 @@
 import { Atom, atom, Getter, Setter } from 'jotai';
-import { Atomize, atomWithCallback, LoadingDataState, loadingDataStateInit } from '@/hooks/atomsX';
+import { Atomize, atomWithCallback } from '@/hooks/atomsX';
 import { debounce } from '@/utils/debounce';
-import { toastError } from '@/components/UI/UiToaster';
 import { initalValueShapeParams } from './ngon/shape-defaults';
 import { NewShapeParams } from './ngon/shape';
-import { generate } from './ngon/generator';
 import { defaultShapes } from './ngon/shapes-vault-data';
-import { IO, StorageData } from './ngon/shape-io';
-import { isNonNull } from '@/utils/tsX';
-export { defaultShapes } from './ngon/shapes-vault-data';
+import { generate } from './ngon/generator';
+import { IO, } from './ngon/shape-io';
+import { toastError } from '@/components/UI/UiToaster';
 
 //#region LocalStorage
 
@@ -92,7 +90,7 @@ type VaultData = {
     shapes: string[];
 };
 
-export const vaultData: Atomize<VaultData> = {
+const vaultData: Atomize<VaultData> = {
     shapesAtom: atom<string[]>([]),
 };
 
@@ -101,17 +99,10 @@ type VaultSpapesArray = {
     failed: string[];
 };
 
-function vaultSpapesArrayToArray(arr: IO.ConvertResult[]): string[] {
-    return arr.map((item) => {
-        const ngon: StorageData.Ngon = IO.ShapeNgonToStorage(item.shapeParams);
-        return JSON.stringify(ngon);
-    });
-}
-
 function saveVaultDataArray({ get, set }: { get: Getter, set: Setter; }) {
     const valid = get(vaultSpapesArray.validAtom);
     const failed = get(vaultSpapesArray.failedAtom);
-    const arr = [...vaultSpapesArrayToArray(valid), ...failed];
+    const arr = [...IO.convertResultForVault(valid), ...failed];
     set(vaultData.shapesAtom, arr);
     Storage.saveDebounced(get);
 }
