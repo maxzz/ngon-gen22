@@ -1,10 +1,15 @@
-import { NewShapeParams, Point2D } from "./shape";
+import { NewShapeParams } from "./shape";
 import { CONST, CONST_NAMES, initalValueShapeParams } from "./shape-defaults";
 import { generate, GeneratorResult } from "./generator";
 import { uuid } from "@/utils/uuid";
 import { isNonNull } from "@/utils/tsX";
 
 // Storage formats
+
+export type Point2D = {
+    x: number;
+    y: number;
+};
 
 export namespace StorageData {
 

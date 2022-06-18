@@ -1,8 +1,4 @@
-export type Point2D = {
-    x: number;
-    y: number;
-};
-
+/** /
 // In editor formats
 
 export type Scene = {
@@ -23,7 +19,7 @@ export type ShapeNgon = {
     id?: string;        // Relatively unique shape ID or generated
     gen?: string;       // Generator name: 'ngon'
 };
-
+/**/
 //////////////////
 
 export type NewShapeParams = { // TODO: can it be more then one inner ?
@@ -45,6 +41,8 @@ export type NewShapeParams = { // TODO: can it be more then one inner ?
     id?: string;        // shape ID
     genId?: string;     // shape generator name aka 'ngon'
 };
+
+//////////////////
 
 export type NewShapeParamsMetaItem = {
     label: string;
