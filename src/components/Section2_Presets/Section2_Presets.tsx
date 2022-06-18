@@ -9,12 +9,11 @@ import { classNames } from '@/utils/classnames';
 function PresetView({ shapeParams, shape, className, ...rest }: { shapeParams: NewShapeParams, shape: GeneratorResult; } & HTMLAttributes<SVGSVGElement>) {
     return (
         <svg
-            className={classNames("fill-transparent touch-none bg-primary-50 border-white border-4 cursor-pointer", className)}
+            className={classNames("fill-transparent touch-none text-primary-900 bg-primary-50 border-white border-4 cursor-pointer", className)}
             viewBox={`0 0 ${shapeParams.w} ${shapeParams.h}`}
-            preserveAspectRatio="none"
             {...rest}
         >
-            <path className="stroke-primary-900" style={{ strokeWidth: shapeParams.stroke }} d={shape.d} />
+            <path className="stroke-current" style={{ strokeWidth: shapeParams.stroke }} d={shape.d} />
         </svg>
     );
 }
