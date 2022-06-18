@@ -1,5 +1,6 @@
 import React from 'react';
 import { toast as callToast, Toaster as ToasterComponent } from 'react-hot-toast';
+import { IconCross } from './UIIcons';
 
 export function UIToaster() {
     return (
@@ -62,9 +63,12 @@ export function toastError(message: string) {
             <div className="px-3 py-1 flex items-center justify-between">
                 <div className="">{message}</div>
                 <div className="">
+                    {/* <div className="ml-4 w-12 h-12 flex items-center justify-center hover:bg-red-400 rounded-sm active:scale-[.97] cursor-pointer select-none"
+                        onClick={() => callToast.remove(t.id)}
+                    >❌</div> */}
                     <div className="ml-4 w-12 h-12 flex items-center justify-center hover:bg-red-400 rounded-sm active:scale-[.97] cursor-pointer select-none"
                         onClick={() => callToast.remove(t.id)}
-                    >❌</div>
+                    ><IconCross className="w-4 h-4" /></div>
                 </div>
             </div>
         </div>
