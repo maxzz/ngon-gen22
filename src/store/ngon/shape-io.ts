@@ -106,6 +106,7 @@ export namespace IO {
             return {
                 shapeParams,
                 shape,
+                //gadgets
             };
         } catch (error) {
             return shapeStr;

@@ -186,17 +186,23 @@ export const viewboxOptionAtoms: Atomize<StorageViewboxOptions> = {
 export const doSaveToVaultAtom = atom(null,
     (get, set,) => {
         const shapeParams = get(editorShapeParamsAtom);
-        const shapeStr = JSON.stringify(IO.ShapeNgonToStorage(shapeParams));
-        set(vaultData.shapesAtom, (p) => [...p, shapeStr]);
+
+        // const shapeStr = JSON.stringify(IO.ShapeNgonToStorage(shapeParams));
+        // set(vaultData.shapesAtom, (p) => [...p, shapeStr]);
+        const shape = generate(shapeParams);
+        const gadgets = undefined;
+        const conv: IO.ConvertResult = {shapeParams, shape, gadgets};
+
+        set(vaultSpapesArray.validAtom, (p) => [...p, conv]);
     }
 );
 
 export const doRemoveFromVaultAtom = atom(null,
     (get, set, idx: number) => {
         //TODO: should have access by Id or by index is enough?
-        const shapes = get(vaultData.shapesAtom);
+        const shapes = get(vaultSpapesArray.validAtom);
         const newShapes = shapes.slice(0, idx).concat(shapes.slice(idx + 1));
-        set(vaultData.shapesAtom, newShapes);
+        set(vaultSpapesArray.validAtom, newShapes);
     }
 );
 
