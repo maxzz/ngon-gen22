@@ -31,8 +31,104 @@ function fn(order: number[], active = false, originalIndex = 0, curIndex = 0, y 
             };
 }
 
+const cellW = 64; // width in px
+const cellG = 4; // gap in px
 
-function DraggableList({ items }: { items: string[]; }) {
+function DraggableList_Grid({ items }: { items: string[]; }) {
+
+    const order = useRef(items.map((_, idx) => idx)); // Store indicies as a local ref, this represents the item order
+
+    const [springs, api] = useSprings(items.length, fn(order.current)); // Create springs, each corresponds to an item, controlling its transform, scale, etc.
+
+    const bind = useDrag(({ args: [originalIndex], active, movement: [x, y], event }) => {
+
+        const curIndex = order.current.indexOf(originalIndex);
+        const curRow = clamp(Math.round((curIndex * 100 + y) / 100), 0, items.length - 1);
+        const newOrder = move(order.current, curIndex, curRow);
+
+        //console.log('drag', event);
+        //console.log('drag items', items);
+        
+        //const cell = 
+
+        api.start(fn(newOrder, active, originalIndex, curIndex, y)); // Feed springs new style data, they'll animate the view without causing a single render
+
+        if (!active) {
+            order.current = newOrder;
+            console.log('drag order.current', order.current);
+        }
+    });
+
+    console.log('render order.current', order.current);
+
+    return (
+        <div className={styles.content} style={{ height: items.length * 100 }}>
+            {springs.map(({ y, scale, zIndex, shadow, }, i) => (
+                <animated.div
+                    {...bind(i)}
+                    children={items[i]}
+                    style={{ y, scale, zIndex, boxShadow: shadow.to(s => `rgba(0, 0, 0, 0.15) 0px ${s}px ${2 * s}px 0px`), }}
+                    key={i}
+                />
+            ))}
+        </div>
+    );
+}
+
+function ShapePresets_Grid() {
+    const shapes = useAtomValue(vaultSpapes.validAtom);
+    return (
+        <div className="py-2">
+            <div className="max-h-96 px-4 overflow-y-auto bg-primary-100">
+                <div className="py-4 grid grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-1">
+                    {shapes.map(({ shapeParams, shape }, idx) => (
+                        <PresetView shapeParams={shapeParams} shape={shape} key={idx} />
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function PresetView({ shapeParams, shape, ...rest }: { shapeParams: NewShapeParams, shape: GeneratorResult; } & HTMLAttributes<SVGSVGElement>) {
+    const setShapeParams = useSetAtom(editorShapeParamsAtom);
+    return (
+        <PreviewBox shapeParams={shapeParams} shape={shape} onClick={() => setShapeParams(shapeParams)} {...rest} />
+    );
+}
+
+export function Section2_Presets() {
+    return (
+        <UISection openAtom={openSections.presetsAtom} title={"Presets"}>
+            {/* <ShapePresets_Org /> */}
+
+            <div className="relative">
+                <DraggableList_Grid items={'Lorem ipsum dolor sit'.split(' ')} />
+            </div>
+
+            {/* <div className="relative">
+                <DraggableList_List items={'Lorem ipsum dolor sit'.split(' ')} />
+            </div> */}
+        </UISection>
+    );
+}
+
+function ShapePresets_Org() {
+    const shapes = useAtomValue(vaultSpapes.validAtom);
+    return (
+        <div className="py-2">
+            <div className="max-h-96 px-4 overflow-y-auto bg-primary-100">
+                <div className="py-4 grid grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-1">
+                    {shapes.map(({ shapeParams, shape }, idx) => (
+                        <PresetView shapeParams={shapeParams} shape={shape} key={idx} />
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function DraggableList_List({ items }: { items: string[]; }) {
 
     const order = useRef(items.map((_, idx) => idx)); // Store indicies as a local ref, this represents the item order
 
@@ -65,35 +161,3 @@ function DraggableList({ items }: { items: string[]; }) {
     );
 }
 
-function PresetView({ shapeParams, shape, ...rest }: { shapeParams: NewShapeParams, shape: GeneratorResult; } & HTMLAttributes<SVGSVGElement>) {
-    const setShapeParams = useSetAtom(editorShapeParamsAtom);
-    return (
-        <PreviewBox shapeParams={shapeParams} shape={shape} onClick={() => setShapeParams(shapeParams)} {...rest} />
-    );
-}
-
-function ShapePresets() {
-    const shapes = useAtomValue(vaultSpapes.validAtom);
-    return (
-        <div className="py-2">
-            <div className="max-h-96 px-4 overflow-y-auto bg-primary-100">
-                <div className="py-4 grid grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-1">
-                    {shapes.map(({ shapeParams, shape }, idx) => (
-                        <PresetView shapeParams={shapeParams} shape={shape} key={idx} />
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-}
-
-export function Section2_Presets() {
-    return (
-        <UISection openAtom={openSections.presetsAtom} title={"Presets"}>
-            <ShapePresets />
-            <div className="relative">
-                <DraggableList items={'Lorem ipsum dolor sit'.split(' ')} />
-            </div>
-        </UISection>
-    );
-}
