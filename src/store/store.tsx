@@ -46,11 +46,11 @@ namespace Storage {
             try {
                 let obj = JSON.parse(s) as Store;
                 initialData = { ...initialData, ...obj };
-
-                initialData.vaultData.shapes = initialData.vaultData?.shapes?.length ? initialData.vaultData.shapes : defaultShapes;
             } catch (error) {
             }
         }
+        
+        initialData.vaultData.shapes = initialData.vaultData?.shapes?.length ? initialData.vaultData.shapes : defaultShapes;
     }
     load();
 
@@ -90,7 +90,7 @@ type StorageVaultData = {
     shapes: string[];
 };
 
-const _shapesAtom = atom<string[]>([]); // keep it as atom to reduce valid shapes packing when shape params changed.
+const _shapesAtom = atom<string[]>(Storage.initialData.vaultData.shapes); // keep it as atom to reduce valid shapes packing when shape params changed.
 
 type VaultSpapesArray = {
     valid: IO.ConvertResult[];
@@ -160,7 +160,7 @@ export const viewboxOptionAtoms: Atomize<StorageViewboxOptions> = {
     showBoxAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showBox, Storage.save),
     showUtilsAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showUtils, Storage.save),
     showAllAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showAll, Storage.save),
-    
+
     showInnerLinesAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showInnerLines, Storage.save),
     showOuterLinesAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showOuterLines, Storage.save),
     showInnerDotsAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showInnerDots, Storage.save),
