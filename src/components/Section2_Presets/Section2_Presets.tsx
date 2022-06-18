@@ -1,6 +1,6 @@
 import React, { HTMLAttributes } from 'react';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { editorShapeParamsAtom, openSections, vaultSpapesArray, } from '@/store/store';
+import { editorShapeParamsAtom, openSections, vaultSpapes, } from '@/store/store';
 import { NewShapeParams } from '@/store/ngon/shape';
 import { GeneratorResult } from '@/store/ngon/generator';
 import { UISection } from '../UI/UISection';
@@ -22,7 +22,7 @@ export function ShapeView({ shapeParams, shape, className, ...rest }: { shapePar
 }
 
 function ShapePresets() {
-    const shapes = useAtomValue(vaultSpapesArray.validAtom);
+    const shapes = useAtomValue(vaultSpapes.validAtom);
     return (
         <div className="py-2">
             <div className="max-h-96 px-4 overflow-y-auto bg-primary-100">
