@@ -6,14 +6,14 @@ import { isNonNull } from "@/utils/tsX";
 
 // Storage formats
 
-export type Point2D = {
-    x: number;
-    y: number;
-};
-
 export namespace StorageData {
 
-    export interface Scene { // Persistent format of Scene
+    type Point2D = {
+        x: number;
+        y: number;
+    };
+
+    interface Scene {       // Persistent format of Scene
         w: number;          // Scene.w
         h: number;          // Scene.h
         cx?: number;        // Scene.ofsX
@@ -37,6 +37,7 @@ export namespace StorageData {
         stk?: number;       //
         scn: Scene;  //
         show?: Gadgets;
+        swap?: boolean;     // swap controls
         id?: string;        // ShapeNgon.id
         gen?: string;       // ShapeNgon.gen
     }
@@ -58,6 +59,7 @@ export namespace IO {
                 ...(shape.ofsY !== shape.h / 2 && { cy: shape.ofsY }),
                 ...(shape.scale !== 1 && { z: shape.scale }),
             },
+            ...(shape.swap && { swap: shape.swap }),
             id: shape.id,
             ...(shape.genId && shape.genId !== CONST_NAMES.NAME_NGON && { gen: shape.genId }),
         };
@@ -82,6 +84,7 @@ export namespace IO {
             ofsY: storage.scn && storage.scn.cy || h / 2,
             scale: storage.scn && storage.scn.z || 1,
 
+            swap: !!storage.swap,
             id: storage.id || uuid(),
             genId: storage.gen || CONST_NAMES.NAME_NGON,
         };
@@ -121,7 +124,7 @@ export namespace IO {
     export function parseVaultShapes(vaultShapes: string[]) {
         const failedShapes: string[] = [];
         const parsedShapes = vaultShapes.map((shapeStr) => {
-            const res = IO.shapeFromString(shapeStr);
+            const res = shapeFromString(shapeStr);
             if (typeof res === 'string') {
                 failedShapes.push(res);
             } else {
@@ -133,10 +136,10 @@ export namespace IO {
             failedShapes,
         };
     }
-    
+
     export function convertResultForVault(arr: ConvertResult[]): string[] {
         return arr.map((item) => {
-            const ngon: StorageData.Ngon = IO.ShapeNgonToStorage(item.shapeParams);
+            const ngon: StorageData.Ngon = ShapeNgonToStorage(item.shapeParams);
             return JSON.stringify(ngon);
         });
     }

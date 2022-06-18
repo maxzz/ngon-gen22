@@ -2,7 +2,7 @@ import { Atom, atom, Getter, Setter } from 'jotai';
 import { Atomize, atomWithCallback } from '@/hooks/atomsX';
 import { debounce } from '@/utils/debounce';
 import { initalValueShapeParams } from './ngon/shape-defaults';
-import { NewShapeParams } from './ngon/shape';
+import { NewShapeParams, ShapeGadgets } from './ngon/shape';
 import { defaultShapes } from './ngon/shapes-vault-data';
 import { generate } from './ngon/generator';
 import { IO, } from './ngon/shape-io';
@@ -99,14 +99,6 @@ export const openSections: Atomize<StorageOpenSections> = {
 //#endregion UI sections state
 
 //#region Editor controls
-
-type ShapeGadgets = {
-    showAll: boolean;           // override current show values at once, i.e. open (interested) or closed (don't bother me)
-    showInnerLines: boolean;    // show inner lines
-    showOuterLines: boolean;    // show outer lines
-    showInnerDots: boolean;     // show inner dots
-    showOuterDots: boolean;     // show outer dots
-}
 
 type StorageViewboxOptions = {
     showBox: boolean;           // show box controls

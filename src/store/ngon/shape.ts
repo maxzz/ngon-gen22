@@ -1,27 +1,3 @@
-/** /
-// In editor formats
-
-export type Scene = {
-    w: number;          // Scene width
-    h: number;          // Scene height
-    ofsX: number;       // Center offset X (from top left corner)
-    ofsY: number;       // Center offset Y (from top left corner)
-    scale: number;      // Scene scale, zoom
-};
-
-export type ShapeNgon = {
-    outerN: number;     // Number of outer points
-    innerN: number;     // Number of inner points
-    outer: Point2D;     // length outer vector
-    inner: Point2D;     // length inner vector
-    stroke: number;     // Stroke width
-    scene: Scene;       // Scene params
-    id?: string;        // Relatively unique shape ID or generated
-    gen?: string;       // Generator name: 'ngon'
-};
-/**/
-//////////////////
-
 export type NewShapeParams = { // TODO: can it be more then one inner ?
     outerN: number;     // Number of outer points
     innerN: number;     // Number of inner points
@@ -42,7 +18,15 @@ export type NewShapeParams = { // TODO: can it be more then one inner ?
     genId?: string;     // shape generator name aka 'ngon'
 };
 
-//////////////////
+export type ShapeGadgets = {
+    showAll: boolean;           // override current show values at once, i.e. open (interested) or closed (don't bother me)
+    showInnerLines: boolean;    // show inner lines
+    showOuterLines: boolean;    // show outer lines
+    showInnerDots: boolean;     // show inner dots
+    showOuterDots: boolean;     // show outer dots
+}
+
+// Editor slider control types
 
 export type NewShapeParamsMetaItem = {
     label: string;
@@ -71,4 +55,6 @@ export type NewShapeParamsMeta = {
     scale: NewShapeParamsMetaItem;
 };
 
-//////////////////
+//
+
+
