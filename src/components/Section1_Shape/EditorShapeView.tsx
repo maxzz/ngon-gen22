@@ -60,7 +60,7 @@ export function ShapeViewGadgets({ shapeParams, shape }: { shapeParams: NewShape
     );
 }
 
-export function ShapeView(props: HTMLAttributes<SVGSVGElement>) {
+export function EditorShapeView(props: HTMLAttributes<SVGSVGElement>) {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
     const shape = useAtomValue(editorShapeAtom);
 
