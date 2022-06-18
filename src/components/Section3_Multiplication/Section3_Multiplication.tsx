@@ -1,10 +1,9 @@
 import React from 'react';
 import { useAtomValue } from 'jotai';
-import { openSections, releaseNotesAtom, } from '../../store/store';
+import { openSections, } from '../../store/store';
 import { UISection } from '../UI/UISection';
 
 function Multiplication() {
-    const releaseNotes = useAtomValue(releaseNotesAtom);
     return (
         <div className="py-2">
             <div className="notes max-h-96 px-4 overflow-y-auto bg-slate-100">

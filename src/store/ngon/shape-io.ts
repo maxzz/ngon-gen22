@@ -2,10 +2,11 @@ import { NewShapeParams, Point2D } from "./shape";
 import { CONST, CONST_NAMES, initalValueShapeParams } from "./shape-defaults";
 import { generate, GeneratorResult } from "./generator";
 import { uuid } from "@/utils/uuid";
+import { isNonNull } from "@/utils/tsX";
 
 // Storage formats
 
-namespace StorageData {
+export namespace StorageData {
 
     export interface Scene { // Persistent format of Scene
         w: number;          // Scene.w
@@ -35,7 +36,7 @@ namespace StorageData {
         gen?: string;       // ShapeNgon.gen
     }
 
-} //namespace StorageFormat
+} //namespace StorageData
 
 export namespace IO {
     export function ShapeNgonToStorage(shape: NewShapeParams): StorageData.Ngon {
@@ -111,4 +112,20 @@ export namespace IO {
         }
     }
 
+    export function parseVaultShapes(vaultShapes: string[]) {
+        const failedShapes: string[] = [];
+        const parsedShapes = vaultShapes.map((shapeStr) => {
+            const res = IO.shapeFromString(shapeStr);
+            if (typeof res === 'string') {
+                failedShapes.push(res);
+            } else {
+                return res;
+            }
+        }).filter(isNonNull);
+        return {
+            parsedShapes,
+            failedShapes,
+        };
+    }
+    
 } //namespace IO

@@ -1,4 +1,4 @@
-import { Atom, atom, Getter } from 'jotai';
+import { Atom, atom, Getter, Setter } from 'jotai';
 import { Atomize, atomWithCallback, LoadingDataState, loadingDataStateInit } from '@/hooks/atomsX';
 import { debounce } from '@/utils/debounce';
 import { toastError } from '@/components/UI/UiToaster';
@@ -6,7 +6,7 @@ import { initalValueShapeParams } from './ngon/shape-defaults';
 import { NewShapeParams } from './ngon/shape';
 import { generate } from './ngon/generator';
 import { defaultShapes } from './ngon/shapes-vault-data';
-import { IO } from './ngon/shape-io';
+import { IO, StorageData } from './ngon/shape-io';
 import { isNonNull } from '@/utils/tsX';
 export { defaultShapes } from './ngon/shapes-vault-data';
 
@@ -86,67 +86,50 @@ namespace Storage {
 
 // Data files
 
-//#region ServerReleaseNotes
+//#region Vault loader
 
 type VaultData = {
     shapes: string[];
 };
 
 export const vaultData: Atomize<VaultData> = {
-    shapesAtom: atomWithCallback<string[]>(Storage.initialData.vaultData.shapes, Storage.save),
+    shapesAtom: atomWithCallback<string[]>([], Storage.save),
 };
 
 type VaultSpapesArray = {
-    valid: string[];
+    valid: IO.ConvertResult[];
     failed: string[];
+};
+
+function vaultSpapesArrayToArray(arr: VaultSpapesArray): string[] {
+    return arr.valid.map((item) => {
+        const ngon: StorageData.Ngon = IO.ShapeNgonToStorage(item.shapeParams);
+        return JSON.stringify(ngon);
+    });
 }
 
-const releaseNotesStateAtom = atom<LoadingDataState<string>>(loadingDataStateInit());
-
-export const validShapesAtom = atom<string[]>([]);
-export const faildedShapesAtom = atom<string[]>([]);
-
-function parseVaultShapes(vaultShapes: string[]) {
-    const failedShapes: string[] = [];
-    const parsedShapes = vaultShapes.map((shapeStr) => {
-        const res = IO.shapeFromString(shapeStr);
-        if (typeof res === 'string') {
-            failedShapes.push(res);
-        } else {
-            return res;
-        }
-    }).filter(isNonNull);
-    //failedShapes.push('failed test');
-    return {
-        parsedShapes,
-        failedShapes,
-    };
+function saveVaultDataArray({ get, set }: { get: Getter, set: Setter }) {
+    const valid = get(vaultSpapesArray.validAtom);
+    const failed = get(vaultSpapesArray.failedAtom);
+    const arr = vaultSpapesArrayToArray({ valid, failed });
+    set(vaultData.shapesAtom, arr);
 }
+
+export const vaultSpapesArray: Atomize<VaultSpapesArray> = {
+    validAtom: atomWithCallback<IO.ConvertResult[]>([], saveVaultDataArray),
+    failedAtom: atomWithCallback<string[]>([], saveVaultDataArray),
+};
 
 const runFetchReleaseNotesAtom = atom(
-    (get) => get(releaseNotesStateAtom),
+    (get) => null,
     (_get, set) => {
-        async function fetchData() {
-            set(releaseNotesStateAtom, (prev) => ({ ...prev, loading: true }));
-            try {
-                // const notesText = await fetchReleaseNotes();
-                // const markdown = marked(notesText);
-                // set(releaseNotesStateAtom, { loading: false, error: null, data: markdown });
-                set(releaseNotesStateAtom, { loading: false, error: null, data: null });
-            } catch (error) {
-                set(releaseNotesStateAtom, { loading: false, error, data: null });
-                toastError((error as Error).message);
-            }
-            set(correlateAtom);
-        };
-        fetchData();
+        const { parsedShapes, failedShapes, } = IO.parseVaultShapes(Storage.initialData.vaultData.shapes);
+        set(vaultSpapesArray.validAtom, parsedShapes);
+        set(vaultSpapesArray.failedAtom, failedShapes);
+        //toastError('test');
     }
 );
 runFetchReleaseNotesAtom.onMount = (runFetch) => runFetch();
-
-export const releaseNotesAtom = atom<string>((get) => get(releaseNotesStateAtom).data || '');
-
-//#endregion ServerReleaseNotes
 
 export const dataLoadAtom = atom(
     (get) => {
@@ -154,17 +137,7 @@ export const dataLoadAtom = atom(
     }
 );
 
-// Derivative data
-
-const correlateAtom = atom(
-    null,
-    (get, set) => {
-        const stateNotes = get(releaseNotesStateAtom);
-        if (stateNotes.loading) {
-            return;
-        }
-    }
-);
+//#endregion Vault loader
 
 //#region UI state
 
