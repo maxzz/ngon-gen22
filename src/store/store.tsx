@@ -14,10 +14,10 @@ namespace Storage {
     const KEY = 'react-svg-shapes22-01';
 
     type Store = {
-        open: OpenSections;
+        open: StorageOpenSections;
         shapeParams: NewShapeParams;
-        viewboxOptions: ViewboxOptions;
-        vaultData: VaultData;
+        viewboxOptions: StorageViewboxOptions;
+        vaultData: StorageVaultData;
     };
 
     export let initialData: Store = {
@@ -86,12 +86,12 @@ namespace Storage {
 
 //#region Vault loader
 
-type VaultData = {
+type StorageVaultData = {
     shapes: string[];
 };
 
-const vaultData: Atomize<VaultData> = {
-    shapesAtom: atom<string[]>([]),
+const vaultData: Atomize<StorageVaultData> = {
+    shapesAtom: atom<string[]>([]), // keep it as atom to reduce valid shapes packing when shape params changed.
 };
 
 type VaultSpapesArray = {
@@ -133,12 +133,12 @@ export const dataLoadAtom = atom(
 
 //#region UI state
 
-type OpenSections = {
+type StorageOpenSections = {
     presets: boolean;   // shape collection previews
     variants: boolean;  // multiplication
 };
 
-export const openSections: Atomize<OpenSections> = {
+export const openSections: Atomize<StorageOpenSections> = {
     presetsAtom: atomWithCallback<boolean>(Storage.initialData.open.presets, Storage.save),
     variantsAtom: atomWithCallback<boolean>(Storage.initialData.open.variants, Storage.save),
 };
@@ -159,7 +159,7 @@ export const editorShapeAtom = atom(
 
 //#region Editor controls
 
-type ViewboxOptions = {
+type StorageViewboxOptions = {
     showBox: boolean;           // show box controls
     showUtils: boolean;         // show utility controls
     showAll: boolean;           // override current show values at once, i.e. open (interested) or closed (don't bother me)
@@ -169,7 +169,7 @@ type ViewboxOptions = {
     showOuterDots: boolean;
 };
 
-export const viewboxOptionAtoms: Atomize<ViewboxOptions> = {
+export const viewboxOptionAtoms: Atomize<StorageViewboxOptions> = {
     showBoxAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showBox, Storage.save),
     showUtilsAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showUtils, Storage.save),
     showAllAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showAll, Storage.save),
