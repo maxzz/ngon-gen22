@@ -93,7 +93,7 @@ type VaultData = {
 };
 
 export const vaultData: Atomize<VaultData> = {
-    shapesAtom: atomWithCallback<string[]>([], Storage.save),
+    shapesAtom: atom<string[]>([]),
 };
 
 type VaultSpapesArray = {
@@ -101,18 +101,19 @@ type VaultSpapesArray = {
     failed: string[];
 };
 
-function vaultSpapesArrayToArray(arr: VaultSpapesArray): string[] {
-    return arr.valid.map((item) => {
+function vaultSpapesArrayToArray(arr: IO.ConvertResult[]): string[] {
+    return arr.map((item) => {
         const ngon: StorageData.Ngon = IO.ShapeNgonToStorage(item.shapeParams);
         return JSON.stringify(ngon);
     });
 }
 
-function saveVaultDataArray({ get, set }: { get: Getter, set: Setter }) {
+function saveVaultDataArray({ get, set }: { get: Getter, set: Setter; }) {
     const valid = get(vaultSpapesArray.validAtom);
     const failed = get(vaultSpapesArray.failedAtom);
-    const arr = vaultSpapesArrayToArray({ valid, failed });
+    const arr = [...vaultSpapesArrayToArray(valid), ...failed];
     set(vaultData.shapesAtom, arr);
+    Storage.saveDebounced(get);
 }
 
 export const vaultSpapesArray: Atomize<VaultSpapesArray> = {
