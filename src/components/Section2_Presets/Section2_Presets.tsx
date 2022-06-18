@@ -8,11 +8,11 @@ import { PreviewBox } from './PreviewBox';
 import { animated, config, useSprings } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
 import { clamp } from '@/utils/clamp';
-import { swap } from '@/utils/swap';
+import { move } from '@/utils/move';
 import styles from './Section2_Presets.module.scss';
 
-const fn = (order: number[], active = false, originalIndex = 0, curIndex = 0, y = 0) =>
-    (index: number) =>
+function fn(order: number[], active = false, originalIndex = 0, curIndex = 0, y = 0) {
+    return (index: number) =>
         active && index === originalIndex
             ? {
                 y: curIndex * 100 + y,
@@ -29,32 +29,36 @@ const fn = (order: number[], active = false, originalIndex = 0, curIndex = 0, y 
                 shadow: 1,
                 immediate: false,
             };
+}
+
 
 function DraggableList({ items }: { items: string[]; }) {
-    const order = useRef(items.map((_, index) => index)); // Store indicies as a local ref, this represents the item order
+
+    const order = useRef(items.map((_, idx) => idx)); // Store indicies as a local ref, this represents the item order
+
     const [springs, api] = useSprings(items.length, fn(order.current)); // Create springs, each corresponds to an item, controlling its transform, scale, etc.
 
     const bind = useDrag(({ args: [originalIndex], active, movement: [, y] }) => {
+
         const curIndex = order.current.indexOf(originalIndex);
         const curRow = clamp(Math.round((curIndex * 100 + y) / 100), 0, items.length - 1);
-        const newOrder = swap(order.current, curIndex, curRow);
+        const newOrder = move(order.current, curIndex, curRow);
+
         api.start(fn(newOrder, active, originalIndex, curIndex, y)); // Feed springs new style data, they'll animate the view without causing a single render
-        if (!active) order.current = newOrder;
+
+        if (!active) {
+            order.current = newOrder;
+        }
     });
 
     return (
         <div className={styles.content} style={{ height: items.length * 100 }}>
-            {springs.map(({ zIndex, shadow, y, scale }, i) => (
+            {springs.map(({ y, scale, zIndex, shadow, }, i) => (
                 <animated.div
+                    children={items[i]}
+                    style={{ y, scale, zIndex, boxShadow: shadow.to(s => `rgba(0, 0, 0, 0.15) 0px ${s}px ${2 * s}px 0px`), }}
                     {...bind(i)}
                     key={i}
-                    style={{
-                        zIndex,
-                        boxShadow: shadow.to(s => `rgba(0, 0, 0, 0.15) 0px ${s}px ${2 * s}px 0px`),
-                        y,
-                        scale,
-                    }}
-                    children={items[i]}
                 />
             ))}
         </div>

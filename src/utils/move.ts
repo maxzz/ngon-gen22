@@ -9,7 +9,7 @@
  * @param toIndex  (Object) : The index to move item at moveIndex to. (required)
  * @returns new updated array
  */
-export function swap<T>(array: T[], moveIndex: number, toIndex: number): T[] {
+export function move<T>(array: T[], moveIndex: number, toIndex: number): T[] {
     const item = array[moveIndex];
     const length = array.length;
     const diff = moveIndex - toIndex;
