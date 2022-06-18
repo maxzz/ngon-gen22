@@ -71,7 +71,7 @@ namespace Storage {
                 showOuterDots: get(viewboxOptionAtoms.showOuterDotsAtom),
             },
             vaultData: {
-                shapes: get(vaultData.shapesAtom),
+                shapes: get(_shapesAtom),
             },
         };
         localStorage.setItem(KEY, JSON.stringify(newStore));
@@ -90,9 +90,7 @@ type StorageVaultData = {
     shapes: string[];
 };
 
-const vaultData: Atomize<StorageVaultData> = {
-    shapesAtom: atom<string[]>([]), // keep it as atom to reduce valid shapes packing when shape params changed.
-};
+const _shapesAtom = atom<string[]>([]); // keep it as atom to reduce valid shapes packing when shape params changed.
 
 type VaultSpapesArray = {
     valid: IO.ConvertResult[];
@@ -103,7 +101,7 @@ function saveVaultDataArray({ get, set }: { get: Getter, set: Setter; }) {
     const valid = get(vaultSpapesArray.validAtom);
     const failed = get(vaultSpapesArray.failedAtom);
     const arr = [...IO.convertResultForVault(valid), ...failed];
-    set(vaultData.shapesAtom, arr);
+    set(_shapesAtom, arr);
     Storage.saveDebounced(get);
 }
 
@@ -112,8 +110,8 @@ export const vaultSpapesArray: Atomize<VaultSpapesArray> = {
     failedAtom: atomWithCallback<string[]>([], saveVaultDataArray),
 };
 
-const runFetchReleaseNotesAtom = atom(
-    (get) => null,
+const runFetchVaultShapesAtom = atom(
+    () => null,
     (_get, set) => {
         const { parsedShapes, failedShapes, } = IO.parseVaultShapes(Storage.initialData.vaultData.shapes);
         set(vaultSpapesArray.validAtom, parsedShapes);
@@ -121,17 +119,17 @@ const runFetchReleaseNotesAtom = atom(
         //toastError('test');
     }
 );
-runFetchReleaseNotesAtom.onMount = (runFetch) => runFetch();
+runFetchVaultShapesAtom.onMount = (runFetch) => runFetch();
 
 export const dataLoadAtom = atom(
     (get) => {
-        get(runFetchReleaseNotesAtom);
+        get(runFetchVaultShapesAtom);
     }
 );
 
 //#endregion Vault loader
 
-//#region UI state
+//#region UI sections state
 
 type StorageOpenSections = {
     presets: boolean;   // shape collection previews
@@ -141,6 +139,32 @@ type StorageOpenSections = {
 export const openSections: Atomize<StorageOpenSections> = {
     presetsAtom: atomWithCallback<boolean>(Storage.initialData.open.presets, Storage.save),
     variantsAtom: atomWithCallback<boolean>(Storage.initialData.open.variants, Storage.save),
+};
+
+//#endregion UI sections state
+
+//#region Editor controls
+
+type StorageViewboxOptions = {
+    showBox: boolean;           // show box controls
+    showUtils: boolean;         // show utility controls
+    showAll: boolean;           // override current show values at once, i.e. open (interested) or closed (don't bother me)
+
+    showInnerLines: boolean;
+    showOuterLines: boolean;
+    showInnerDots: boolean;
+    showOuterDots: boolean;
+};
+
+export const viewboxOptionAtoms: Atomize<StorageViewboxOptions> = {
+    showBoxAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showBox, Storage.save),
+    showUtilsAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showUtils, Storage.save),
+    showAllAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showAll, Storage.save),
+    
+    showInnerLinesAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showInnerLines, Storage.save),
+    showOuterLinesAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showOuterLines, Storage.save),
+    showInnerDotsAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showInnerDots, Storage.save),
+    showOuterDotsAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showOuterDots, Storage.save),
 };
 
 // Editor shape
@@ -155,30 +179,6 @@ export const editorShapeAtom = atom(
     }
 );
 
-//#endregion UI state
-
-//#region Editor controls
-
-type StorageViewboxOptions = {
-    showBox: boolean;           // show box controls
-    showUtils: boolean;         // show utility controls
-    showAll: boolean;           // override current show values at once, i.e. open (interested) or closed (don't bother me)
-    showInnerLines: boolean;
-    showOuterLines: boolean;
-    showInnerDots: boolean;
-    showOuterDots: boolean;
-};
-
-export const viewboxOptionAtoms: Atomize<StorageViewboxOptions> = {
-    showBoxAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showBox, Storage.save),
-    showUtilsAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showUtils, Storage.save),
-    showAllAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showAll, Storage.save),
-    showInnerLinesAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showInnerLines, Storage.save),
-    showOuterLinesAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showOuterLines, Storage.save),
-    showInnerDotsAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showInnerDots, Storage.save),
-    showOuterDotsAtom: atomWithCallback<boolean>(Storage.initialData.viewboxOptions.showOuterDots, Storage.save),
-};
-
 //#endregion Editor controls
 
 //#region Vault shapes
@@ -186,60 +186,18 @@ export const viewboxOptionAtoms: Atomize<StorageViewboxOptions> = {
 export const doSaveToVaultAtom = atom(null,
     (get, set,) => {
         const shapeParams = get(editorShapeParamsAtom);
-
-        // const shapeStr = JSON.stringify(IO.ShapeNgonToStorage(shapeParams));
-        // set(vaultData.shapesAtom, (p) => [...p, shapeStr]);
         const shape = generate(shapeParams);
         const gadgets = undefined;
-        const conv: IO.ConvertResult = {shapeParams, shape, gadgets};
-
-        set(vaultSpapesArray.validAtom, (p) => [...p, conv]);
+        set(vaultSpapesArray.validAtom, (p) => [...p, {shapeParams, shape, gadgets}]);
     }
 );
 
-export const doRemoveFromVaultAtom = atom(null,
+export const doRemoveFromVaultAtom = atom(null, //TODO: should have access by Id or by index is enough?
     (get, set, idx: number) => {
-        //TODO: should have access by Id or by index is enough?
         const shapes = get(vaultSpapesArray.validAtom);
         const newShapes = shapes.slice(0, idx).concat(shapes.slice(idx + 1));
         set(vaultSpapesArray.validAtom, newShapes);
     }
 );
 
-export const doLoadVaultAtom = atom(null,
-    (get, set, idx: number) => {
-    }
-);
-
 //#endregion Vault shapes
-
-//export const vaultShapesAtom = atomWithCallback<string[]>(Storage.initialData.vaultData.shapes, Storage.save);
-
-//export const faildedShapesAtom = atom<string[]>([]);
-
-/*cannot clear failed messages from get()* /
-export const vaultParsedshapesAtom = atom(
-    (get) => {
-        const vaultShapes = get(vaultShapesAtom);
-
-        const failedShapes: string[] = [];
-
-        const parsedShapes = vaultShapes.map((shapeStr) => {
-            const res = IO.shapeFromString(shapeStr);
-            if (typeof res === 'string') {
-                failedShapes.push(res);
-            } else {
-                return res;
-            }
-        }).filter(isNonNull);
-
-        failedShapes.push('failed test');
-
-        return {
-            parsedShapes,
-            failedShapes,
-        };
-    }
-);
-/**/
-//////////////////////
