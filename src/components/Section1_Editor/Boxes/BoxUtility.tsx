@@ -17,9 +17,9 @@ function HintButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     );
 }
 
-function Button({ className, ...rest }: ButtonHTMLAttributes<HTMLInputElement>) {
+function Button({ className, children, ...rest }: HTMLAttributes<HTMLElement>) {
     return (
-        <input
+        <button
             className={classNames(
                 "px-1 py-0.5 border-primary-400 border-dotted border rounded-sm shadow-sm",
                 "bg-primary-200 hover:bg-primary-300 focus:bg-primary-300",
@@ -27,23 +27,31 @@ function Button({ className, ...rest }: ButtonHTMLAttributes<HTMLInputElement>) 
                 "active:scale-[.97] cursor-pointer",
                 className
             )}
-            type="button"
             {...rest}
-        />
+        >
+            {children}
+        </button>
     );
 }
 
 function ResetButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
     const setShapeParams = useSetAtom(editorShapeParamsAtom);
     return (
-        <Button value="Reset" onClick={() => setShapeParams(initalValueShapeParams())} {...rest} />
+        <Button onClick={() => setShapeParams(initalValueShapeParams())} {...rest}>Reset</Button>
     );
 }
 
 function SaveButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
     const doSaveToVault = useSetAtom(doSaveToVaultAtom);
     return (
-        <Button value="Save" onClick={doSaveToVault} title="Save to vault collection" {...rest} />
+        <Button onClick={doSaveToVault} title="Save to vault collection" {...rest}>Save</Button>
+    );
+}
+
+function CodeButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
+    const setShapeParams = useSetAtom(editorShapeParamsAtom);
+    return (
+        <Button onClick={() => setShapeParams(initalValueShapeParams())} {...rest}><IconCode className="w-4 h-4" /></Button>
     );
 }
 
@@ -55,7 +63,7 @@ export function BoxUtility() {
             <div className="flex items-center space-x-2">
                 <ResetButton />
                 <SaveButton />
-                <IconCode className="w-4 h-4" />
+                <CodeButton />
             </div>
         </div>
     );
