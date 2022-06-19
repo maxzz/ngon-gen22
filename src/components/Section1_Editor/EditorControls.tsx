@@ -11,6 +11,42 @@ import { UIAccordion } from "@/components/UI/UIAccordion";
 import { UIArrow } from "@/components/UI/UIArrow";
 import { BoxUtility } from "./Boxes/BoxUtility";
 
+function Separator({ label, tall = true, className, ...rest }: { label?: ReactNode; tall?: boolean; } & HTMLAttributes<HTMLDivElement>) {
+    return (
+        <div className={classNames("relative select-none", className)} {...rest}>
+            <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                <div className="w-full border-t-primary-300 border-t"></div>
+            </div>
+            <div className={tall ? "relative flex justify-center" : "absolute inset-0 flex items-center justify-center"}>
+                <span className="px-2 pb-1 bg-primary-100">
+                    {label}
+                </span>
+            </div>
+        </div>
+    );
+}
+
+function SubSection({ label, openAtom, children }: { label: string; openAtom: PrimitiveAtom<boolean>; children: React.ReactNode; } & HTMLAttributes<HTMLDivElement>) {
+    const [open, setOpen] = useAtom(openAtom);
+    return (
+        <div>
+            <Separator
+                label={
+                    <div className="flex items-center cursor-pointer">
+                        <div className="">{label}</div>
+                        <UIArrow className="w-4 h-4 pt-1 text-primary-500" open={open} />
+                    </div>
+                }
+                onClick={() => setOpen(v => !v)}
+            />
+            <UIAccordion open={open}>
+                {children}
+            </UIAccordion>
+        </div>
+    );
+}
+
+/** /
 function InputSize({ member }: { member: keyof Pick<NewShapeParams, 'w' | 'h'>; }) {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
     const { min, max, step } = initialValueNewShapeParamsMeta[member];
@@ -40,6 +76,19 @@ function ViewBoxSize() {
         </div>
     );
 }
+/**/
+
+/** /
+function ShowAllCheckbox() { //TODO: make it dropdown
+    const [showAll, setShowAll] = useAtom(viewboxOptionAtoms.showAllAtom);
+    return (
+        <label className="flex items-center space-x-1">
+            <div className="">Show helpers</div>
+            <Checkbox value={showAll} setValue={() => setShowAll(p => !p)} />
+        </label>
+    );
+}
+/**/
 
 function Checkbox({ value, setValue }: { value: boolean; setValue: (v: boolean) => void; }) {
     return (
@@ -61,16 +110,6 @@ function CheckboxWitAtom({ valueAtom }: { valueAtom: PrimitiveAtom<boolean>; }) 
         <Checkbox value={show} setValue={() => setShow((p) => !p)} />
     );
 }
-
-// function ShowAllCheckbox() { //TODO: make it dropdown
-//     const [showAll, setShowAll] = useAtom(viewboxOptionAtoms.showAllAtom);
-//     return (
-//         <label className="flex items-center space-x-1">
-//             <div className="">Show helpers</div>
-//             <Checkbox value={showAll} setValue={() => setShowAll(p => !p)} />
-//         </label>
-//     );
-// }
 
 function SwapCheckbox({ className, ...rest }: HTMLAttributes<HTMLElement>) {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
@@ -144,41 +183,6 @@ function GroupControls({ members, setShapeParams }: { members: Partial<NewShapeP
     </>);
 }
 
-function Separator({ label, tall = true, className, ...rest }: { label?: ReactNode; tall?: boolean; } & HTMLAttributes<HTMLDivElement>) {
-    return (
-        <div className={classNames("relative select-none", className)} {...rest}>
-            <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                <div className="w-full border-t-primary-300 border-t"></div>
-            </div>
-            <div className={tall ? "relative flex justify-center" : "absolute inset-0 flex items-center justify-center"}>
-                <span className="px-2 pb-1 bg-primary-200">
-                    {label}
-                </span>
-            </div>
-        </div>
-    );
-}
-
-function SubSection({ label, openAtom, children }: { label: string; openAtom: PrimitiveAtom<boolean>; children: React.ReactNode; } & HTMLAttributes<HTMLDivElement>) {
-    const [open, setOpen] = useAtom(openAtom);
-    return (
-        <div>
-            <Separator
-                label={
-                    <div className="flex items-center cursor-pointer">
-                        <div className="">{label}</div>
-                        <UIArrow className="w-4 h-4 pt-1 text-primary-500" open={open} />
-                    </div>
-                }
-                onClick={() => setOpen(v => !v)}
-            />
-            <UIAccordion open={open}>
-                {children}
-            </UIAccordion>
-        </div>
-    );
-}
-
 export function EditorControls({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
     const { outerN, innerN, outerX, outerY, innerX, innerY, stroke, w, h, ofsX, ofsY, scale, } = shapeParams;
@@ -189,7 +193,7 @@ export function EditorControls({ className, ...rest }: HTMLAttributes<HTMLDivEle
     const bouncedSet = useCallback(debounce(setShapeParams, 100), []);
 
     return (
-        <div className={classNames("px-2 py-4 text-xs bg-primary-200 flex flex-col space-y-1 cursor-default", className)} {...rest}>
+        <div className={classNames("px-2 py-4 text-xs bg-primary-100 flex flex-col space-y-1 cursor-default", className)} {...rest}>
 
             <div className="">
                 <GroupControls members={shapeMembers} setShapeParams={bouncedSet} />
