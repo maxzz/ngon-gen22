@@ -7,13 +7,11 @@ import { IconCode } from "@/components/UI/UIIcons";
 
 function HintButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     return (
-        <div className={classNames("flex items-end", className)} {...rest}>
-            <div className={classNames(
-                "w-4 h-4 text-primary-500 bg-primary-200 border-primary-500 border-dotted border rounded-md shadow-sm select-none cursor-default",
-                "flex items-center justify-center",
-                className
-            )}>?</div>
-        </div>
+        <div className={classNames(
+            "w-4 h-4 text-primary-500 bg-primary-100 border-primary-500 border-dotted border rounded-md shadow-sm select-none cursor-default",
+            "flex items-center justify-center",
+            className
+        )} {...rest}>?</div>
     );
 }
 
@@ -22,7 +20,7 @@ function Button({ className, children, ...rest }: HTMLAttributes<HTMLElement>) {
         <button
             className={classNames(
                 "px-1 py-0.5 border-primary-400 border-dotted border rounded-sm shadow-sm",
-                "bg-primary-200 hover:bg-primary-300 focus:bg-primary-300",
+                "bg-primary-100 hover:bg-primary-200 focus:bg-primary-200",
                 "outline-none focus:ring-1 ring-offset-1 ring-offset-primary-50 ring-primary-700/50",
                 "active:scale-[.97] cursor-pointer",
                 className
@@ -57,7 +55,7 @@ function CodeButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
 
 export function BoxUtility() {
     return (
-        <div className="pl-1 pr-3 py-2 flex items-center justify-between">
+        <div className="pl-1 pr-2.5 py-2 flex items-center justify-between">
             <HintButton />
 
             <div className="flex items-center space-x-2">
