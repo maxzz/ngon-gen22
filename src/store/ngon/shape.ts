@@ -14,7 +14,7 @@ export type NewShapeParams = { // TODO: can it be more then one inner ?
     scale: number;      // scene scale
 
     swap?: boolean;     // swap inner and outer; should be false; old implementations had this as true by mistake
-    id?: string;        // shape ID
+    id: string;         // shape ID
     genId?: string;     // shape generator name aka 'ngon'
 };
 
@@ -54,7 +54,3 @@ export type NewShapeParamsMeta = {
     ofsY: NewShapeParamsMetaItem;
     scale: NewShapeParamsMetaItem;
 };
-
-//
-
-

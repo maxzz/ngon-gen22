@@ -94,6 +94,7 @@ export namespace IO {
     }
 
     export type ConvertResult = {
+        id: string;
         shapeParams: NewShapeParams;
         shape: GeneratorResult;
         gadgets?: StorageData.Gadgets;
@@ -112,6 +113,7 @@ export namespace IO {
             const shape = generate(shapeParams);
             //JSON.parse(''); // to trigger debug error
             return {
+                id: shapeParams.id,
                 shapeParams,
                 shape,
                 //gadgets

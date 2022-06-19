@@ -180,7 +180,7 @@ export const doSaveToVaultAtom = atom(null,
         const shapeParams = get(editorShapeParamsAtom);
         const shape = generate(shapeParams);
         const gadgets = undefined;
-        set(vaultSpapes.validAtom, (p) => [...p, {shapeParams, shape, gadgets}]);
+        set(vaultSpapes.validAtom, (p) => [...p, {id: shapeParams.id, shapeParams, shape, gadgets}]);
     }
 );
 
