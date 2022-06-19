@@ -26,24 +26,22 @@ function Separator({ label, tall = true, className, ...rest }: { label?: ReactNo
     );
 }
 
-function SubSection({ label, openAtom, children }: { label: string; openAtom: PrimitiveAtom<boolean>; children: React.ReactNode; } & HTMLAttributes<HTMLDivElement>) {
+function SubSection({ label, openAtom, children }: { label: string; openAtom: PrimitiveAtom<boolean>; } & HTMLAttributes<HTMLDivElement>) {
     const [open, setOpen] = useAtom(openAtom);
-    return (
-        <div>
-            <Separator
-                label={
-                    <div className="flex items-center cursor-pointer">
-                        <div className="">{label}</div>
-                        <UIArrow className="w-4 h-4 pt-1 text-primary-500" open={open} />
-                    </div>
-                }
-                onClick={() => setOpen(v => !v)}
-            />
-            <UIAccordion open={open}>
-                {children}
-            </UIAccordion>
-        </div>
-    );
+    return (<>
+        <Separator
+            label={
+                <div className="flex items-center cursor-pointer">
+                    <div className="">{label}</div>
+                    <UIArrow className="w-4 h-4 pt-1 text-primary-500" open={open} />
+                </div>
+            }
+            onClick={() => setOpen(v => !v)}
+        />
+        <UIAccordion open={open}>
+            {children}
+        </UIAccordion>
+    </>);
 }
 
 /** /
@@ -125,7 +123,7 @@ function SwapCheckbox({ className, ...rest }: HTMLAttributes<HTMLElement>) {
     );
 }
 
-function ViewOptions({ swap }: { swap: boolean | undefined; }) {
+function ViewGadgets({ swap }: { swap: boolean | undefined; }) {
     return (
         <div className="grid grid-cols-[auto,auto,1fr] gap-x-1">
             <div className={classNames("place-self-center w-2 h-2 rounded-full", swap ? "bg-blue-500/50" : "bg-orange-500/50")}></div>
@@ -195,9 +193,9 @@ export function EditorControls({ className, ...rest }: HTMLAttributes<HTMLDivEle
     return (
         <div className={classNames("px-2 py-4 text-xs bg-primary-100 flex flex-col space-y-1 cursor-default", className)} {...rest}>
 
-            <div className="">
+            <div>
                 <GroupControls members={shapeMembers} setShapeParams={bouncedSet} />
-                <SwapCheckbox className="pr-3 h-5 justify-end" />
+                <SwapCheckbox className="pr-2.5 h-5 justify-end" />
             </div>
 
             <SubSection label="Box" openAtom={viewboxOptionAtoms.showBoxAtom}>
@@ -207,8 +205,8 @@ export function EditorControls({ className, ...rest }: HTMLAttributes<HTMLDivEle
             </SubSection>
 
             <SubSection label="Gadgets" openAtom={viewboxOptionAtoms.showAllAtom}>
-                <div className="px-3 py-0.5 flex flex-col items-end">
-                    <ViewOptions swap={shapeParams.swap} />
+                <div className="px-2.5 py-0.5 flex flex-col items-end">
+                    <ViewGadgets swap={shapeParams.swap} />
                 </div>
             </SubSection>
 
@@ -225,3 +223,5 @@ export function EditorControls({ className, ...rest }: HTMLAttributes<HTMLDivEle
 //TODO: treat debug lines as part of shape
 //TODO: support colors for lines and dots (and dots radius)
 //TODO: outer points as curve points
+//TODO: make SVG corners rounded when strokes are big
+//TODO: replace spread of shapeParams in EditorControls with function selector
