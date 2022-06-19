@@ -32,8 +32,16 @@
     }
 }
 
+@layer components {
+    .sortable-chosen {
+        @apply !bg-red-700;
+    }
+}
+
 /* @layer components {
     .cursor-tm-move {
         cursor: url("./assets/cursors/tm-move.svg") 0 0, auto;
     }
 } */
+
+

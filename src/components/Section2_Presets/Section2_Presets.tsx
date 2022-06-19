@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react';
+import React, { Fragment } from 'react';
 import { useAtom, useSetAtom } from 'jotai';
 import { editorShapeParamsAtom, openSections, vaultSpapes, } from '@/store/store';
 import { NewShapeParams } from '@/store/ngon/shape';
@@ -6,11 +6,19 @@ import { GeneratorResult } from '@/store/ngon/generator';
 import { UISection } from '../UI/UISection';
 import { PreviewBox } from './PreviewBox';
 import { ReactSortable } from 'react-sortablejs';
+import { IconCross } from '../UI/UIIcons';
+import { classNames } from '@/utils/classnames';
 
-function PresetView({ shapeParams, shape, ...rest }: { shapeParams: NewShapeParams, shape: GeneratorResult; } & HTMLAttributes<SVGSVGElement>) {
+function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape: GeneratorResult; }) {
     const setShapeParams = useSetAtom(editorShapeParamsAtom);
     return (
-        <PreviewBox shapeParams={shapeParams} shape={shape} onClick={() => setShapeParams(shapeParams)} {...rest} />
+        <div className="relative group hover:scale-[1.5] transition-all z-0 hover:z-10 [.sortable-chosen]:text:red-700">
+            <IconCross className={classNames("absolute m-px w-4 h-4 right-px top-px p-0.5 hidden group-hover:block text-red-500 bg-red-100 border-red-300/75 border rounded",
+            ""
+            )} />
+
+            <PreviewBox className="text-inherit group-hover:bg-primary-200" shapeParams={shapeParams} shape={shape} onClick={() => setShapeParams(shapeParams)} />
+        </div>
     );
 }
 
@@ -19,11 +27,11 @@ function ShapePresets() {
     return (
         <div className="py-2">
             <div className="max-h-96 px-4 overflow-y-auto bg-primary-100">
-                <ReactSortable list={shapes} setList={setShapes} className="py-4 grid grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-1" animation={150}>
+                <ReactSortable list={shapes} setList={setShapes} className="relative py-4 grid grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-1" animation={150}>
                     {shapes.map(({ id, shapeParams, shape }) => (
-                        <div key={id}>
+                        <Fragment key={id}>
                             <PresetView shapeParams={shapeParams} shape={shape} />
-                        </div>
+                        </Fragment>
                     ))}
                 </ReactSortable>
             </div>
