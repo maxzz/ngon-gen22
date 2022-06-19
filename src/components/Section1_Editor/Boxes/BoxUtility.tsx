@@ -5,6 +5,18 @@ import { doSaveToVaultAtom, editorShapeParamsAtom } from "@/store/store";
 import { classNames } from "@/utils/classnames";
 import { IconCode } from "@/components/UI/UIIcons";
 
+function HintButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
+    return (
+        <div className={classNames("flex items-end", className)} {...rest}>
+            <div className={classNames(
+                "w-4 h-4 text-primary-500 bg-primary-200 border-primary-500 border-dotted border rounded-md shadow-sm select-none cursor-default",
+                "flex items-center justify-center",
+                className
+            )}>?</div>
+        </div>
+    );
+}
+
 function ResetButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
     const setShapeParams = useSetAtom(editorShapeParamsAtom);
     return (
@@ -42,28 +54,16 @@ function SaveButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
     );
 }
 
-function HintButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-    return (
-        <div className={classNames("flex items-end", className)} {...rest}>
-            <div className={classNames(
-                "w-4 h-4 text-primary-500 bg-primary-200 border-primary-500 border-dotted border rounded-md shadow-sm select-none cursor-default",
-                "flex items-center justify-center",
-                className
-            )}>?</div>
-        </div>
-    );
-}
-
 export function BoxUtility() {
     return (
         <div className="pl-1 pr-3 py-2 flex items-center justify-between">
+            <HintButton />
+
             <div className="flex items-center space-x-2">
-                <HintButton />
                 <ResetButton />
                 <SaveButton />
                 <IconCode className="w-4 h-4" />
             </div>
-            <div className=""></div> {/* Right side controls go here */}
         </div>
     );
 }
