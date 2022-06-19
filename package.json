@@ -25,7 +25,8 @@
         "react-popper": "2.3.0",
         "react-popper-tooltip": "4.4.1",
         "react-sortablejs": "^6.1.4",
-        "react-use": "17.4.0"
+        "react-use": "17.4.0",
+        "sortablejs": "^1.15.0"
     },
     "devDependencies": {
         "@rollup/plugin-replace": "^4.0.0",
