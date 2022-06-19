@@ -33,13 +33,13 @@ export function NewSlider({ label, title, min, max, step = .01, labelWidth = '4.
                 className={classNames(
                     "w-full h-px bg-primary-700/40 cursor-pointer appearance-none outline-none",
 
-                    "thumb-w:appearance-none thumb-w:w-4 thumb-w:h-4 thumb-w:rounded thumb-w:bg-primary-50",
+                    "thumb-w:appearance-none thumb-w:w-4 thumb-w:h-4 thumb-w:rounded thumb-w:bg-primary-200/90",
                     "thumb-w:border thumb-w:border-solid thumb-w:border-primary-200 thumb-w:border-r-primary-400 thumb-w:border-b-primary-400",
-                    "hover:thumb-w:bg-white/40 hover:thumb-w:border-white hover:thumb-w:scale-125 hover:thumb-w:transition-all",
+                    "hover:thumb-w:bg-primary-300/70 hover:thumb-w:border-primary-400/70 hover:thumb-w:scale-125 hover:thumb-w:transition-all",
 
-                    "thumb-m:appearance-none thumb-m:w-4 thumb-m:h-4 thumb-m:rounded thumb-m:bg-primary-50",
+                    "thumb-m:appearance-none thumb-m:w-4 thumb-m:h-4 thumb-m:rounded thumb-m:bg-primary-200/90",
                     "thumb-m:border thumb-m:border-solid thumb-m:border-primary-200 thumb-m:border-r-primary-400 thumb-m:border-b-primary-400",
-                    "hover:thumb-m:bg-white/40 hover:thumb-m:border-white hover:thumb-m:scale-125 hover:thumb-m:transition-all",
+                    "hover:thumb-m:bg-primary-300/70 hover:thumb-m:border-primary-400/70 hover:thumb-m:scale-125 hover:thumb-m:transition-all",
                 )}
                 type="range"
                 tabIndex={-1}
