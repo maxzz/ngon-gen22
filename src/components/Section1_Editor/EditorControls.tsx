@@ -1,14 +1,15 @@
-import React, { HTMLAttributes, ReactNode, useCallback, useEffect } from "react";
-import { PrimitiveAtom, SetStateAction, useAtom, useSetAtom } from "jotai";
-import { doSaveToVaultAtom, editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
+import React, { HTMLAttributes, ReactNode, useCallback } from "react";
+import { PrimitiveAtom, SetStateAction, useAtom } from "jotai";
+import { editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
 import { NewShapeParams } from "@/store/ngon/shape";
-import { initalValueShapeParams, initialValueNewShapeParamsMeta } from "@/store/ngon/shape-defaults";
+import { initialValueNewShapeParamsMeta } from "@/store/ngon/shape-defaults";
 import { classNames } from "@/utils/classnames";
 import { debounce } from "@/utils/debounce";
-import { NewSlider } from "../UI/NewSlider";
+import { NewSlider } from "@/components/UI/NewSlider";
 import useFloatInput from "@/hooks/useFloatInput";
-import { UIAccordion } from "../UI/UIAccordion";
-import { UIArrow } from "../UI/UIArrow";
+import { UIAccordion } from "@/components/UI/UIAccordion";
+import { UIArrow } from "@/components/UI/UIArrow";
+import { BoxUtility } from "./Boxes/BoxUtility";
 
 function InputSize({ member }: { member: keyof Pick<NewShapeParams, 'w' | 'h'>; }) {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
@@ -71,10 +72,14 @@ function CheckboxWitAtom({ valueAtom }: { valueAtom: PrimitiveAtom<boolean>; }) 
 //     );
 // }
 
-function SwapCheckbox() {
+function SwapCheckbox({ className, ...rest }: HTMLAttributes<HTMLElement>) {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
     return (
-        <label className="flex items-center space-x-1" title="The old algorithm used swap by mistake">
+        <label
+            className={classNames("flex items-center space-x-1", className)}
+            title="The old algorithm used swap by mistake"
+            {...rest}
+        >
             <div className="">Swap inner and outer</div>
             <Checkbox value={!!shapeParams.swap} setValue={(v: boolean) => setShapeParams((p) => ({ ...p, swap: v }))} />
         </label>
@@ -111,58 +116,6 @@ function ViewOptions({ swap }: { swap: boolean | undefined; }) {
                     <CheckboxWitAtom valueAtom={viewboxOptionAtoms.showInnerLinesAtom} />
                 </label>
             </div>
-        </div>
-    );
-}
-
-function ResetButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
-    const setShapeParams = useSetAtom(editorShapeParamsAtom);
-    return (
-        <input
-            className={classNames(
-                "px-1 py-0.5 border-primary-400 border-dotted border rounded-sm shadow-sm",
-                "bg-primary-200 hover:bg-primary-300 focus:bg-primary-300",
-                "outline-none focus:ring-1 ring-offset-1 ring-offset-primary-50 ring-primary-700/50",
-                "active:scale-[.97] cursor-pointer",
-                className
-            )}
-            type="button"
-            value="Reset" {...rest}
-            onClick={() => setShapeParams(initalValueShapeParams())}
-        />
-    );
-}
-
-function SaveButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
-    const doSaveToVault = useSetAtom(doSaveToVaultAtom);
-    return (
-        <input
-            className={classNames(
-                "px-1 py-0.5 border-primary-400 border-dotted border rounded-sm shadow-sm",
-                "bg-primary-200 hover:bg-primary-300 focus:bg-primary-300",
-                "outline-none focus:ring-1 ring-offset-1 ring-offset-primary-50 ring-primary-700/50",
-                "active:scale-[.97] cursor-pointer",
-                className
-            )}
-            type="button"
-            title="Save to vault collection"
-            value="Save" {...rest}
-            onClick={doSaveToVault}
-        />
-    );
-}
-//TODO: delete shape
-//TODO: scroll to added shape
-//TODO: save gadgets state
-
-function HintButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-    return (
-        <div className={classNames("flex items-end", className)} {...rest}>
-            <div className={classNames(
-                "w-4 h-4 text-primary-500 bg-primary-200 border-primary-500 border-dotted border rounded-md shadow-sm select-none cursor-default",
-                "flex items-center justify-center",
-                className
-            )}>?</div>
         </div>
     );
 }
@@ -240,6 +193,7 @@ export function EditorControls({ className, ...rest }: HTMLAttributes<HTMLDivEle
 
             <div className="">
                 <GroupControls members={shapeMembers} setShapeParams={bouncedSet} />
+                <SwapCheckbox className="pr-3 h-5 justify-end" />
             </div>
 
             <SubSection label="Box" openAtom={viewboxOptionAtoms.showBoxAtom}>
@@ -255,15 +209,7 @@ export function EditorControls({ className, ...rest }: HTMLAttributes<HTMLDivEle
             </SubSection>
 
             <SubSection label="Utility" openAtom={viewboxOptionAtoms.showUtilsAtom}>
-                <div className="pl-1 pr-3 py-2 flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                        <HintButton />
-                        <ResetButton />
-                        <SaveButton />
-                    </div>
-
-                    <SwapCheckbox />
-                </div>
+                <BoxUtility />
             </SubSection>
 
         </div>

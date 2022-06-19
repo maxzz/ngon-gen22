@@ -105,7 +105,7 @@ export function EditorShape(props: HTMLAttributes<SVGSVGElement>) {
 }
 
 //TODO: single click handler - done
-//TODO: triangles shading
+//TODO: triangles shading - not for now
 //TODO: curves vs. lines
 //TODO: divide inner lines to sub-lines
 //TODO: preview svg instead of text preview
