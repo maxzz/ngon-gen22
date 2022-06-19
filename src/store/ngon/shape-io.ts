@@ -84,7 +84,7 @@ export namespace IO {
             ofsY: storage.scn && storage.scn.cy || h / 2,
             scale: storage.scn && storage.scn.z || 1,
 
-            ...(storage.swap !== undefined && {swap: !!storage.swap}),
+            ...(storage.swap !== undefined && { swap: !!storage.swap }),
             id: storage.id || uuid(),
             genId: storage.gen || CONST_NAMES.NAME_NGON,
         };
@@ -122,12 +122,17 @@ export namespace IO {
     }
 
     export function parseVaultShapes(vaultShapes: string[]) {
+        const ids = new Set<string | undefined>();
         const failedShapes: string[] = [];
         const parsedShapes = vaultShapes.map((shapeStr) => {
             const res = shapeFromString(shapeStr);
             if (typeof res === 'string') {
                 failedShapes.push(res);
             } else {
+                if (!res.shapeParams.id || ids.has(res.shapeParams.id)) {
+                    res.shapeParams.id = uuid();
+                }
+                ids.add(res.shapeParams.id);
                 return res;
             }
         }).filter(isNonNull);
