@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { ButtonHTMLAttributes, HTMLAttributes } from "react";
 import { useSetAtom } from "jotai";
 import { initalValueShapeParams } from "@/store/ngon/shape-defaults";
 import { doSaveToVaultAtom, editorShapeParamsAtom } from "@/store/store";
@@ -17,8 +17,7 @@ function HintButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     );
 }
 
-function ResetButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
-    const setShapeParams = useSetAtom(editorShapeParamsAtom);
+function Button({ className, ...rest }: ButtonHTMLAttributes<HTMLInputElement>) {
     return (
         <input
             className={classNames(
@@ -29,28 +28,22 @@ function ResetButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
                 className
             )}
             type="button"
-            value="Reset" {...rest}
-            onClick={() => setShapeParams(initalValueShapeParams())}
+            {...rest}
         />
+    );
+}
+
+function ResetButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
+    const setShapeParams = useSetAtom(editorShapeParamsAtom);
+    return (
+        <Button value="Reset" onClick={() => setShapeParams(initalValueShapeParams())} {...rest} />
     );
 }
 
 function SaveButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
     const doSaveToVault = useSetAtom(doSaveToVaultAtom);
     return (
-        <input
-            className={classNames(
-                "px-1 py-0.5 border-primary-400 border-dotted border rounded-sm shadow-sm",
-                "bg-primary-200 hover:bg-primary-300 focus:bg-primary-300",
-                "outline-none focus:ring-1 ring-offset-1 ring-offset-primary-50 ring-primary-700/50",
-                "active:scale-[.97] cursor-pointer",
-                className
-            )}
-            type="button"
-            title="Save to vault collection"
-            value="Save" {...rest}
-            onClick={doSaveToVault}
-        />
+        <Button value="Save" onClick={doSaveToVault} title="Save to vault collection" {...rest} />
     );
 }
 
