@@ -226,7 +226,7 @@ function SubSection({ label, openAtom, children }: { label: string; openAtom: Pr
     );
 }
 
-export function EditorShapeControls({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
+export function EditorControls({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     const [shapeParams, setShapeParams] = useAtom(editorShapeParamsAtom);
     const { outerN, innerN, outerX, outerY, innerX, innerY, stroke, w, h, ofsX, ofsY, scale, } = shapeParams;
 
