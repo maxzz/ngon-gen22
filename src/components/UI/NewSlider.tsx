@@ -17,7 +17,7 @@ export interface SliderProps {
 export function NewSlider({ label, title, min, max, step = .01, labelWidth = '4.5rem', linkWithNext, value, onChange }: SliderProps) {
     const [local, onSliderChange, onInputChange, onInputKey] = useFloatInput(value, { min, max, step }, onChange); // TODO: what to do with NaN?
     return (
-        <label className="px-2 w-full h-5 flex-centered space-x-2 text-primary-900" title={title}> {/* relative */}
+        <label className="px-2 w-full h-5 flex-center-all space-x-2 text-primary-900" title={title}> {/* relative */}
 
             <div className="relative flex-none select-none cursor-pointer" style={{ width: labelWidth }}
                 onClick={(e) => e.ctrlKey && onChange(Math.round(value))}

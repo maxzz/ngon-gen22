@@ -13,15 +13,15 @@
 }
 
 @layer components {
-    .no-active-ouline {
+    .active-no-ouline {
         @apply active:outline-none focus:outline-none;
     }
 
-    .active-scale {
+    .active-scale97 {
         @apply active:scale-[.97];
     }
     
-    .flex-centered {
+    .flex-center-all {
         @apply flex items-center justify-center;
     }
 }
