@@ -32,11 +32,14 @@
     }
 }
 
-@layer components {
+/* @layer components {
     .sortable-chosen {
-        @apply !bg-red-700;
+        @apply !hidden;
     }
-}
+    .sortable-ghost {
+        @apply !hidden;
+    }
+} */
 
 /* @layer components {
     .cursor-tm-move {
