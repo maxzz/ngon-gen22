@@ -8,11 +8,12 @@ import { PreviewBox } from './PreviewBox';
 import { ReactSortable } from 'react-sortablejs';
 import { IconCross } from '../UI/UIIcons';
 import { classNames } from '@/utils/classnames';
+import './Dragging.css';
 
 function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape: GeneratorResult; }) {
     const setShapeParams = useSetAtom(editorShapeParamsAtom);
     return (
-        <div className="relative group hover:scale-105 transition-all z-0 hover:z-10">
+        <div className={classNames("svg-view relative group hover:scale-105 transition-all z-0 hover:z-10")}>
             <IconCross className={classNames(
                 "absolute m-px w-4 h-4 right-1 top-1 p-0.5 hidden group-hover:block text-red-900 hover:bg-red-100 border-red-300/75 hover:border rounded",
                 "",
@@ -22,6 +23,10 @@ function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape
         </div>
     );
 }
+
+//both sortable-ghost and sortable-chosen are add at the same time
+//$('#root > div.min-h-full.overflow-hidden.bg-slate-50 > div > div.flex-1.overflow-y-auto > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div > div:nth-child(1)')
+//$('#root > div.min-h-full.overflow-hidden.bg-slate-50 > div > div.flex-1.overflow-y-auto > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div > div:nth-child(2)')
 
 function ShapePresets() {
     const [shapes, setShapes] = useAtom(vaultSpapes.validAtom);

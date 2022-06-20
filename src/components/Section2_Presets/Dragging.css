@@ -1,0 +1,16 @@
+/* @layer components {
+} */
+
+
+.svg-view.sortable-ghost {
+    background-color: red !important;
+    color: red !important;
+    transform: scale(0.5) !important;
+}
+
+.svg-view.sortable-chosen {
+    background-color: blue !important;
+    color: blue !important;
+    /* transform: scale(1.5) !important; */
+    @apply scale-150 !important;
+}
