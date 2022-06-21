@@ -13,6 +13,7 @@ import './Dragging.css';
 function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape: GeneratorResult; }) {
     const setShapeParams = useSetAtom(editorShapeParamsAtom);
     const [showCross, setShowCross] = useState(true);
+    console.log('>>>>>> render PresetView <<<<<<<<<<', shapeParams.id, 'show cross', showCross);
     return (
         <div
             data-idx={shapeParams.id}
@@ -26,7 +27,7 @@ function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape
             onMouseUp={(e) => setShowCross(true)}
         >
             <div className="">
-                {showCross && <IconCross
+                <IconCross
                     className={classNames(
                         "svg-cross absolute m-px w-4 h-4 right-1 top-1 p-0.5",
                         "hidden group-hover:block",
@@ -40,7 +41,7 @@ function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape
                         //`opacity-[var(--child-visibily,0)]`,
                         //`opacity-[var(--cust)]`,
                     )}
-                />}
+                />
                 <PreviewBox
                     className={classNames(
                         "text-inherit border-white border-4 cursor-pointer",
