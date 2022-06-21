@@ -19,16 +19,23 @@ function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape
                 "svg-view relative group peer hover:scale-105 transition-all z-0 hover:z-10 text-primary-900 bg-primary-50",
                 "[&.sortable-chosen]:bg-green-200",
                 //"[&.sortable-.chosen_svg-cross]:hidden",
+                //"[&.sortable-chosen]:[--cust:1]",
             )}
         >
+            <div className="">
             <IconCross
                 className={classNames(
                     "svg-cross absolute m-px w-4 h-4 right-1 top-1 p-0.5",
-                    "hidden group-hover:block text-red-900 hover:bg-red-100 border-red-300/75 hover:border rounded",
+                    "hidden group-hover:block",
+                    "text-red-900 hover:bg-red-100 border-red-300/75 hover:border rounded",
+                    // "text-red-900 hover:bg-red-100 border-red-300/75 hover:border rounded opacity-0",
+                    //"hidden group-hover:block text-red-900 hover:bg-red-100 border-red-300/75 hover:border rounded",
+                    //"hidden group-focusfocus-within:block text-red-900 hover:bg-red-100 border-red-300/75 hover:border rounded",
                     // "peer-focus-within:text-blue-500",
                     // "[&peer-focus-within]:text-blue-500",
                     //"[&peer-focus-within]:text-blue-500",
-                    `opacity-[var(--child-visibily,1)]`,
+                    //`opacity-[var(--child-visibily,0)]`,
+                    //`opacity-[var(--cust)]`,
                 )}
             />
             <PreviewBox
@@ -42,6 +49,8 @@ function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape
             {/* group-hover:bg-primary-200 [&:.sortable-chosen]:bg-green-300*/}
             {/* [&:group.sortable-chosen]:bg-green-300 */}
             {/* [&.sortable-chosen]: */}
+
+            </div>
         </div>
     );
 }
@@ -50,10 +59,11 @@ function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape
 //$('#root > div.min-h-full.overflow-hidden.bg-slate-50 > div > div.flex-1.overflow-y-auto > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div > div:nth-child(1)')
 //$('#root > div.min-h-full.overflow-hidden.bg-slate-50 > div > div.flex-1.overflow-y-auto > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div > div:nth-child(2)')
 //
-//$('.svg-view:nth-child(1)').dataset.idx
-//$('.svg-view:nth-child(2)').dataset.idx
+//$('.svg-view:nth-child(1)')?.dataset.idx
+//$('.svg-view:nth-child(2)')?.dataset.idx
 //
-//[$('.svg-view:nth-child(1)').dataset.idx, $('.svg-view:nth-child(2)').dataset.idx]
+//[$('.svg-view:nth-child(1)')?.dataset.idx, $('.svg-view:nth-child(2)')?.dataset.idx]
+//$('.svg-view:nth-child(1)')?.className
 
 function ShapePresets() {
     const [shapes, setShapes] = useAtom(vaultSpapes.validAtom);
@@ -67,35 +77,44 @@ function ShapePresets() {
                     className="relative py-4 grid grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-1"
                     animation={200}
                     onStart={(e) => {
-                        //console.log('onStart', e);
+                        console.log('onStart', e.oldIndex, {e});
                         //e.clone
                     }}
                     onClone={(e) => {
-                        //console.log('onClone', e.item?.dataset.idx);
+                        console.log('onClone1', e.item?.dataset.idx, {e});
+                        console.log('onClone2', e.item);
+                        console.log('onClone3', e.clone);
                     }}
                     // onMove={(e) => {
                     //     console.log('onMove', e);
                     // }}
                     onChange={(e) => {
                         console.log('onChange', e.oldIndex, e.newIndex, shapes[e.oldIndex ?? -1]?.id, shapes[e.newIndex ?? -1]?.id, {e});
+                        console.log('onChange2', e.item);
+                        console.log('onChange3', e.clone);
                     }}
                     onChoose={(e) => {
-                        console.log('onChoose', e);
+                        console.log('onChoose1', {e});
+                        console.log('onChoose2', e.item);
+                        console.log('onChoose3', e.clone);
+
                         e.item?.classList.add('now-2');
                         const cross = e.item?.querySelector('.svg-cross') as HTMLElement;
                         // console.log('onChoose', cross);
-                        console.log('onChoose', e.item?.dataset.idx);
+                        //console.log('onChoose', e.item?.dataset.idx);
                         //cross?.classList.add('child-2');
-                        cross && (cross.style.opacity = "0");
+                            //cross && (cross.style.opacity = "0");
+                            cross && (cross.style.backgroundColor = "red");
                         //e.clone
                     }}
                     onUnchoose={(e) => {
                         e.item?.classList.remove('now-2');
                         const cross = e.item?.querySelector('.svg-cross') as HTMLElement;
                         // console.log('onChoose', cross);
-                        console.log('onChoose', e.item?.dataset.idx);
+                        console.log('onUnchoose', e.item?.dataset.idx);
                         //cross?.classList.remove('child-2');
-                        cross && (cross.style.opacity = "1");
+                            cross && (cross.style.opacity = "1");
+                            cross && (cross.style.backgroundColor = "");
 
                         //console.log('onUnchoose', e);
                         //e.clone

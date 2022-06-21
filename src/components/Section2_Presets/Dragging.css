@@ -8,14 +8,14 @@
     transform: scale(0.5) !important;
 } */
 
-.svg-view.sortable-chosen > .svg-cross,
+/* .svg-view.sortable-chosen > .svg-cross,
 .svg-view.sortable-ghost > .svg-cross {
     visibility: hidden;
-}
+} */
 
-.now-2 {
+/* .now-2 {
     --child-visibily: 0;
-}
+} */
 
 /* .svg-view.sortable-chosen {
     background-color: blue !important;
