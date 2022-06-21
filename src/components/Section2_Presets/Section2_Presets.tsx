@@ -16,6 +16,8 @@ function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape
         <div
             className={classNames(
                 "svg-view relative group hover:scale-105 transition-all z-0 hover:z-10 text-primary-900 bg-primary-50",
+                "[&.sortable-chosen]:bg-green-200",
+                "[&.sortable-.chosen_svg-cross]:hidden",
             )}
         >
             <IconCross
