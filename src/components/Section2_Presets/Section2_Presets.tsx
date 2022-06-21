@@ -25,6 +25,7 @@ function PresetView({ shapeParams, shape, showCross }: { shapeParams: NewShapePa
             )}
         // onMouseDown={(e) => setShowCross(false)}
         // onMouseUp={(e) => setShowCross(true)}
+        // onMouseMove={(e) => console.log('e', {e})}
         >
             <div className="">
                 {showCross && <IconCross
@@ -86,7 +87,7 @@ function ShapePresets() {
                         //e.clone
                     }}
                     onClone={(e) => {
-                        console.log('onClone1', e.item?.dataset.idx, { e }, {item: e.item, clone: e.clone});
+                        console.log('onClone1', e.item?.dataset.idx, { e }, { item: e.item, clone: e.clone });
                         // console.log('onClone2', e.item);
                         // console.log('onClone3', e.clone);
                     }}
@@ -94,7 +95,7 @@ function ShapePresets() {
                     //     console.log('onMove', e);
                     // }}
                     onChange={(e) => {
-                        console.log('onChange', e.oldIndex, e.newIndex, shapes[e.oldIndex ?? -1]?.id, shapes[e.newIndex ?? -1]?.id, { e }, {item: e.item, clone: e.clone});
+                        console.log('onChange', e.oldIndex, e.newIndex, shapes[e.oldIndex ?? -1]?.id, shapes[e.newIndex ?? -1]?.id, { e }, { item: e.item, clone: e.clone });
                         // console.log('onChange2', e.item);
                         // console.log('onChange3', e.clone);
                     }}
@@ -106,41 +107,41 @@ function ShapePresets() {
                     // }}
                     onChoose={(e) => {
                         setShowCross(false);
-                        console.log('onChoose1', { e }, {item: e.item, clone: e.clone});
+                        console.log('onChoose1', { e }, { item: e.item, clone: e.clone });
                         // console.log('onChoose2', e.item);
                         // console.log('onChoose3', e.clone);
 
                         e.item?.classList.add('now-2');
-                        const cross = e.item?.querySelector('.svg-cross') as HTMLElement;
+                        //const cross = e.item?.querySelector('.svg-cross') as HTMLElement;
                         // console.log('onChoose', cross);
                         //console.log('onChoose', e.item?.dataset.idx);
                         //cross?.classList.add('child-2');
                         //cross && (cross.style.opacity = "0");
-                        cross && (cross.style.backgroundColor = "red");
+                        // cross && (cross.style.backgroundColor = "red");
                         //e.clone
                     }}
                     onUnchoose={(e) => {
                         setShowCross(true);
 
-                        console.log('onUnchoose', e.item?.dataset.idx, {e}, {item: e.item, clone: e.clone});
+                        console.log('onUnchoose', e.item?.dataset.idx, { e }, { item: e.item, clone: e.clone });
 
                         var evt = new MouseEvent("mousemove", {
                             view: window,
                             bubbles: true,
                             cancelable: true,
                             clientX: 20,
-                            /* whatever properties you want to give it */
+                            clientY: 100,
                         });
                         e.item.dispatchEvent(evt);
 
 
                         e.item?.classList.remove('now-2');
-                        const cross = e.item?.querySelector('.svg-cross') as HTMLElement;
+                        //const cross = e.item?.querySelector('.svg-cross') as HTMLElement;
                         // console.log('onChoose', cross);
                         //console.log('onUnchoose', e.item?.dataset.idx);
                         //cross?.classList.remove('child-2');
-                        cross && (cross.style.opacity = "1");
-                        cross && (cross.style.backgroundColor = "");
+                        // cross && (cross.style.opacity = "1");
+                        // cross && (cross.style.backgroundColor = "");
 
                         //console.log('onUnchoose', e);
                         //e.clone
