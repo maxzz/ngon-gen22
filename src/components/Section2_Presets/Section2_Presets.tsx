@@ -10,10 +10,10 @@ import { IconCross } from '../UI/UIIcons';
 import { classNames } from '@/utils/classnames';
 import './Dragging.css';
 
-function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape: GeneratorResult; }) {
+function PresetView({ shapeParams, shape, showCross }: { shapeParams: NewShapeParams, shape: GeneratorResult; showCross: boolean; }) {
     const setShapeParams = useSetAtom(editorShapeParamsAtom);
-    const [showCross, setShowCross] = useState(true);
-    console.log('>>>>>> render PresetView <<<<<<<<<<', shapeParams.id, 'show cross', showCross);
+    // const [showCross, setShowCross] = useState(true);
+    // console.log('>>>>>> render PresetView <<<<<<<<<<', shapeParams.id, 'show cross', showCross);
     return (
         <div
             data-idx={shapeParams.id}
@@ -23,11 +23,11 @@ function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape
                 //"[&.sortable-.chosen_svg-cross]:hidden",
                 //"[&.sortable-chosen]:[--cust:1]",
             )}
-            onMouseDown={(e) => setShowCross(false)}
-            onMouseUp={(e) => setShowCross(true)}
+        // onMouseDown={(e) => setShowCross(false)}
+        // onMouseUp={(e) => setShowCross(true)}
         >
             <div className="">
-                <IconCross
+                {showCross && <IconCross
                     className={classNames(
                         "svg-cross absolute m-px w-4 h-4 right-1 top-1 p-0.5",
                         "hidden group-hover:block",
@@ -41,7 +41,7 @@ function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape
                         //`opacity-[var(--child-visibily,0)]`,
                         //`opacity-[var(--cust)]`,
                     )}
-                />
+                />}
                 <PreviewBox
                     className={classNames(
                         "text-inherit border-white border-4 cursor-pointer",
@@ -71,6 +71,7 @@ function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape
 
 function ShapePresets() {
     const [shapes, setShapes] = useAtom(vaultSpapes.validAtom);
+    const [showCross, setShowCross] = useState(true);
     console.log('-------RENDER-------');
     return (
         <div className="py-2">
@@ -85,17 +86,17 @@ function ShapePresets() {
                         //e.clone
                     }}
                     onClone={(e) => {
-                        console.log('onClone1', e.item?.dataset.idx, { e });
-                        console.log('onClone2', e.item);
-                        console.log('onClone3', e.clone);
+                        console.log('onClone1', e.item?.dataset.idx, { e }, {item: e.item, clone: e.clone});
+                        // console.log('onClone2', e.item);
+                        // console.log('onClone3', e.clone);
                     }}
                     // onMove={(e) => {
                     //     console.log('onMove', e);
                     // }}
                     onChange={(e) => {
-                        console.log('onChange', e.oldIndex, e.newIndex, shapes[e.oldIndex ?? -1]?.id, shapes[e.newIndex ?? -1]?.id, { e });
-                        console.log('onChange2', e.item);
-                        console.log('onChange3', e.clone);
+                        console.log('onChange', e.oldIndex, e.newIndex, shapes[e.oldIndex ?? -1]?.id, shapes[e.newIndex ?? -1]?.id, { e }, {item: e.item, clone: e.clone});
+                        // console.log('onChange2', e.item);
+                        // console.log('onChange3', e.clone);
                     }}
                     // onSelect={(e) => {
                     //     console.log('onSelect', {e});
@@ -104,9 +105,10 @@ function ShapePresets() {
                     //     console.log('onDeselect', {e});
                     // }}
                     onChoose={(e) => {
-                        console.log('onChoose1', { e });
-                        console.log('onChoose2', e.item);
-                        console.log('onChoose3', e.clone);
+                        setShowCross(false);
+                        console.log('onChoose1', { e }, {item: e.item, clone: e.clone});
+                        // console.log('onChoose2', e.item);
+                        // console.log('onChoose3', e.clone);
 
                         e.item?.classList.add('now-2');
                         const cross = e.item?.querySelector('.svg-cross') as HTMLElement;
@@ -118,10 +120,24 @@ function ShapePresets() {
                         //e.clone
                     }}
                     onUnchoose={(e) => {
+                        setShowCross(true);
+
+                        console.log('onUnchoose', e.item?.dataset.idx, {e}, {item: e.item, clone: e.clone});
+
+                        var evt = new MouseEvent("mousemove", {
+                            view: window,
+                            bubbles: true,
+                            cancelable: true,
+                            clientX: 20,
+                            /* whatever properties you want to give it */
+                        });
+                        e.item.dispatchEvent(evt);
+
+
                         e.item?.classList.remove('now-2');
                         const cross = e.item?.querySelector('.svg-cross') as HTMLElement;
                         // console.log('onChoose', cross);
-                        console.log('onUnchoose', e.item?.dataset.idx);
+                        //console.log('onUnchoose', e.item?.dataset.idx);
                         //cross?.classList.remove('child-2');
                         cross && (cross.style.opacity = "1");
                         cross && (cross.style.backgroundColor = "");
@@ -132,7 +148,7 @@ function ShapePresets() {
                 >
                     {shapes.map(({ id, shapeParams, shape }) => (
                         <Fragment key={id}>
-                            <PresetView shapeParams={shapeParams} shape={shape} />
+                            <PresetView shapeParams={shapeParams} shape={shape} showCross={showCross} />
                         </Fragment>
                     ))}
                 </ReactSortable>
