@@ -49,6 +49,11 @@ function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape
 //both sortable-ghost and sortable-chosen are add at the same time
 //$('#root > div.min-h-full.overflow-hidden.bg-slate-50 > div > div.flex-1.overflow-y-auto > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div > div:nth-child(1)')
 //$('#root > div.min-h-full.overflow-hidden.bg-slate-50 > div > div.flex-1.overflow-y-auto > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div > div:nth-child(2)')
+//
+//$('.svg-view:nth-child(1)').dataset.idx
+//$('.svg-view:nth-child(2)').dataset.idx
+//
+//[$('.svg-view:nth-child(1)').dataset.idx, $('.svg-view:nth-child(2)').dataset.idx]
 
 function ShapePresets() {
     const [shapes, setShapes] = useAtom(vaultSpapes.validAtom);
@@ -65,10 +70,16 @@ function ShapePresets() {
                         //e.clone
                     }}
                     onClone={(e) => {
-                        console.log('onClone', e.item?.dataset.idx);
+                        //console.log('onClone', e.item?.dataset.idx);
+                    }}
+                    // onMove={(e) => {
+                    //     console.log('onMove', e);
+                    // }}
+                    onChange={(e) => {
+                        console.log('onChange', e.oldIndex, e.newIndex, shapes[e.oldIndex ?? -1]?.id, shapes[e.newIndex ?? -1]?.id, {e});
                     }}
                     onChoose={(e) => {
-                        //console.log('onChoose', e);
+                        console.log('onChoose', e);
                         e.item?.classList.add('now-2');
                         const cross = e.item?.querySelector('.svg-cross') as HTMLElement;
                         // console.log('onChoose', cross);
