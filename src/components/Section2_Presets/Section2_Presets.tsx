@@ -57,6 +57,7 @@ function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape
 
 function ShapePresets() {
     const [shapes, setShapes] = useAtom(vaultSpapes.validAtom);
+    console.log('-------RENDER-------');
     return (
         <div className="py-2">
             <div className="max-h-96 px-4 overflow-y-auto bg-primary-100">
