@@ -14,16 +14,21 @@ function PresetView({ shapeParams, shape }: { shapeParams: NewShapeParams, shape
     const setShapeParams = useSetAtom(editorShapeParamsAtom);
     return (
         <div
+            data-idx={shapeParams.id}
             className={classNames(
-                "svg-view relative group hover:scale-105 transition-all z-0 hover:z-10 text-primary-900 bg-primary-50",
+                "svg-view relative group peer hover:scale-105 transition-all z-0 hover:z-10 text-primary-900 bg-primary-50",
                 "[&.sortable-chosen]:bg-green-200",
-                "[&.sortable-.chosen_svg-cross]:hidden",
+                //"[&.sortable-.chosen_svg-cross]:hidden",
             )}
         >
             <IconCross
                 className={classNames(
                     "svg-cross absolute m-px w-4 h-4 right-1 top-1 p-0.5",
                     "hidden group-hover:block text-red-900 hover:bg-red-100 border-red-300/75 hover:border rounded",
+                    // "peer-focus-within:text-blue-500",
+                    // "[&peer-focus-within]:text-blue-500",
+                    //"[&peer-focus-within]:text-blue-500",
+                    `opacity-[var(--child-visibily,1)]`,
                 )}
             />
             <PreviewBox
@@ -56,7 +61,32 @@ function ShapePresets() {
                     className="relative py-4 grid grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-1"
                     animation={200}
                     onStart={(e) => {
-                        console.log('sortable', e);
+                        //console.log('onStart', e);
+                        //e.clone
+                    }}
+                    onClone={(e) => {
+                        console.log('onClone', e.item?.dataset.idx);
+                    }}
+                    onChoose={(e) => {
+                        //console.log('onChoose', e);
+                        e.item?.classList.add('now-2');
+                        const cross = e.item?.querySelector('.svg-cross') as HTMLElement;
+                        // console.log('onChoose', cross);
+                        console.log('onChoose', e.item?.dataset.idx);
+                        //cross?.classList.add('child-2');
+                        cross && (cross.style.opacity = "0");
+                        //e.clone
+                    }}
+                    onUnchoose={(e) => {
+                        e.item?.classList.remove('now-2');
+                        const cross = e.item?.querySelector('.svg-cross') as HTMLElement;
+                        // console.log('onChoose', cross);
+                        console.log('onChoose', e.item?.dataset.idx);
+                        //cross?.classList.remove('child-2');
+                        cross && (cross.style.opacity = "1");
+
+                        //console.log('onUnchoose', e);
+                        //e.clone
                     }}
                 >
                     {shapes.map(({ id, shapeParams, shape }) => (

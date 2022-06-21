@@ -13,6 +13,10 @@
     visibility: hidden;
 }
 
+.now-2 {
+    --child-visibily: 0;
+}
+
 /* .svg-view.sortable-chosen {
     background-color: blue !important;
     color: blue !important;
