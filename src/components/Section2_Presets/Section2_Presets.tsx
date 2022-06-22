@@ -10,11 +10,13 @@ import { classNames } from '@/utils/classnames';
 import SortableList, { SortableItem } from 'react-easy-sort';
 import { move } from '@/utils/move';
 import './Dragging.css';
+//import { a, useSpring } from '@react-spring/web';
 
 const PresetView = forwardRef<HTMLDivElement, { shapeParams: NewShapeParams, shape: GeneratorResult; storeIdx: number; }>(
     ({ shapeParams, shape, storeIdx }, ref) => {
         const setShapeParams = useSetAtom(editorShapeParamsAtom);
         const doRemoveFromVault = useSetAtom(doRemoveFromVaultAtom);
+        // const [styles, api] = useSpring(() => ({ scale: 1, onRest: () => doRemoveFromVault(storeIdx) }));
         return (
             <div ref={ref} className="relative group">
                 <IconCross
@@ -24,13 +26,16 @@ const PresetView = forwardRef<HTMLDivElement, { shapeParams: NewShapeParams, sha
                         "text-primary-400 hover:text-red-500 hover:bg-red-100 border-red-300/75 hover:border rounded shadow transition-all",
                     )}
                     onClick={() => doRemoveFromVault(storeIdx)}
+                    // onClick={() => api.start({ scale: 0 })}
                 />
-                <PreviewBox
-                    className="text-inherit border-white border-4 cursor-pointer"
-                    shapeParams={shapeParams}
-                    shape={shape}
-                    onClick={() => setShapeParams(shapeParams)}
-                />
+                {/* <a.div style={styles}> */}
+                    <PreviewBox
+                        className="text-inherit border-white border-4 cursor-pointer"
+                        shapeParams={shapeParams}
+                        shape={shape}
+                        onClick={() => setShapeParams(shapeParams)}
+                    />
+                {/* </a.div> */}
             </div>
         );
     }
