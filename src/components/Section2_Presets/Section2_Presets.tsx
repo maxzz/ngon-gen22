@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { useAtom, useSetAtom } from 'jotai';
 import { doRemoveFromVaultAtom, editorShapeParamsAtom, openSections, vaultSpapes, } from '@/store/store';
 import { NewShapeParams } from '@/store/ngon/shape';
@@ -11,28 +11,30 @@ import SortableList, { SortableItem } from 'react-easy-sort';
 import { move } from '@/utils/move';
 import './Dragging.css';
 
-function PresetView({ shapeParams, shape, storeIdx }: { shapeParams: NewShapeParams, shape: GeneratorResult; storeIdx: number; }) {
-    const setShapeParams = useSetAtom(editorShapeParamsAtom);
-    const doRemoveFromVault = useSetAtom(doRemoveFromVaultAtom);
-    return (
-        <div className="relative group">
-            <IconCross
-                className={classNames(
-                    "svg-cross absolute m-px w-4 h-4 right-1 top-1 p-0.5",
-                    "hidden group-hover:block",
-                    "text-primary-900 hover:text-red-500 hover:bg-red-100 border-red-300/75 hover:border rounded transition-all",
-                )}
-                onClick={() => doRemoveFromVault(storeIdx)}
-            />
-            <PreviewBox
-                className="text-inherit border-white border-4 cursor-pointer"
-                shapeParams={shapeParams}
-                shape={shape}
-                onClick={() => setShapeParams(shapeParams)}
-            />
-        </div>
-    );
-}
+const PresetView = forwardRef<HTMLDivElement, { shapeParams: NewShapeParams, shape: GeneratorResult; storeIdx: number; }>(
+    ({ shapeParams, shape, storeIdx }, ref) => {
+        const setShapeParams = useSetAtom(editorShapeParamsAtom);
+        const doRemoveFromVault = useSetAtom(doRemoveFromVaultAtom);
+        return (
+            <div ref={ref} className="relative group">
+                <IconCross
+                    className={classNames(
+                        "svg-cross absolute m-px w-4 h-4 right-1 top-1 p-0.5",
+                        "hidden group-hover:block",
+                        "text-primary-400 hover:text-red-500 hover:bg-red-100 border-red-300/75 hover:border rounded shadow transition-all",
+                    )}
+                    onClick={() => doRemoveFromVault(storeIdx)}
+                />
+                <PreviewBox
+                    className="text-inherit border-white border-4 cursor-pointer"
+                    shapeParams={shapeParams}
+                    shape={shape}
+                    onClick={() => setShapeParams(shapeParams)}
+                />
+            </div>
+        );
+    }
+);
 
 function ShapePresets() {
     const [shapes, setShapes] = useAtom(vaultSpapes.validAtom);
@@ -47,9 +49,7 @@ function ShapePresets() {
                 >
                     {shapes.map(({ id, shapeParams, shape }, idx) => (
                         <SortableItem key={id}>
-                            <div>
-                                <PresetView shapeParams={shapeParams} shape={shape} storeIdx={idx} />
-                            </div>
+                            <PresetView shapeParams={shapeParams} shape={shape} storeIdx={idx} />
                         </SortableItem>
                     ))}
                 </SortableList>
