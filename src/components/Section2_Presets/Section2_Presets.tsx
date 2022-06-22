@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAtom, useSetAtom } from 'jotai';
-import { editorShapeParamsAtom, openSections, vaultSpapes, } from '@/store/store';
+import { doRemoveFromVaultAtom, editorShapeParamsAtom, openSections, vaultSpapes, } from '@/store/store';
 import { NewShapeParams } from '@/store/ngon/shape';
 import { GeneratorResult } from '@/store/ngon/generator';
 import { UISection } from '../UI/UISection';
@@ -11,8 +11,9 @@ import SortableList, { SortableItem } from 'react-easy-sort';
 import { move } from '@/utils/move';
 import './Dragging.css';
 
-function PresetView({ shapeParams, shape, showCross }: { shapeParams: NewShapeParams, shape: GeneratorResult; showCross: boolean; }) {
+function PresetView({ shapeParams, shape, storeIdx }: { shapeParams: NewShapeParams, shape: GeneratorResult; storeIdx: number; }) {
     const setShapeParams = useSetAtom(editorShapeParamsAtom);
+    const doRemoveFromVault = useSetAtom(doRemoveFromVaultAtom);
     return (
         <div
             data-idx={shapeParams.id}
@@ -22,13 +23,14 @@ function PresetView({ shapeParams, shape, showCross }: { shapeParams: NewShapePa
             )}
         >
             <div className="">
-                {showCross && <IconCross
+                <IconCross
                     className={classNames(
                         "svg-cross absolute m-px w-4 h-4 right-1 top-1 p-0.5",
                         "hidden group-hover:block",
                         "text-red-900 hover:bg-red-100 border-red-300/75 hover:border rounded",
                     )}
-                />}
+                    onClick={() => doRemoveFromVault(storeIdx)}
+                />
                 <PreviewBox
                     className={classNames(
                         "text-inherit border-white border-4 cursor-pointer",
@@ -53,10 +55,10 @@ function ShapePresets() {
                     draggedItemClassName="dragged"
                     className="relative py-4 grid grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-1"
                 >
-                    {shapes.map(({ id, shapeParams, shape }) => (
+                    {shapes.map(({ id, shapeParams, shape }, idx) => (
                         <SortableItem key={id}>
                             <div className="">
-                                <PresetView shapeParams={shapeParams} shape={shape} showCross={true} />
+                                <PresetView shapeParams={shapeParams} shape={shape} storeIdx={idx} />
                             </div>
                         </SortableItem>
                     ))}
