@@ -34,10 +34,3 @@ export function move<T>(array: T[], fromIndex: number, toIndex: number): T[] {
     }
     return array;
 }
-
-// move is already immutable and simpler then:
-// export function moveImmutable<T>(array: T[], fromIndex: number, toIndex: number): T[] {
-// 	const newArray = [...array];
-// 	move(newArray, fromIndex, toIndex);
-// 	return newArray;
-// }

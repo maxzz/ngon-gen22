@@ -1,7 +1,6 @@
 /* @layer components {
 } */
 
-
 /* .svg-view.sortable-ghost {
     background-color: red !important;
     color: red !important;
@@ -23,3 +22,9 @@
     @apply scale-150 !important;
 }
  */
+
+/* .svg-view,  */
+.dragged {
+    @apply text-green-400;
+    /* background-color: red; */
+}

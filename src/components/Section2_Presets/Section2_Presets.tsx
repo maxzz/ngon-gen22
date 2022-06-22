@@ -7,9 +7,9 @@ import { UISection } from '../UI/UISection';
 import { PreviewBox } from './PreviewBox';
 import { IconCross } from '../UI/UIIcons';
 import { classNames } from '@/utils/classnames';
-import './Dragging.css';
 import SortableList, { SortableItem } from 'react-easy-sort';
-import { arrayMoveImmutable } from 'array-move';
+import { move } from '@/utils/move';
+import './Dragging.css';
 
 function PresetView({ shapeParams, shape, showCross }: { shapeParams: NewShapeParams, shape: GeneratorResult; showCross: boolean; }) {
     const setShapeParams = useSetAtom(editorShapeParamsAtom);
@@ -18,9 +18,10 @@ function PresetView({ shapeParams, shape, showCross }: { shapeParams: NewShapePa
     return (
         <div
             data-idx={shapeParams.id}
-            className={classNames("w-12 h-12 item",
-                "svg-view relative group peer hover:scale-105 transition-all z-0 hover:z-10 text-primary-900 bg-primary-50",
-                "[&.sortable-chosen]:bg-green-200",
+            className={classNames("",
+                "svg-view relative group peer hover:scale-105 transition-all z-0 hover:z-10",
+                // "svg-view relative group peer hover:scale-105 transition-all z-0 hover:z-10 text-primary-900 bg-primary-50",
+                // "[&.dragged]:bg-green-200",
                 //"[&.sortable-.chosen_svg-cross]:hidden",
                 //"[&.sortable-chosen]:[--cust:1]",
                 //"pointer-events-none select-none",
@@ -62,25 +63,9 @@ function PresetView({ shapeParams, shape, showCross }: { shapeParams: NewShapePa
     );
 }
 
-//both sortable-ghost and sortable-chosen are add at the same time
-//$('#root > div.min-h-full.overflow-hidden.bg-slate-50 > div > div.flex-1.overflow-y-auto > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div > div:nth-child(1)')
-//$('#root > div.min-h-full.overflow-hidden.bg-slate-50 > div > div.flex-1.overflow-y-auto > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div > div:nth-child(2)')
-//
-//$('.svg-view:nth-child(1)')?.dataset.idx
-//$('.svg-view:nth-child(2)')?.dataset.idx
-//
-//[$('.svg-view:nth-child(1)')?.dataset.idx, $('.svg-view:nth-child(2)')?.dataset.idx]
-//$('.svg-view:nth-child(1)')?.className
-
 function ShapePresets() {
     const [shapes, setShapes] = useAtom(vaultSpapes.validAtom);
-
-    const onSortEnd = (oldIndex: number, newIndex: number) => {
-        console.log('end', oldIndex, newIndex);
-        
-        setShapes((array) => arrayMoveImmutable(array, oldIndex, newIndex));
-    };
-
+    const onSortEnd = (oldIndex: number, newIndex: number) => setShapes((array) => move(array, oldIndex, newIndex));
     return (
         <div className="py-2">
             <div className="max-h-96 px-4 overflow-y-auto bg-primary-100">
@@ -92,9 +77,9 @@ function ShapePresets() {
                     {shapes.map(({ id, shapeParams, shape }) => (
                         <SortableItem key={id}>
                             {/* <Fragment key={id}> */}
-                                <div className="">
+                            <div className="">
                                 <PresetView shapeParams={shapeParams} shape={shape} showCross={true} />
-                                </div>
+                            </div>
                             {/* </Fragment> */}
                         </SortableItem>
                     ))}
