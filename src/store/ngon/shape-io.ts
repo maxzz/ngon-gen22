@@ -132,7 +132,7 @@ export namespace IO {
                 failedShapes.push(res);
             } else {
                 if (!res.shapeParams.id || ids.has(res.shapeParams.id)) {
-                    res.shapeParams.id = uuid();
+                    res.id = res.shapeParams.id = uuid();
                 }
                 ids.add(res.shapeParams.id);
                 return res;
