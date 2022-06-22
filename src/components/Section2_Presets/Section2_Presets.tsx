@@ -15,31 +15,21 @@ function PresetView({ shapeParams, shape, storeIdx }: { shapeParams: NewShapePar
     const setShapeParams = useSetAtom(editorShapeParamsAtom);
     const doRemoveFromVault = useSetAtom(doRemoveFromVaultAtom);
     return (
-        <div
-            data-idx={shapeParams.id}
-            className={classNames("",
-                "svg-view relative group peer hover:scale-105 transition-all z-0 hover:z-10",
-                // "svg-view relative group peer hover:scale-105 transition-all z-0 hover:z-10 text-primary-900 bg-primary-50",
-            )}
-        >
-            <div className="">
-                <IconCross
-                    className={classNames(
-                        "svg-cross absolute m-px w-4 h-4 right-1 top-1 p-0.5",
-                        "hidden group-hover:block",
-                        "text-red-900 hover:bg-red-100 border-red-300/75 hover:border rounded",
-                    )}
-                    onClick={() => doRemoveFromVault(storeIdx)}
-                />
-                <PreviewBox
-                    className={classNames(
-                        "text-inherit border-white border-4 cursor-pointer",
-                    )}
-                    shapeParams={shapeParams}
-                    shape={shape}
-                    onClick={() => setShapeParams(shapeParams)}
-                />
-            </div>
+        <div className="relative group">
+            <IconCross
+                className={classNames(
+                    "svg-cross absolute m-px w-4 h-4 right-1 top-1 p-0.5",
+                    "hidden group-hover:block",
+                    "text-primary-900 hover:text-red-500 hover:bg-red-100 border-red-300/75 hover:border rounded transition-all",
+                )}
+                onClick={() => doRemoveFromVault(storeIdx)}
+            />
+            <PreviewBox
+                className="text-inherit border-white border-4 cursor-pointer"
+                shapeParams={shapeParams}
+                shape={shape}
+                onClick={() => setShapeParams(shapeParams)}
+            />
         </div>
     );
 }
@@ -53,11 +43,11 @@ function ShapePresets() {
                 <SortableList
                     onSortEnd={onSortEnd}
                     draggedItemClassName="dragged"
-                    className="relative py-4 grid grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-1"
+                    className="relative py-4 grid grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-1 text-primary-900 bg-primary-50"
                 >
                     {shapes.map(({ id, shapeParams, shape }, idx) => (
                         <SortableItem key={id}>
-                            <div className="">
+                            <div>
                                 <PresetView shapeParams={shapeParams} shape={shape} storeIdx={idx} />
                             </div>
                         </SortableItem>

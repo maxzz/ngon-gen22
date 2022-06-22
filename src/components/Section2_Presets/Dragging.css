@@ -1,32 +1,5 @@
-/* @layer components {
-} */
-
-/* .svg-view.sortable-ghost {
-    background-color: red !important;
-    color: red !important;
-    transform: scale(0.5) !important;
-} */
-
-/* .svg-view.sortable-chosen > .svg-cross,
-.svg-view.sortable-ghost > .svg-cross {
-    visibility: hidden;
-} */
-
-/* .now-2 {
-    --child-visibily: 0;
-} */
-
-/* .svg-view.sortable-chosen {
-    background-color: blue !important;
-    color: blue !important;
-    @apply scale-150 !important;
-}
- */
-
-/* .svg-view,  */
 .dragged {
-    @apply bg-green-200;
-    /* background-color: red; */
+    @apply !bg-green-200;
 }
 
 .dragged .svg-cross {
