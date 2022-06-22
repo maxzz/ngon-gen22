@@ -54,3 +54,6 @@ export type NewShapeParamsMeta = {
     ofsY: NewShapeParamsMetaItem;
     scale: NewShapeParamsMetaItem;
 };
+
+//TODO: shape: add scale around x,y? or it goes to multiplication?
+//TODO: shape: add rotate around x,y? or it goes to multiplication?
