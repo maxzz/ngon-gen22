@@ -7,6 +7,7 @@ import { defaultShapes } from './ngon/shapes-vault-data';
 import { generate } from './ngon/generator';
 import { IO, } from './ngon/shape-io';
 import { toastError } from '@/components/UI/UiToaster';
+import { uuid } from '@/utils/uuid';
 
 //#region LocalStorage
 
@@ -177,10 +178,13 @@ export const dataLoadAtom = atom(
 
 export const doSaveToVaultAtom = atom(null,
     (get, set,) => {
-        const shapeParams = get(editorShapeParamsAtom);
+        const shapeParams = { ...get(editorShapeParamsAtom) };
         const shape = generate(shapeParams);
         const gadgets = undefined;
-        set(vaultSpapes.validAtom, (p) => [...p, {id: shapeParams.id, shapeParams, shape, gadgets}]);
+
+        shapeParams.id = get(vaultSpapes.validAtom).find(({ id }) => id === shapeParams.id) ? uuid() : shapeParams.id;
+
+        set(vaultSpapes.validAtom, (p) => [...p, { id: shapeParams.id, shapeParams, shape, gadgets }]);
     }
 );
 
