@@ -15,7 +15,6 @@
         "@popperjs/core": "2.11.5",
         "@react-spring/web": "9.4.5",
         "@use-gesture/react": "10.2.15",
-        "array-move": "^4.0.0",
         "dom-confetti": "^0.2.2",
         "jotai": "1.7.2",
         "leva": "0.9.27",
@@ -26,9 +25,7 @@
         "react-hot-toast": "^2.2.0",
         "react-popper": "2.3.0",
         "react-popper-tooltip": "4.4.1",
-        "react-sortablejs": "^6.1.4",
-        "react-use": "17.4.0",
-        "sortablejs": "^1.15.0"
+        "react-use": "17.4.0"
     },
     "devDependencies": {
         "@rollup/plugin-replace": "^4.0.0",
