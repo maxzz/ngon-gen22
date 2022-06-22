@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React from 'react';
 import { useAtom, useSetAtom } from 'jotai';
 import { editorShapeParamsAtom, openSections, vaultSpapes, } from '@/store/store';
 import { NewShapeParams } from '@/store/ngon/shape';
@@ -13,22 +13,13 @@ import './Dragging.css';
 
 function PresetView({ shapeParams, shape, showCross }: { shapeParams: NewShapeParams, shape: GeneratorResult; showCross: boolean; }) {
     const setShapeParams = useSetAtom(editorShapeParamsAtom);
-    // const [showCross, setShowCross] = useState(true);
-    // console.log('>>>>>> render PresetView <<<<<<<<<<', shapeParams.id, 'show cross', showCross);
     return (
         <div
             data-idx={shapeParams.id}
             className={classNames("",
                 "svg-view relative group peer hover:scale-105 transition-all z-0 hover:z-10",
                 // "svg-view relative group peer hover:scale-105 transition-all z-0 hover:z-10 text-primary-900 bg-primary-50",
-                // "[&.dragged]:bg-green-200",
-                //"[&.sortable-.chosen_svg-cross]:hidden",
-                //"[&.sortable-chosen]:[--cust:1]",
-                //"pointer-events-none select-none",
             )}
-        // onMouseDown={(e) => setShowCross(false)}
-        // onMouseUp={(e) => setShowCross(true)}
-        // onMouseMove={(e) => console.log('e', {e})}
         >
             <div className="">
                 {showCross && <IconCross
@@ -36,14 +27,6 @@ function PresetView({ shapeParams, shape, showCross }: { shapeParams: NewShapePa
                         "svg-cross absolute m-px w-4 h-4 right-1 top-1 p-0.5",
                         "hidden group-hover:block",
                         "text-red-900 hover:bg-red-100 border-red-300/75 hover:border rounded",
-                        // "text-red-900 hover:bg-red-100 border-red-300/75 hover:border rounded opacity-0",
-                        //"hidden group-hover:block text-red-900 hover:bg-red-100 border-red-300/75 hover:border rounded",
-                        //"hidden group-focusfocus-within:block text-red-900 hover:bg-red-100 border-red-300/75 hover:border rounded",
-                        // "peer-focus-within:text-blue-500",
-                        // "[&peer-focus-within]:text-blue-500",
-                        //"[&peer-focus-within]:text-blue-500",
-                        //`opacity-[var(--child-visibily,0)]`,
-                        //`opacity-[var(--cust)]`,
                     )}
                 />}
                 <PreviewBox
@@ -54,10 +37,6 @@ function PresetView({ shapeParams, shape, showCross }: { shapeParams: NewShapePa
                     shape={shape}
                     onClick={() => setShapeParams(shapeParams)}
                 />
-                {/* group-hover:bg-primary-200 [&:.sortable-chosen]:bg-green-300*/}
-                {/* [&:group.sortable-chosen]:bg-green-300 */}
-                {/* [&.sortable-chosen]: */}
-
             </div>
         </div>
     );
@@ -76,11 +55,9 @@ function ShapePresets() {
                 >
                     {shapes.map(({ id, shapeParams, shape }) => (
                         <SortableItem key={id}>
-                            {/* <Fragment key={id}> */}
                             <div className="">
                                 <PresetView shapeParams={shapeParams} shape={shape} showCross={true} />
                             </div>
-                            {/* </Fragment> */}
                         </SortableItem>
                     ))}
                 </SortableList>
