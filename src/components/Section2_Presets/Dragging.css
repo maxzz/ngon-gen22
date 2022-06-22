@@ -25,6 +25,10 @@
 
 /* .svg-view,  */
 .dragged {
-    @apply text-green-400;
+    @apply bg-green-200;
     /* background-color: red; */
+}
+
+.dragged .svg-cross {
+    visibility: hidden;
 }
