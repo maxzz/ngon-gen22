@@ -4,33 +4,40 @@
  * Note: This is a pure function so a new array will be returned, instead
  * of altering the array argument.
  * 
- * @param array (String) : Array in which to move an item. (required) 
- * @param moveIndex (Object) : The index of the item to move.          (required)
- * @param toIndex  (Object) : The index to move item at moveIndex to. (required)
- * @returns new updated array
+ * @param {Array} array - Array in which to move an item.
+ * @param {number} fromIndex The index of the item to move.
+ * @param {number} toIndex  The index to move item at fromIndex to.
+ * @returns new array
  */
-export function move<T>(array: T[], moveIndex: number, toIndex: number): T[] {
-    const item = array[moveIndex];
+export function move<T>(array: T[], fromIndex: number, toIndex: number): T[] {
+    const item = array[fromIndex];
     const length = array.length;
-    const diff = moveIndex - toIndex;
+    const diff = fromIndex - toIndex;
 
     if (diff > 0) {
         // move left
         return [
             ...array.slice(0, toIndex),
             item,
-            ...array.slice(toIndex, moveIndex),
-            ...array.slice(moveIndex + 1, length)
+            ...array.slice(toIndex, fromIndex),
+            ...array.slice(fromIndex + 1, length)
         ];
     } else if (diff < 0) {
         // move right
         const targetIndex = toIndex + 1;
         return [
-            ...array.slice(0, moveIndex),
-            ...array.slice(moveIndex + 1, targetIndex),
+            ...array.slice(0, fromIndex),
+            ...array.slice(fromIndex + 1, targetIndex),
             item,
             ...array.slice(targetIndex, length)
         ];
     }
     return array;
 }
+
+// move is already immutable and simpler then:
+// export function moveImmutable<T>(array: T[], fromIndex: number, toIndex: number): T[] {
+// 	const newArray = [...array];
+// 	move(newArray, fromIndex, toIndex);
+// 	return newArray;
+// }
