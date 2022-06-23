@@ -63,7 +63,7 @@ function ShapePresets() {
     );
 }
 
-export function Section2_Presets() {
+export function Section3_Presets() {
     return (
         <UISection openAtom={openSections.presetsAtom} title={"Presets"}>
             <ShapePresets />

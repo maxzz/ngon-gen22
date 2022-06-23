@@ -13,7 +13,7 @@ function Multiplication() {
     );
 }
 
-export function Section3_Multiplication() {
+export function Section4_Multiplication() {
     return (
         <UISection openAtom={openSections.variantsAtom} title={"Multiplication"}>
             <Multiplication />
