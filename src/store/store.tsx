@@ -23,6 +23,7 @@ namespace Storage {
 
     export let initialData: Store = {
         open: {
+            source: false,
             presets: false,
             variants: false,
         },
@@ -59,6 +60,7 @@ namespace Storage {
     export const saveDebounced = debounce(function _save(get: Getter) {
         let newStore: Store = {
             open: {
+                source: get(openSections.sourceAtom),
                 presets: get(openSections.presetsAtom),
                 variants: get(openSections.variantsAtom),
             },
@@ -88,11 +90,13 @@ namespace Storage {
 //#region UI sections state
 
 type StorageOpenSections = {
+    source: boolean;    // generated source code
     presets: boolean;   // shape collection previews
     variants: boolean;  // multiplication
 };
 
 export const openSections: Atomize<StorageOpenSections> = {
+    sourceAtom: atomWithCallback<boolean>(Storage.initialData.open.source, Storage.save),
     presetsAtom: atomWithCallback<boolean>(Storage.initialData.open.presets, Storage.save),
     variantsAtom: atomWithCallback<boolean>(Storage.initialData.open.variants, Storage.save),
 };

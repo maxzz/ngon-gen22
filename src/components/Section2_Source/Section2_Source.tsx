@@ -53,7 +53,7 @@ function Section11_Source_Container() {
 
 export function Section2_Source() {
     return (
-        <UISection openAtom={openSections.variantsAtom} title={"code"}>
+        <UISection openAtom={openSections.sourceAtom} title={"code"}>
             <Section11_Source_Container />
         </UISection>
     );
