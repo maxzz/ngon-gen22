@@ -1,7 +1,7 @@
-.dragged {
+.preset-dragged {
     @apply !bg-green-200;
 }
 
-.dragged .svg-cross {
+.preset-dragged .svg-cross {
     visibility: hidden;
 }

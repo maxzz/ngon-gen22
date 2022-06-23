@@ -49,7 +49,7 @@ function ShapePresets() {
             <div className="max-h-96 px-4 overflow-y-auto bg-primary-100">
                 <SortableList
                     onSortEnd={onSortEnd}
-                    draggedItemClassName="dragged"
+                    draggedItemClassName="preset-dragged"
                     className="relative py-4 grid grid-cols-[repeat(auto-fill,minmax(64px,1fr))] gap-1 text-primary-900 bg-primary-50"
                 >
                     {shapes.map(({ id, shapeParams, shape }, idx) => (
