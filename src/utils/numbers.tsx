@@ -2,6 +2,25 @@ export function rnd2(n: number): number {
     return Math.round(n * 100) / 100;
 }
 
+/**
+ * round a value to the specified number of digit
+ * @public
+ * @memberof Math
+ * @name round
+ * @param {number} num value to be rounded.
+ * @param {number} [dec=0] number of decimal digit to be rounded to.
+ * @returns {number} rounded value
+ * @example
+ * // round a specific value to 2 digits
+ * me.Math.round(10.33333, 2); // return 10.33
+ * https://github.com/melonjs/melonJS/blob/master/src/math/math.js#L174
+ */
+ export function round(num: number, dec: number = 0): number {
+    // if only one argument use the object value
+    var powres = Math.pow(10, dec);
+    return (~~(0.5 + num * powres) / powres);
+};
+
 export function random(min: number, max: number): number { //The maximum is exclusive and the minimum is inclusive
     return Math.random() * (max - min) + min;
 }
