@@ -1,11 +1,11 @@
 import React, { forwardRef } from 'react';
-import { useAtom, useSetAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { doRemoveFromVaultAtom, editorShapeParamsAtom, openSections, vaultSpapes, } from '@/store/store';
 import { NewShapeParams } from '@/store/ngon/shape';
 import { GeneratorResult } from '@/store/ngon/generator';
 import { UISection } from '../UI/UISection';
 import { PreviewBox } from './PreviewBox';
-import { IconCross } from '../UI/UIIcons';
+import { IconCross, IconImages } from '../UI/UIIcons';
 import { classNames } from '@/utils/classnames';
 import SortableList, { SortableItem } from 'react-easy-sort';
 import { move } from '@/utils/move';
@@ -26,15 +26,15 @@ const PresetView = forwardRef<HTMLDivElement, { shapeParams: NewShapeParams, sha
                         "text-primary-400 hover:text-red-500 hover:bg-red-100 border-red-300/75 hover:border rounded shadow transition-all",
                     )}
                     onClick={() => doRemoveFromVault(storeIdx)}
-                    // onClick={() => api.start({ scale: 0 })}
+                // onClick={() => api.start({ scale: 0 })}
                 />
                 {/* <a.div style={styles}> */}
-                    <PreviewBox
-                        className="text-inherit border-white border-4 cursor-pointer"
-                        shapeParams={shapeParams}
-                        shape={shape}
-                        onClick={() => setShapeParams(shapeParams)}
-                    />
+                <PreviewBox
+                    className="text-inherit border-white border-4 cursor-pointer"
+                    shapeParams={shapeParams}
+                    shape={shape}
+                    onClick={() => setShapeParams(shapeParams)}
+                />
                 {/* </a.div> */}
             </div>
         );
@@ -63,9 +63,29 @@ function ShapePresets() {
     );
 }
 
+function SectionsButtons() {
+    const open = useAtomValue(openSections.presetsAtom);
+    return (<>
+        {open &&
+            <div className="">
+                <IconImages className="mr-2 w-4 h-4 fill-transparent stroke-current stroke-[32]" />
+            </div>
+        }
+    </>);
+}
+
 export function Section3_Presets() {
     return (
-        <UISection openAtom={openSections.presetsAtom} title={"Presets"}>
+        // <UISection openAtom={openSections.presetsAtom} title={"Presets"}>
+        <UISection
+            openAtom={openSections.presetsAtom}
+            title={
+                <div className="flex-1 flex items-center justify-between">
+                    Presets
+                    <SectionsButtons />
+                </div>
+            }
+        >
             <ShapePresets />
         </UISection>
     );
