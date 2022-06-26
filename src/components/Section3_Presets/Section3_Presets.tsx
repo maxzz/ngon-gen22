@@ -81,13 +81,14 @@ function SectionsButton({ className, children, onClick, ...rest }: HTMLAttribute
 function SectionsButtons() {
     const open = useAtomValue(openSections.presetsAtom);
     const doRemoveAllFromVault = useSetAtom(vaultActions.doRemoveAllFromVaultAtom);
+    const doappendDefaultVaultPersets = useSetAtom(vaultActions.doappendDefaultVaultPersetsAtom);
     return (<>
         {open &&
             <div className="flex items-center space-x-1 mr-2">
-                <SectionsButton className="p-1 w-6 h-6" title="Remove all presets">
-                    <IconTrash className="fill-current" onClick={() => doRemoveAllFromVault()} />
+                <SectionsButton className="p-1 w-6 h-6" onClick={() => doRemoveAllFromVault()} title="Remove all presets">
+                    <IconTrash className="fill-current" />
                 </SectionsButton>
-                <SectionsButton className="p-1 w-6 h-6" title="Append default presets">
+                <SectionsButton className="p-1 w-6 h-6" onClick={() => doappendDefaultVaultPersets()} title="Append default presets">
                     <IconImages className="w-4 h-4 fill-transparent stroke-current stroke-[32]" />
                 </SectionsButton>
             </div>

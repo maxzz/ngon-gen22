@@ -161,7 +161,7 @@ function saveVaultShapes({ get, set }: { get: Getter, set: Setter; }) {
 }
 
 function appendShapes(get: Getter, set: Setter, newShapes: string[]) {
-    const { parsedShapes, failedShapes, } = IO.parseVaultShapes(Storage.initialData.vaultData.shapes);
+    const { parsedShapes, failedShapes, } = IO.parseVaultShapes(newShapes);
     const valid = get(vaultSpapes.validAtom);
     const failed = get(vaultSpapes.failedAtom);
     set(vaultSpapes.validAtom, [...valid, ...parsedShapes]);
@@ -203,6 +203,11 @@ export const vaultActions = {
     doRemoveAllFromVaultAtom: atom(null,
         (get, set,) => {
             set(vaultSpapes.validAtom, []);
+        }
+    ),
+    doappendDefaultVaultPersetsAtom: atom(null,
+        (get, set,) => {
+            appendShapes(get, set, defaultShapes);
         }
     ),
 };
