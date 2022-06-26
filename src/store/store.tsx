@@ -180,30 +180,30 @@ export const dataLoadAtom = atom(
 
 //#region Vault operations
 
-export const doSaveToVaultAtom = atom(null,
-    (get, set,) => {
-        const shapeParams = { ...get(editorShapeParamsAtom) };
-        const shape = generate(shapeParams);
-        const gadgets = undefined;
-
-        shapeParams.id = get(vaultSpapes.validAtom).find(({ id }) => id === shapeParams.id) ? uuid() : shapeParams.id;
-
-        set(vaultSpapes.validAtom, (p) => [...p, { id: shapeParams.id, shapeParams, shape, gadgets }]);
-    }
-);
-
-export const doRemoveFromVaultAtom = atom(null, //TODO: should have access by Id or by index is enough?
-    (get, set, idx: number) => {
-        const shapes = get(vaultSpapes.validAtom);
-        const newShapes = shapes.slice(0, idx).concat(shapes.slice(idx + 1));
-        set(vaultSpapes.validAtom, newShapes);
-    }
-);
-
-export const doRemoveAllFromVaultAtom = atom(null,
-    (get, set, ) => {
-        set(vaultSpapes.validAtom, []);
-    }
-);
+export const vaultActions = {
+    doSaveToVaultAtom: atom(null,
+        (get, set,) => {
+            const shapeParams = { ...get(editorShapeParamsAtom) };
+            const shape = generate(shapeParams);
+            const gadgets = undefined;
+    
+            shapeParams.id = get(vaultSpapes.validAtom).find(({ id }) => id === shapeParams.id) ? uuid() : shapeParams.id;
+    
+            set(vaultSpapes.validAtom, (p) => [...p, { id: shapeParams.id, shapeParams, shape, gadgets }]);
+        }
+    ),
+    doRemoveFromVaultAtom: atom(null, //TODO: should have access by Id or by index is enough?
+        (get, set, idx: number) => {
+            const shapes = get(vaultSpapes.validAtom);
+            const newShapes = shapes.slice(0, idx).concat(shapes.slice(idx + 1));
+            set(vaultSpapes.validAtom, newShapes);
+        }
+    ),
+    doRemoveAllFromVaultAtom: atom(null,
+        (get, set, ) => {
+            set(vaultSpapes.validAtom, []);
+        }
+    )
+}
 
 //#endregion Vault operations

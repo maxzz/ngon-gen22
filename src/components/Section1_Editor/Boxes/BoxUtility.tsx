@@ -1,7 +1,7 @@
-import { ButtonHTMLAttributes, HTMLAttributes } from "react";
+import { HTMLAttributes } from "react";
 import { useSetAtom } from "jotai";
 import { initalValueShapeParams } from "@/store/ngon/shape-defaults";
-import { doSaveToVaultAtom, editorShapeParamsAtom } from "@/store/store";
+import { editorShapeParamsAtom, vaultActions } from "@/store/store";
 import { classNames } from "@/utils/classnames";
 import { IconCode } from "@/components/UI/UIIcons";
 
@@ -40,7 +40,7 @@ function ResetButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
 }
 
 function SaveButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
-    const doSaveToVault = useSetAtom(doSaveToVaultAtom);
+    const doSaveToVault = useSetAtom(vaultActions.doSaveToVaultAtom);
     return (
         <Button onClick={doSaveToVault} title="Save to vault collection" {...rest}>Save</Button>
     );

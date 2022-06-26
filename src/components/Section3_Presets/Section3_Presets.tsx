@@ -1,6 +1,6 @@
 import React, { forwardRef, HTMLAttributes } from 'react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { doRemoveFromVaultAtom, editorShapeParamsAtom, openSections, vaultSpapes, } from '@/store/store';
+import { editorShapeParamsAtom, openSections, vaultActions, vaultSpapes, } from '@/store/store';
 import { NewShapeParams } from '@/store/ngon/shape';
 import { GeneratorResult } from '@/store/ngon/generator';
 import { UISection } from '../UI/UISection';
@@ -15,7 +15,7 @@ import './Dragging.css';
 const PresetView = forwardRef<HTMLDivElement, { shapeParams: NewShapeParams, shape: GeneratorResult; storeIdx: number; }>(
     ({ shapeParams, shape, storeIdx }, ref) => {
         const setShapeParams = useSetAtom(editorShapeParamsAtom);
-        const doRemoveFromVault = useSetAtom(doRemoveFromVaultAtom);
+        const doRemoveFromVault = useSetAtom(vaultActions.doRemoveFromVaultAtom);
         // const [styles, api] = useSpring(() => ({ scale: 1, onRest: () => doRemoveFromVault(storeIdx) }));
         return (
             <div ref={ref} className="relative group">
@@ -67,7 +67,7 @@ function SectionsButton({ className, children, onClick, ...rest }: HTMLAttribute
     return (
         <button
             className={classNames(
-                "text-primary-300 hover:text-primary-50 hover:bg-title6 hover:shadow-title7 outline-1 outline-primary-300 hover:outline rounded shadow",
+                "text-primary-300 hover:text-primary-50 hover:bg-title6 hover:shadow-title7/50 outline-1 outline-primary-300/50 hover:outline rounded shadow",
                 className
             )}
             onClick={(e) => { e.stopPropagation(); onClick && onClick(e); }} {...rest}
@@ -80,13 +80,14 @@ function SectionsButton({ className, children, onClick, ...rest }: HTMLAttribute
 
 function SectionsButtons() {
     const open = useAtomValue(openSections.presetsAtom);
+    const doRemoveAllFromVault = useSetAtom(vaultActions.doRemoveAllFromVaultAtom);
     return (<>
         {open &&
             <div className="flex items-center space-x-1 mr-2">
-                <SectionsButton className="p-1 w-6 h-6" title="remove all presets">
-                    <IconTrash className="fill-current" />
+                <SectionsButton className="p-1 w-6 h-6" title="Remove all presets">
+                    <IconTrash className="fill-current" onClick={() => doRemoveAllFromVault()} />
                 </SectionsButton>
-                <SectionsButton className="p-1 w-6 h-6" title="load default presets">
+                <SectionsButton className="p-1 w-6 h-6" title="Append default presets">
                     <IconImages className="w-4 h-4 fill-transparent stroke-current stroke-[32]" />
                 </SectionsButton>
             </div>
