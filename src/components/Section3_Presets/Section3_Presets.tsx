@@ -77,11 +77,11 @@ function SectionsButtons() {
     return (<>
         {open &&
             <div className="flex items-center space-x-1 mr-2">
-                <SectionsButton className="p-1 w-6 h-6">
-                    <IconTrash className="fill-current" title="remove all presets" />
+                <SectionsButton className="p-1 w-6 h-6" title="remove all presets">
+                    <IconTrash className="fill-current" />
                 </SectionsButton>
-                <SectionsButton className="p-1 w-6 h-6">
-                    <IconImages className="w-4 h-4 fill-transparent stroke-current stroke-[32]" title="load default presets" />
+                <SectionsButton className="p-1 w-6 h-6" title="load default presets">
+                    <IconImages className="w-4 h-4 fill-transparent stroke-current stroke-[32]" />
                 </SectionsButton>
             </div>
         }
