@@ -5,7 +5,7 @@ import { NewShapeParams } from '@/store/ngon/shape';
 import { GeneratorResult } from '@/store/ngon/generator';
 import { UISection } from '../UI/UISection';
 import { PreviewBox } from './PreviewBox';
-import { IconCross, IconImages } from '../UI/UIIcons';
+import { IconCross, IconImages, IconTrash } from '../UI/UIIcons';
 import { classNames } from '@/utils/classnames';
 import SortableList, { SortableItem } from 'react-easy-sort';
 import { move } from '@/utils/move';
@@ -67,8 +67,9 @@ function SectionsButtons() {
     const open = useAtomValue(openSections.presetsAtom);
     return (<>
         {open &&
-            <div className="">
-                <IconImages className="mr-2 w-4 h-4 fill-transparent stroke-current stroke-[32]" />
+            <div className="flex items-center">
+                <IconTrash className="mr-3 w-[1.125rem] h-[1.125rem] fill-current" title="remove all presets" />
+                <IconImages className="mr-2 w-4 h-4 fill-transparent stroke-current stroke-[32]" title="load default presets" />
             </div>
         }
     </>);
