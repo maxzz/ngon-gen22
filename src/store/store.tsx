@@ -200,4 +200,10 @@ export const doRemoveFromVaultAtom = atom(null, //TODO: should have access by Id
     }
 );
 
+export const doRemoveAllFromVaultAtom = atom(null,
+    (get, set, ) => {
+        set(vaultSpapes.validAtom, []);
+    }
+);
+
 //#endregion Vault operations
