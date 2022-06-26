@@ -11,7 +11,7 @@ export function UISectionPane({ className, children, open = true, ...rest }: { o
             {children}
             
             {/* Open/Close icon */}
-            <UIArrow open={open} className="w-6 h-6 p-1 " />
+            <UIArrow open={open} className="w-6 h-6 p-1 pb-0 " />
         </div>
     );
 }
