@@ -182,7 +182,7 @@ export const dataLoadAtom = atom(
 //#region Vault operations
 
 export const vaultActions = {
-    doSaveToVaultAtom: atom(null,
+    doSaveShapeAtom: atom(null,
         (get, set,) => {
             const shapeParams = { ...get(editorShapeParamsAtom) };
             const shape = generate(shapeParams);
@@ -193,19 +193,19 @@ export const vaultActions = {
             set(vaultSpapes.validAtom, (p) => [...p, { id: shapeParams.id, shapeParams, shape, gadgets }]);
         }
     ),
-    doRemoveFromVaultAtom: atom(null, //TODO: should have access by Id or by index is enough?
+    doRemoveShapeAtom: atom(null, //TODO: should have access by Id or by index is enough?
         (get, set, idx: number) => {
             const shapes = get(vaultSpapes.validAtom);
             const newShapes = shapes.slice(0, idx).concat(shapes.slice(idx + 1));
             set(vaultSpapes.validAtom, newShapes);
         }
     ),
-    doRemoveAllFromVaultAtom: atom(null,
+    doRemoveAllAtom: atom(null,
         (get, set,) => {
             set(vaultSpapes.validAtom, []);
         }
     ),
-    doappendDefaultVaultPersetsAtom: atom(null,
+    doAppendDefaultPersetsAtom: atom(null,
         (get, set,) => {
             appendShapes(get, set, defaultShapes);
         }

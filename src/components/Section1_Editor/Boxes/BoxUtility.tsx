@@ -40,7 +40,7 @@ function ResetButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
 }
 
 function SaveButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
-    const doSaveToVault = useSetAtom(vaultActions.doSaveToVaultAtom);
+    const doSaveToVault = useSetAtom(vaultActions.doSaveShapeAtom);
     return (
         <Button onClick={doSaveToVault} title="Save to vault collection" {...rest}>Save</Button>
     );

@@ -15,7 +15,7 @@ import './Dragging.css';
 const PresetView = forwardRef<HTMLDivElement, { shapeParams: NewShapeParams, shape: GeneratorResult; storeIdx: number; }>(
     ({ shapeParams, shape, storeIdx }, ref) => {
         const setShapeParams = useSetAtom(editorShapeParamsAtom);
-        const doRemoveFromVault = useSetAtom(vaultActions.doRemoveFromVaultAtom);
+        const doRemoveFromVault = useSetAtom(vaultActions.doRemoveShapeAtom);
         // const [styles, api] = useSpring(() => ({ scale: 1, onRest: () => doRemoveFromVault(storeIdx) }));
         return (
             <div ref={ref} className="relative group">
@@ -80,8 +80,8 @@ function SectionsButton({ className, children, onClick, ...rest }: HTMLAttribute
 
 function SectionsButtons() {
     const open = useAtomValue(openSections.presetsAtom);
-    const doRemoveAllFromVault = useSetAtom(vaultActions.doRemoveAllFromVaultAtom);
-    const doappendDefaultVaultPersets = useSetAtom(vaultActions.doappendDefaultVaultPersetsAtom);
+    const doRemoveAllFromVault = useSetAtom(vaultActions.doRemoveAllAtom);
+    const doappendDefaultVaultPersets = useSetAtom(vaultActions.doAppendDefaultPersetsAtom);
     return (<>
         {open &&
             <div className="flex items-center space-x-1 mr-2">
