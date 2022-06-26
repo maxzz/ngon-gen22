@@ -63,9 +63,15 @@ function ShapePresets() {
     );
 }
 
-function SectionsButton({ className, children, ...rest }: HTMLAttributes<HTMLElement>) {
+function SectionsButton({ className, children, onClick, ...rest }: HTMLAttributes<HTMLElement>) {
     return (
-        <button className={classNames("hover:bg-title6 hover:shadow-title7 outline-1 outline-primary-300 hover:outline rounded shadow", className)} {...rest}>
+        <button
+            className={classNames(
+                "text-primary-300 hover:text-primary-50 hover:bg-title6 hover:shadow-title7 outline-1 outline-primary-300 hover:outline rounded shadow",
+                className
+            )}
+            onClick={(e) => { e.stopPropagation(); onClick && onClick(e); }} {...rest}
+        >
             {children}
         </button>
     );
