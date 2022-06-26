@@ -82,13 +82,14 @@ function SectionsButtons() {
     const open = useAtomValue(openSections.presetsAtom);
     const doRemoveAllFromVault = useSetAtom(vaultActions.doRemoveAllAtom);
     const doappendDefaultVaultPersets = useSetAtom(vaultActions.doAppendDefaultPersetsAtom);
+    const doKeepUniqueOnlyPersets = useSetAtom(vaultActions.doKeepUniqueOnlyPersetsAtom);
     return (<>
         {open &&
             <div className="flex items-center space-x-1 mr-2">
                 <SectionsButton className="p-1 w-6 h-6" onClick={() => doRemoveAllFromVault()} title="Remove all presets">
                     <IconTrash className="fill-current" />
                 </SectionsButton>
-                <SectionsButton className="p-1 w-6 h-6" onClick={() => doappendDefaultVaultPersets()} title="Remove duplicated presets">
+                <SectionsButton className="p-1 w-6 h-6" onClick={() => doKeepUniqueOnlyPersets()} title="Remove duplicated presets">
                     <IconImage className="w-4 h-4 fill-transparent stroke-current stroke-[32]" />
                 </SectionsButton>
                 <SectionsButton className="p-1 w-6 h-6" onClick={() => doappendDefaultVaultPersets()} title="Append default presets">
