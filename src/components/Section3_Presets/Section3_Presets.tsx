@@ -5,7 +5,7 @@ import { NewShapeParams } from '@/store/ngon/shape';
 import { GeneratorResult } from '@/store/ngon/generator';
 import { UISection } from '../UI/UISection';
 import { PreviewBox } from './PreviewBox';
-import { IconCross, IconImages, IconTrash } from '../UI/UIIcons';
+import { IconCross, IconImage, IconImages, IconTrash } from '../UI/UIIcons';
 import { classNames } from '@/utils/classnames';
 import SortableList, { SortableItem } from 'react-easy-sort';
 import { move } from '@/utils/move';
@@ -87,6 +87,9 @@ function SectionsButtons() {
             <div className="flex items-center space-x-1 mr-2">
                 <SectionsButton className="p-1 w-6 h-6" onClick={() => doRemoveAllFromVault()} title="Remove all presets">
                     <IconTrash className="fill-current" />
+                </SectionsButton>
+                <SectionsButton className="p-1 w-6 h-6" onClick={() => doappendDefaultVaultPersets()} title="Remove duplicated presets">
+                    <IconImage className="w-4 h-4 fill-transparent stroke-current stroke-[32]" />
                 </SectionsButton>
                 <SectionsButton className="p-1 w-6 h-6" onClick={() => doappendDefaultVaultPersets()} title="Append default presets">
                     <IconImages className="w-4 h-4 fill-transparent stroke-current stroke-[32]" />
