@@ -160,14 +160,15 @@ function saveVaultShapes({ get, set }: { get: Getter, set: Setter; }) {
     Storage.saveDebounced(get);
 }
 
-const runFetchVaultShapesAtom = atom(
-    () => null,
-    (_get, set) => {
-        const { parsedShapes, failedShapes, } = IO.parseVaultShapes(Storage.initialData.vaultData.shapes);
-        set(vaultSpapes.validAtom, parsedShapes);
-        set(vaultSpapes.failedAtom, failedShapes); //toastError('test');
-    }
-);
+function appendShapes(get: Getter, set: Setter, newShapes: string[]) {
+    const { parsedShapes, failedShapes, } = IO.parseVaultShapes(Storage.initialData.vaultData.shapes);
+    const valid = get(vaultSpapes.validAtom);
+    const failed = get(vaultSpapes.failedAtom);
+    set(vaultSpapes.validAtom, [...valid, ...parsedShapes]);
+    set(vaultSpapes.failedAtom, [...failed, ...failedShapes]); //toastError('test');
+}
+
+const runFetchVaultShapesAtom = atom(() => null, (get, set) => appendShapes(get, set, Storage.initialData.vaultData.shapes));
 runFetchVaultShapesAtom.onMount = (runFetch) => runFetch();
 
 export const dataLoadAtom = atom(
@@ -186,9 +187,9 @@ export const vaultActions = {
             const shapeParams = { ...get(editorShapeParamsAtom) };
             const shape = generate(shapeParams);
             const gadgets = undefined;
-    
+
             shapeParams.id = get(vaultSpapes.validAtom).find(({ id }) => id === shapeParams.id) ? uuid() : shapeParams.id;
-    
+
             set(vaultSpapes.validAtom, (p) => [...p, { id: shapeParams.id, shapeParams, shape, gadgets }]);
         }
     ),
@@ -200,10 +201,10 @@ export const vaultActions = {
         }
     ),
     doRemoveAllFromVaultAtom: atom(null,
-        (get, set, ) => {
+        (get, set,) => {
             set(vaultSpapes.validAtom, []);
         }
-    )
-}
+    ),
+};
 
 //#endregion Vault operations
