@@ -166,8 +166,7 @@ export namespace IO {
     export function uniqueIdsOnly(shapes: ConvertResult[]): ConvertResult[] {
         const ids = new Set<string | undefined>();
         const rv: ConvertResult[] = shapes.reduce((acc: ConvertResult[], shape: ConvertResult) => {
-            const newShape = {...shape.gadgets, ...shape.shapeParams, id: ''};
-            const key = JSON.stringify(newShape);
+            const key = JSON.stringify({...shape.gadgets, ...shape.shapeParams, id: ''});
             if (!ids.has(key)) {
                 ids.add(key);
                 acc.push(shape);

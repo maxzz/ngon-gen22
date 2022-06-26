@@ -117,3 +117,10 @@ export function Section3_Presets() {
         </UISection>
     );
 }
+
+//TODO: combine the image icon with the trash can icon.
+//TODO: add confirmation for add remove operations
+//TODO: move keep shape to canvas
+//TODO: add index numbers to each preview
+//TODO: ctrl+click on save button should console all shapes w/ indices for default
+//TODO: scroll presets view box to the new added shape

@@ -190,7 +190,7 @@ export const vaultActions = {
 
             shapeParams.id = get(vaultSpapes.validAtom).find(({ id }) => id === shapeParams.id) ? uuid() : shapeParams.id;
 
-            set(vaultSpapes.validAtom, (p) => [...p, { id: shapeParams.id, shapeParams, shape, gadgets }]);
+            set(vaultSpapes.validAtom, (p) => [{ id: shapeParams.id, shapeParams, shape, gadgets }, ...p]);
         }
     ),
     doRemoveShapeAtom: atom(null, //TODO: should have access by Id or by index is enough?
