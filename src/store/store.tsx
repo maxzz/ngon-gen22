@@ -53,7 +53,7 @@ namespace Storage {
             }
         }
 
-        initialData.vaultData.shapes = initialData.vaultData?.shapes?.length ? initialData.vaultData.shapes : defaultShapes;
+        //initialData.vaultData.shapes = initialData.vaultData?.shapes?.length ? initialData.vaultData.shapes : defaultShapes;
     }
     load();
 
@@ -164,7 +164,9 @@ function appendShapes(get: Getter, set: Setter, newShapes: string[]) {
     const { parsedShapes, failedShapes, } = IO.parseVaultShapes(newShapes);
     const valid = get(vaultSpapes.validAtom);
     const failed = get(vaultSpapes.failedAtom);
-    set(vaultSpapes.validAtom, [...valid, ...parsedShapes]);
+   
+
+    set(vaultSpapes.validAtom, IO.makeUniqueIds([...valid, ...parsedShapes]));
     set(vaultSpapes.failedAtom, [...failed, ...failedShapes]); //toastError('test');
 }
 

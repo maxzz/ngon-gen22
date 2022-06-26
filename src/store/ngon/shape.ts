@@ -17,6 +17,7 @@ export type NewShapeParams = { // TODO: can it be more then one inner ?
     id: string;         // shape ID
     genId?: string;     // shape generator name aka 'ngon'
 };
+//TODO: add original Id and current Id to implement operation remove duplicates (by Id or by the same params ignoring Ids as comparing JSON wo/ Id) from Vault.
 
 export type ShapeGadgets = {
     showAll: boolean;           // override current show values at once, i.e. open (interested) or closed (don't bother me)

@@ -151,4 +151,16 @@ export namespace IO {
         });
     }
 
+    export function makeUniqueIds(shapes: ConvertResult[]): ConvertResult[] {
+        const ids = new Set<string | undefined>();
+        const rv: ConvertResult[] = shapes.map((shape) => {
+            if (!shape.shapeParams.id || ids.has(shape.shapeParams.id)) {
+                shape.id = shape.shapeParams.id = uuid();
+            }
+            ids.add(shape.shapeParams.id);
+            return shape;
+        });
+        return rv;
+    }
+
 } //namespace IO
