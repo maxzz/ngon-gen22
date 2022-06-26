@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, HTMLAttributes } from 'react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { doRemoveFromVaultAtom, editorShapeParamsAtom, openSections, vaultSpapes, } from '@/store/store';
 import { NewShapeParams } from '@/store/ngon/shape';
@@ -63,13 +63,29 @@ function ShapePresets() {
     );
 }
 
+function SectionsButton({ className, children, ...rest }: HTMLAttributes<HTMLElement>) {
+    return (
+        <button className={classNames("hover:bg-red-500 rounded", className)} {...rest}>
+            {children}
+        </button>
+    );
+}
+
+
 function SectionsButtons() {
     const open = useAtomValue(openSections.presetsAtom);
     return (<>
         {open &&
-            <div className="flex items-center">
-                <IconTrash className="mr-3 w-[1.125rem] h-[1.125rem] fill-current" title="remove all presets" />
-                <IconImages className="mr-2 w-4 h-4 fill-transparent stroke-current stroke-[32]" title="load default presets" />
+            <div className="flex items-center space-x-2 mr-2">
+                <SectionsButton className="p-1 w-6 h-6">
+                    <IconTrash className="fill-current" title="remove all presets" />
+                </SectionsButton>
+                {/* w-[1.125rem] h-[1.125rem] */}
+                <SectionsButton className="p-1 w-6 h-6">
+                    <IconImages className="w-4 h-4 fill-transparent stroke-current stroke-[32]" title="load default presets" />
+                </SectionsButton>
+                {/* <IconTrash className="w-[1.125rem] h-[1.125rem] fill-current" title="remove all presets" />
+                <IconImages className="w-4 h-4 fill-transparent stroke-current stroke-[32]" title="load default presets" /> */}
             </div>
         }
     </>);
@@ -79,10 +95,11 @@ export function Section3_Presets() {
     return (
         // <UISection openAtom={openSections.presetsAtom} title={"Presets"}>
         <UISection
+            className="py-0"
             openAtom={openSections.presetsAtom}
             title={
                 <div className="flex-1 flex items-center justify-between">
-                    Presets
+                    <div className="py-2">Presets</div>
                     <SectionsButtons />
                 </div>
             }
