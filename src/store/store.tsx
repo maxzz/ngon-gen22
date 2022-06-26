@@ -164,8 +164,6 @@ function appendShapes(get: Getter, set: Setter, newShapes: string[]) {
     const { parsedShapes, failedShapes, } = IO.parseVaultShapes(newShapes);
     const valid = get(vaultSpapes.validAtom);
     const failed = get(vaultSpapes.failedAtom);
-   
-
     set(vaultSpapes.validAtom, IO.makeUniqueIds([...valid, ...parsedShapes]));
     set(vaultSpapes.failedAtom, [...failed, ...failedShapes]); //toastError('test');
 }
@@ -210,6 +208,12 @@ export const vaultActions = {
     doAppendDefaultPersetsAtom: atom(null,
         (get, set,) => {
             appendShapes(get, set, defaultShapes);
+        }
+    ),
+    doKeepUniqueOnlyPersetsAtom: atom(null,
+        (get, set,) => {
+            const shapes = get(vaultSpapes.validAtom);
+            set(vaultSpapes.validAtom, IO.uniqueIdsOnly(shapes));
         }
     ),
 };

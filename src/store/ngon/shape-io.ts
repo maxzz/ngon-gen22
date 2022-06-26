@@ -163,4 +163,18 @@ export namespace IO {
         return rv;
     }
 
+    export function uniqueIdsOnly(shapes: ConvertResult[]): ConvertResult[] {
+        const ids = new Set<string | undefined>();
+        const rv: ConvertResult[] = shapes.reduce((acc: ConvertResult[], shape: ConvertResult) => {
+            const newShape = {...shape.gadgets, ...shape.shapeParams, id: ''};
+            const key = JSON.stringify(newShape);
+            if (!ids.has(key)) {
+                ids.add(key);
+                acc.push(shape);
+            }
+            return acc;
+        }, []);
+        return rv;
+    }
+
 } //namespace IO
