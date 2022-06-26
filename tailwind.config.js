@@ -24,6 +24,8 @@ module.exports = {
                 title3: '#003165',
                 title4: '#003f82',
                 title5: '#002f87',
+                title6: '#3264b3',
+                title7: '#93c7fe',
                 url: twColors.blue['500'],
             },
             // keyframes: {

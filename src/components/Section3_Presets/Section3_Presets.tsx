@@ -65,7 +65,7 @@ function ShapePresets() {
 
 function SectionsButton({ className, children, ...rest }: HTMLAttributes<HTMLElement>) {
     return (
-        <button className={classNames("hover:bg-red-500 rounded", className)} {...rest}>
+        <button className={classNames("hover:bg-title6 hover:shadow-title7 outline-1 outline-primary-300 hover:outline rounded shadow", className)} {...rest}>
             {children}
         </button>
     );
@@ -76,16 +76,13 @@ function SectionsButtons() {
     const open = useAtomValue(openSections.presetsAtom);
     return (<>
         {open &&
-            <div className="flex items-center space-x-2 mr-2">
+            <div className="flex items-center space-x-1 mr-2">
                 <SectionsButton className="p-1 w-6 h-6">
                     <IconTrash className="fill-current" title="remove all presets" />
                 </SectionsButton>
-                {/* w-[1.125rem] h-[1.125rem] */}
                 <SectionsButton className="p-1 w-6 h-6">
                     <IconImages className="w-4 h-4 fill-transparent stroke-current stroke-[32]" title="load default presets" />
                 </SectionsButton>
-                {/* <IconTrash className="w-[1.125rem] h-[1.125rem] fill-current" title="remove all presets" />
-                <IconImages className="w-4 h-4 fill-transparent stroke-current stroke-[32]" title="load default presets" /> */}
             </div>
         }
     </>);
