@@ -3,19 +3,19 @@ export function disableHiddenChildren(visible: boolean, parent: HTMLElement | nu
 
     const inputs = [...(parent.querySelectorAll('input'))];
     if (visible) {
-        inputs.forEach((item) => {
-            if (item.dataset['disState']) {
-                delete item.dataset['disState'];
+        inputs.forEach((el) => {
+            if (el.dataset['disState']) {
+                delete el.dataset['disState'];
             } else {
-                item.removeAttribute('disabled');
+                el.removeAttribute('disabled');
             }
         });
     } else {
-        inputs.forEach((item) => {
-            if (item.disabled) {
-                item.dataset['disState'] = '1';
+        inputs.forEach((el) => {
+            if (el.disabled) {
+                el.dataset['disState'] = '1';
             } else {
-                item.setAttribute('disabled', 'true');
+                el.setAttribute('disabled', 'true');
             }
         });
     }
