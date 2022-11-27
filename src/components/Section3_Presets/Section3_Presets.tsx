@@ -5,7 +5,7 @@ import { NewShapeParams } from '@/store/ngon/shape';
 import { GeneratorResult } from '@/store/ngon/generator';
 import { UISection } from '../UI/UISection';
 import { PreviewBox } from './PreviewBox';
-import { IconCross, IconImage, IconImages, IconTrash } from '../UI/UIIcons';
+import { IconCross, IconImage, IconImages, IconTrash } from '../UI/Icons/UIIcons';
 import { classNames } from '@/utils/classnames';
 import SortableList, { SortableItem } from 'react-easy-sort';
 import { move } from '@/utils/move';

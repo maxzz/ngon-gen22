@@ -2,7 +2,7 @@ import { useAtomValue } from 'jotai';
 import { dataLoadAtom } from './store/store';
 import { App2_Main } from './components/App2_Main';
 import { UIToaster } from './components/UI/UiToaster';
-import { UISymbolsDefs } from './components/UI/UIIcons';
+import { UISymbolsDefs } from './components/UI/Icons/UIIcons';
 import './App.scss';
 
 function DataLoader() {
