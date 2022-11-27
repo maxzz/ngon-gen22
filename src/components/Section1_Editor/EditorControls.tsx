@@ -8,7 +8,7 @@ import { debounce } from "@/utils/debounce";
 import { NewSlider } from "@/components/UI/NewSlider";
 import useFloatInput from "@/hooks/useFloatInput";
 import { UIAccordion } from "@/components/UI/UIAccordion";
-import { UIArrow } from "@/components/UI/UIArrow";
+import { UIArrow } from "@/components/UI/Icons/UIArrow";
 import { BoxUtility } from "./Boxes/BoxUtility";
 
 function Separator({ label, tall = true, className, ...rest }: { label?: ReactNode; tall?: boolean; } & HTMLAttributes<HTMLDivElement>) {
