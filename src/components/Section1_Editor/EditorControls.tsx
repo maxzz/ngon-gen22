@@ -6,7 +6,7 @@ import { initialValueNewShapeParamsMeta } from "@/store/ngon/shape-defaults";
 import { classNames } from "@/utils/classnames";
 import { debounce } from "@/utils/debounce";
 import { NewSlider } from "@/components/UI/Slider/NewSlider";
-import useFloatInput from "@/hooks/useFloatInput";
+import { useFloatInput } from "@/hooks/useFloatInput";
 import { UIAccordion } from "@/components/UI/Section/UIAccordion";
 import { UIArrow } from "@/components/UI/Icons/UIArrow";
 import { BoxUtility } from "./Boxes/BoxUtility";

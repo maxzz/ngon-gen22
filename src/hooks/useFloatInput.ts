@@ -11,7 +11,7 @@ export type InputRange = {
     step: number;
 };
 
-export default function useFloatInput(value: number, range: InputRange, onChange: (newValue: number) => void) {
+export function useFloatInput(value: number, range: InputRange, onChange: (newValue: number) => void) {
     const [local, setLocal] = React.useState('' + value); // TODO: that is not NaN
 
     React.useEffect(() => {

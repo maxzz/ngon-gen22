@@ -2,13 +2,13 @@ import { HTMLAttributes, SVGProps } from "react";
 
 export function UISymbolsDefs() {
     return (
-        <svg
+        <svg 
             id="svgfont"
             style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }} aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1"
         >
             <defs>
-
+                
                 <symbol id="icon-ch" viewBox="0 0 24 24">
                     <defs>
                         <clipPath id="cr-a">
