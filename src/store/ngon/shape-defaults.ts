@@ -12,6 +12,8 @@ export enum CONST_NAMES {
 }
 
 export const defNewShapeParams: NewShapeParams = {
+    id: '', // will be initialized later with the real ID
+
     outerN: 5,
     innerN: 2,
     outerX: 0.3,
