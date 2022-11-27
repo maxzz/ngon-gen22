@@ -3,7 +3,7 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { editorShapeParamsAtom, openSections, vaultActions, vaultSpapes, } from '@/store/store';
 import { NewShapeParams } from '@/store/ngon/shape';
 import { GeneratorResult } from '@/store/ngon/generator';
-import { UISection } from '../UI/UISection';
+import { UISection } from '../UI/Section/UISection';
 import { PreviewBox } from './PreviewBox';
 import { IconCross, IconImage, IconImages, IconTrash } from '../UI/Icons/UIIcons';
 import { classNames } from '@/utils/classnames';

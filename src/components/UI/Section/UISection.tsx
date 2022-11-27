@@ -2,7 +2,7 @@ import React from "react";
 import { PrimitiveAtom, useAtom } from "jotai";
 import { UISectionPane } from "./UISectionPane";
 import { UIAccordion } from "./UIAccordion";
-import { textShadow } from "../App1_Header";
+import { textShadow } from "../../App1_Header";
 import { classNames } from "@/utils/classnames";
 
 export function UISection({ className, title, children, openAtom }: { className?: string; title: React.ReactNode; children: React.ReactNode; openAtom: PrimitiveAtom<boolean>; }) {

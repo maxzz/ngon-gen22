@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAtomValue } from 'jotai';
 import { openSections, } from '../../store/store';
-import { UISection } from '../UI/UISection';
+import { UISection } from '../UI/Section/UISection';
 
 function Multiplication() {
     return (
