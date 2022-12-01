@@ -654,10 +654,10 @@
   resolved "https://registry.yarnpkg.com/@types/marked/-/marked-4.0.7.tgz#400a76809fd08c2bbd9e25f3be06ea38c8e0a1d3"
   integrity sha512-eEAhnz21CwvKVW+YvRvcTuFKNU9CV1qH+opcgVK3pIMI6YZzDm6gc8o2vHjldFk6MGKt5pueSB7IOpvpx5Qekw==
 
-"@types/node@18.11.9":
-  version "18.11.9"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.9.tgz#02d013de7058cea16d36168ef2fc653464cfbad4"
-  integrity sha512-CRpX21/kGdzjOpFsZSkcrXMGIBWMGNIHXXBVFSH+ggkftxg+XYP20TESbh+zFvFj3EQOl5byk0HTRn1IL6hbqg==
+"@types/node@18.11.10":
+  version "18.11.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.10.tgz#4c64759f3c2343b7e6c4b9caf761c7a3a05cee34"
+  integrity sha512-juG3RWMBOqcOuXC643OAdSA525V44cVgGV6dUDuiFtss+8Fk5x1hI93Rsld43VeJVIeqlP9I7Fn9/qaVqoEAuQ==
 
 "@types/prop-types@*":
   version "15.7.5"
@@ -730,13 +730,6 @@
     "@babel/plugin-transform-react-jsx-source" "^7.19.6"
     magic-string "^0.26.7"
     react-refresh "^0.14.0"
-
-"@welldone-software/why-did-you-render@^6.2.3":
-  version "6.2.3"
-  resolved "https://registry.yarnpkg.com/@welldone-software/why-did-you-render/-/why-did-you-render-6.2.3.tgz#cdd5e27cf25b7e767c1c0b0e8808f67d3f6be833"
-  integrity sha512-FQgi90jvC9uw2aALlonJfqaWOvU5UUBBVvdAnS2iryXwCc4YJkKsPJY5Y/LzaND3OIyk8XGUn1vTRn6hcem28Q==
-  dependencies:
-    lodash "^4"
 
 "@xobotyi/scrollbar-width@^1.9.5":
   version "1.9.5"
@@ -1425,16 +1418,15 @@ json5@^2.2.1:
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.1.tgz#655d50ed1e6f95ad1a3caababd2b0efda10b395c"
   integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
 
-leva@0.9.31:
-  version "0.9.31"
-  resolved "https://registry.yarnpkg.com/leva/-/leva-0.9.31.tgz#e50a1890986f46e8a0aa6dbe67ef6ad99ee00013"
-  integrity sha512-qQGz35mKM9BXTFcG9qeB+89lkdvguDriiNWoGU9U8BU8r57Ve+6rFF+X5EPKJKwhmFQSbHIRj3mBZKjCjHor2g==
+leva@0.9.34:
+  version "0.9.34"
+  resolved "https://registry.yarnpkg.com/leva/-/leva-0.9.34.tgz#24f2d717f620de959e9ff27b0118d8d94d4e730b"
+  integrity sha512-hQmWAakOCuBXYIenJ7RaNIei5enDwHNNb6Gz5BUU3mZk+ElECdbvNJbmcMfkFAJslJw33MXRabt7OKIzItLLWw==
   dependencies:
     "@radix-ui/react-portal" "^0.1.3"
     "@radix-ui/react-tooltip" "0.1.6"
     "@stitches/react" "1.2.8"
     "@use-gesture/react" "^10.2.5"
-    "@welldone-software/why-did-you-render" "^6.2.3"
     colord "^2.9.2"
     dequal "^2.0.2"
     merge-value "^1.0.0"
@@ -1452,11 +1444,6 @@ lilconfig@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-2.0.6.tgz#32a384558bd58af3d4c6e077dd1ad1d397bc69d4"
   integrity sha512-9JROoBW7pobfsx+Sq2JsASvCo6Pfo6WWoUW79HuB1BCoBXD4PLWJPqDF6fNj67pqBYTbAHkE57M1kS/+L1neOg==
-
-lodash@^4:
-  version "4.17.21"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
-  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
