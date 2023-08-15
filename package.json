@@ -13,10 +13,11 @@
     },
     "dependencies": {
         "@popperjs/core": "2.11.8",
+        "@react-spring/rafz": "^9.7.3",
         "@react-spring/web": "9.7.3",
         "@use-gesture/react": "10.2.27",
         "dom-confetti": "^0.2.2",
-        "jotai": "1.10.0",
+        "jotai": "2.3.1",
         "leva": "0.9.34",
         "marked": "4.2.3",
         "react": "^17.0.2",
