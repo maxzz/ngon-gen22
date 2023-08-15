@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "@popperjs/core": "2.11.8",
-        "@react-spring/web": "9.5.5",
+        "@react-spring/web": "9.7.3",
         "@use-gesture/react": "10.2.27",
         "dom-confetti": "^0.2.2",
         "jotai": "1.10.0",
@@ -30,7 +30,7 @@
     "devDependencies": {
         "@rollup/plugin-replace": "^4.0.0",
         "@rollup/plugin-url": "^7.0.0",
-        "@tailwindcss/forms": "0.5.3",
+        "@tailwindcss/forms": "0.5.4",
         "@types/marked": "4.0.7",
         "@types/node": "18.11.10",
         "@types/react": "18.0.25",
