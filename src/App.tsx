@@ -1,6 +1,8 @@
 import { useAtomValue } from 'jotai';
 import { dataLoadAtom } from './store/store';
-import { App2_Main } from './components/App2_Main';
+import { App1_Header } from './components/app1-header';
+import { App2_Main } from './components/app2-main';
+import { App3_Footer } from './components/app3-footer';
 import { UIToaster } from './components/UI/UiToaster';
 import { UISymbolsDefs } from './components/UI/Icons/UIIconSymbols';
 import './App.scss';
@@ -24,8 +26,13 @@ function App() {
         <PopperRoot />
         <UISymbolsDefs />
         <DataLoader />
+        
         <div className="min-h-full overflow-hidden bg-slate-50">
-            <App2_Main />
+            <div className="h-screen flex flex-col">
+                <App1_Header />
+                <App2_Main />
+                <App3_Footer />
+            </div>
         </div>
     </>);
 }
