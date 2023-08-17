@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import { NewShapeParams } from "@/store/ngon/shape";
+import { NewShapeParams } from "@/store/ngon/types-shape";
 import { GeneratorResult } from "@/store/ngon/generator";
 import { classNames } from "@/utils/classnames";
 

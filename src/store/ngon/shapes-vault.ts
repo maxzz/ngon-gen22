@@ -1,4 +1,4 @@
-import { NewShapeParams } from './shape';
+import { NewShapeParams } from './types-shape';
 
 //import { ref, computed } from '@vue/composition-api';
 //import { StorageNgon, ShapeNgon, ShapeNgonFromSaved, ShapeNgonToSaved, uniqueId } from './shape-types';

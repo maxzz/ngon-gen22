@@ -1,7 +1,7 @@
 import { HTMLAttributes } from "react";
 import { useSetAtom } from "jotai";
-import { initalValueShapeParams } from "@/store/ngon/shape-defaults";
-import { editorShapeParamsAtom, vaultActions } from "@/store/store";
+import { initalValueShapeParams } from "@/store/ngon";
+import { editorShapeParamsAtom, vaultActions } from "@/store";
 import { classNames } from "@/utils/classnames";
 import { IconCode } from "@/components/UI/Icons/UIIcons";
 

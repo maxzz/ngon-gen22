@@ -1,7 +1,7 @@
 import React, { forwardRef, HTMLAttributes } from 'react';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { editorShapeParamsAtom, openSections, vaultActions, vaultSpapes, } from '@/store/store';
-import { NewShapeParams } from '@/store/ngon/shape';
+import { editorShapeParamsAtom, openSections, vaultActions, vaultSpapes, } from '@/store';
+import { NewShapeParams } from '@/store/ngon/types-shape';
 import { GeneratorResult } from '@/store/ngon/generator';
 import { UISection } from '../../UI/Section/UISection';
 import { PreviewBox } from './PreviewBox';

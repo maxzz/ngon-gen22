@@ -1,5 +1,5 @@
 import { useAtomValue } from 'jotai';
-import { dataLoadAtom } from './store/store';
+import { dataLoadAtom } from './store';
 import { App1_Header } from './components/app1-header';
 import { App2_Main } from './components/app2-main';
 import { App3_Footer } from './components/app3-footer';
@@ -26,7 +26,7 @@ function App() {
         <PopperRoot />
         <UISymbolsDefs />
         <DataLoader />
-        
+
         <div className="min-h-full overflow-hidden bg-slate-50">
             <div className="h-screen flex flex-col">
                 <App1_Header />

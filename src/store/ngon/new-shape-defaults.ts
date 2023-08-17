@@ -1,4 +1,4 @@
-import { NewShapeParams, NewShapeParamsMeta } from "./shape";
+import { NewShapeParams, NewShapeParamsMeta } from "./types-shape";
 import { uuid } from "@/utils/uuid";
 
 export const enum CONST {      // ts defines type by last enum

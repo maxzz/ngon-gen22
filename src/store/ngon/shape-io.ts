@@ -1,5 +1,5 @@
-import { NewShapeParams } from "./shape";
-import { CONST, CONST_NAMES, initalValueShapeParams } from "./shape-defaults";
+import { NewShapeParams } from "./types-shape";
+import { CONST, CONST_NAMES, initalValueShapeParams } from "./new-shape-defaults";
 import { generate, GeneratorResult } from "./generator";
 import { uuid } from "@/utils/uuid";
 import { isNonNull } from "@/utils/tsX";

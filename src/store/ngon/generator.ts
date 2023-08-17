@@ -1,5 +1,5 @@
 import { rnd2 } from "@/utils/numbers";
-import { NewShapeParams } from "./shape";
+import { NewShapeParams } from "./types-shape";
 
 function createNGonPoints(n: number): [number, number][] {
     //n = Math.round(n);

@@ -1,7 +1,7 @@
 import React, { HTMLAttributes } from "react";
 import { useAtom, useAtomValue } from "jotai";
-import { editorShapeAtom, editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
-import { NewShapeParams } from "@/store/ngon/shape";
+import { editorShapeAtom, editorShapeParamsAtom, viewboxOptionAtoms } from "@/store";
+import { NewShapeParams } from "@/store/ngon/types-shape";
 import { createShading, GeneratorResult, pointsToLines, separatePoints } from "@/store/ngon/generator";
 import { useDrag } from "@use-gesture/react";
 import { classNames } from "@/utils/classnames";

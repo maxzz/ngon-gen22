@@ -1,8 +1,8 @@
 import { HTMLAttributes, ReactNode, useCallback } from "react";
 import { PrimitiveAtom, SetStateAction, useAtom } from "jotai";
-import { editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
-import { NewShapeParams } from "@/store/ngon/shape";
-import { initialValueNewShapeParamsMeta } from "@/store/ngon/shape-defaults";
+import { editorShapeParamsAtom, viewboxOptionAtoms } from "@/store";
+import { NewShapeParams } from "@/store/ngon/types-shape";
+import { initialValueNewShapeParamsMeta } from "@/store/ngon";
 import { classNames } from "@/utils/classnames";
 import { debounce } from "@/utils/debounce";
 import { NewSlider } from "@/components/UI/Slider/NewSlider";

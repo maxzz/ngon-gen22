@@ -1,9 +1,9 @@
 import { Atom, atom, Getter, Setter } from 'jotai';
 import { Atomize, atomWithCallback } from '@/hooks/atomsX';
 import { debounce } from '@/utils/debounce';
-import { initalValueShapeParams } from './ngon/shape-defaults';
-import { NewShapeParams, ShapeGadgets } from './ngon/shape';
-import { defaultShapes } from './ngon/shapes-vault-data';
+import { initalValueShapeParams } from './ngon/new-shape-defaults';
+import { NewShapeParams, ShapeGadgets } from './ngon/types-shape';
+import { defaultShapes } from './ngon/shapes-initial-json';
 import { generate } from './ngon/generator';
 import { IO, } from './ngon/shape-io';
 import { toastError } from '@/components/UI/UiToaster';
@@ -12,7 +12,7 @@ import { uuid } from '@/utils/uuid';
 //#region LocalStorage
 
 namespace Storage {
-    const KEY = 'react-svg-shapes22-01';
+    const KEY = 'react-svg-shapes22-02';
 
     type Store = {
         open: StorageOpenSections;
@@ -47,7 +47,7 @@ namespace Storage {
         const s = localStorage.getItem(KEY);
         if (s) {
             try {
-                let obj = JSON.parse(s) as Store;
+                const obj = JSON.parse(s) as Store;
                 initialData = { ...initialData, ...obj };
             } catch (error) {
             }
