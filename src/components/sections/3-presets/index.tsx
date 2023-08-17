@@ -19,6 +19,7 @@ const PresetView = forwardRef<HTMLDivElement, { shapeParams: NewShapeParams, sha
         // const [styles, api] = useSpring(() => ({ scale: 1, onRest: () => doRemoveFromVault(storeIdx) }));
         return (
             <div ref={ref} className="relative group">
+
                 <IconCross
                     className={classNames(
                         "svg-cross absolute m-px w-4 h-4 right-1 top-1 p-0.5",
@@ -28,6 +29,7 @@ const PresetView = forwardRef<HTMLDivElement, { shapeParams: NewShapeParams, sha
                     onClick={() => doRemoveFromVault(storeIdx)}
                 // onClick={() => api.start({ scale: 0 })}
                 />
+
                 {/* <a.div style={styles}> */}
                 <PreviewBox
                     className="text-inherit border-white border-4 cursor-pointer"
@@ -100,6 +102,15 @@ function SectionsButtons() {
     </>);
 }
 
+function PresetsCounter() {
+    const [shapes] = useAtom(vaultSpapes.validAtom);
+    return (
+        <div className="pb-3 text-[0.65rem] opacity-75">
+            {shapes.length}
+        </div>
+    );
+}
+
 export function Section3_Presets() {
     return (
         // <UISection openAtom={openSections.presetsAtom} title={"Presets"}>
@@ -108,7 +119,10 @@ export function Section3_Presets() {
             openAtom={openSections.presetsAtom}
             title={
                 <div className="flex-1 flex items-center justify-between">
-                    <div className="py-2">Presets</div>
+                    <div className="flex items-center space-x-1">
+                        <div className="">Presets</div>
+                        <PresetsCounter />
+                    </div>
                     <SectionsButtons />
                 </div>
             }

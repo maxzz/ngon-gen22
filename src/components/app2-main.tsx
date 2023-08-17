@@ -1,5 +1,5 @@
 import { Section1_Editor } from './sections/1-editor';
-import { Section2_Source } from './sections/2-source';
+import { Section2_Source } from './sections/2-source-code';
 import { Section3_Presets } from './sections/3-presets';
 import { Section4_Multiplication } from './sections/4-multiplication';
 
