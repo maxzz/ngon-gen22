@@ -1,10 +1,10 @@
 import React, { HTMLAttributes } from 'react';
 import { useAtomValue } from 'jotai';
-import { editorShapeAtom, editorShapeParamsAtom, openSections, } from '../../store/store';
-import { UISection } from '../UI/Section/UISection';
+import { editorShapeAtom, editorShapeParamsAtom, openSections, } from '../../../store/store';
+import { UISection } from '../../UI/Section/UISection';
 import { generateSvg } from '@/store/ngon/generator';
 import { classNames } from '@/utils/classnames';
-import { previewBoxShadow } from '../Section1_Editor/Section1_Editor';
+import { previewBoxShadow } from '../1-editor/Section1_Editor';
 
 function SaveButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
     return (
