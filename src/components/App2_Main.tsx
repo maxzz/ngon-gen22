@@ -1,10 +1,10 @@
 import React from 'react';
 import { App1_Header } from './App1_Header';
 import { App3_Footer } from './App3_Footer';
-import { Section2_Source } from './sections/2-source/Section2_Source';
-import { Section1_Editor } from './sections/1-editor/Section1_Editor';
-import { Section3_Presets } from './sections/3-presets/Section3_Presets';
-import { Section4_Multiplication } from './sections/4-multiplication/Section4_Multiplication';
+import { Section2_Source } from './sections/2-source';
+import { Section1_Editor } from './sections/1-editor';
+import { Section3_Presets } from './sections/3-presets';
+import { Section4_Multiplication } from './sections/4-multiplication';
 
 export function App2_Main() {
     return (
@@ -23,7 +23,7 @@ export function App2_Main() {
                     <Section1_Editor />
                     <Section2_Source />
                     <Section3_Presets />
-                    {/* <Section4_Multiplication /> */}
+                    <Section4_Multiplication />
                 </div>
             </div>
 

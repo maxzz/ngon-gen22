@@ -4,7 +4,7 @@ import { editorShapeAtom, editorShapeParamsAtom, openSections, } from '../../../
 import { UISection } from '../../UI/Section/UISection';
 import { generateSvg } from '@/store/ngon/generator';
 import { classNames } from '@/utils/classnames';
-import { previewBoxShadow } from '../1-editor/Section1_Editor';
+import { previewBoxShadow } from '../1-editor';
 
 function SaveButton({ className, ...rest }: HTMLAttributes<HTMLInputElement>) {
     return (

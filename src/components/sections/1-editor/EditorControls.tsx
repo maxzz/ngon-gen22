@@ -9,7 +9,7 @@ import { NewSlider } from "@/components/UI/Slider/NewSlider";
 import { useFloatInput } from "@/hooks/useFloatInput";
 import { UIAccordion } from "@/components/UI/Section/UIAccordion";
 import { UIArrow } from "@/components/UI/Icons/UIArrow";
-import { BoxUtility } from "./Boxes/BoxUtility";
+import { BoxUtility } from "./Boxes";
 
 function Separator({ label, tall = true, className, ...rest }: { label?: ReactNode; tall?: boolean; } & HTMLAttributes<HTMLDivElement>) {
     return (
