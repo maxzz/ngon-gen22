@@ -162,6 +162,7 @@ function saveVaultShapes({ get, set }: { get: Getter, set: Setter; }) {
 
 function appendShapes(get: Getter, set: Setter, newShapes: string[]) {
     const { parsedShapes, failedShapes, } = IO.parseVaultShapes(newShapes);
+    console.log('parsedShapes', parsedShapes);
     
     const valid = get(vaultSpapes.validAtom);
     set(vaultSpapes.validAtom, IO.makeUniqueIds([...valid, ...parsedShapes]));
@@ -172,10 +173,15 @@ function appendShapes(get: Getter, set: Setter, newShapes: string[]) {
 
 const runFetchVaultShapesAtom = atom(() => null, (get, set) => appendShapes(get, set, Storage.initialData.vaultData.shapes));
 runFetchVaultShapesAtom.onMount = (runFetch) => runFetch();
+let mountedOnce = false;
 
 export const dataLoadAtom = atom(
     (get) => {
-        get(runFetchVaultShapesAtom);
+        if (!mountedOnce) {
+            mountedOnce = true;
+            console.log('dataLoadAtom');
+            get(runFetchVaultShapesAtom);
+        }
     }
 );
 
