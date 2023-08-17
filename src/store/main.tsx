@@ -162,10 +162,11 @@ function saveVaultShapes({ get, set }: { get: Getter, set: Setter; }) {
 
 function appendShapes(get: Getter, set: Setter, newShapes: string[]) {
     const { parsedShapes, failedShapes, } = IO.parseVaultShapes(newShapes);
+    
     const valid = get(vaultSpapes.validAtom);
+    set(vaultSpapes.validAtom, IO.makeUniqueIds([...valid, ...parsedShapes]));
+
     const failed = get(vaultSpapes.failedAtom);
-    const newShapesWithEmpty = IO.makeUniqueIds([...valid, ...parsedShapes]).filter((shape) => shape.id);
-    set(vaultSpapes.validAtom, newShapesWithEmpty);
     set(vaultSpapes.failedAtom, [...failed, ...failedShapes]); //toastError('test');
 }
 

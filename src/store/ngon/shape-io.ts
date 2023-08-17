@@ -153,20 +153,21 @@ export namespace IO {
 
     export function makeUniqueIds(shapes: ConvertResult[]): ConvertResult[] {
         const ids = new Set<string | undefined>();
+        
         const rv: ConvertResult[] = shapes.map((shape) => {
 
-            if (ids.has(shape.shapeParams.id)) { // reset id if it is not unique, so later it will be removed
-                shape.id = shape.shapeParams.id = '';
-                return shape;
-            }
-
-            if (!shape.shapeParams.id) {
+            if (shape.shapeParams.id) {
+                if (ids.has(shape.shapeParams.id)) {
+                    return;
+                }
+            } else {
                 shape.id = shape.shapeParams.id = uuid();
             }
             ids.add(shape.shapeParams.id);
 
             return shape;
-        });
+        }).filter(isNonNull);
+
         return rv;
     }
 
