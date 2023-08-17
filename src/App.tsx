@@ -1,5 +1,5 @@
 import { useAtomValue } from 'jotai';
-import { dataLoadAtom } from './store';
+import { localStorageDataLoaderAtom } from './store';
 import { App1_Header } from './components/app1-header';
 import { App2_Main } from './components/app2-main';
 import { App3_Footer } from './components/app3-footer';
@@ -7,8 +7,8 @@ import { UIToaster } from './components/UI/UiToaster';
 import { UISymbolsDefs } from './components/UI/Icons/UIIconSymbols';
 import './App.scss';
 
-function DataLoader() {
-    useAtomValue(dataLoadAtom);
+function LocalStorageDataLoader() {
+    useAtomValue(localStorageDataLoaderAtom);
     return null;
 }
 
@@ -25,7 +25,7 @@ function App() {
         <UIToaster />
         <PopperRoot />
         <UISymbolsDefs />
-        <DataLoader />
+        <LocalStorageDataLoader />
 
         <div className="min-h-full overflow-hidden bg-slate-50">
             <div className="h-screen flex flex-col">

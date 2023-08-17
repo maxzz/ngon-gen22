@@ -185,7 +185,7 @@ runFetchVaultShapesAtom.onMount = (runFetch) => {
     }
 };
 
-export const dataLoadAtom = atom(
+export const localStorageDataLoaderAtom = atom(
     (get) => {
         get(runFetchVaultShapesAtom);
     }
