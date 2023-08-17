@@ -1,10 +1,6 @@
-import { HTMLAttributes } from 'react';
-import { useAtomValue } from 'jotai';
-import { editorShapeAtom, editorShapeParamsAtom } from '@/store/store';
-import { generateSvg, } from '@/store/ngon/generator';
 import { a, easings, useSpring } from '@react-spring/web';
-import { EditorShape } from './EditorShape';
-import { EditorControls } from './EditorControls';
+import { EditorShape } from './1-shape-view';
+import { EditorControls } from './2-shape-controls';
 
 export const previewBoxShadow = { boxShadow: '0 1px 1px -1px #00000018, 0 1px 1px 0 #00000024, 0 1px 3px 0 #0000001f', };
 

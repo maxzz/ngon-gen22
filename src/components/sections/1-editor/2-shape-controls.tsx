@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ReactNode, useCallback } from "react";
+import { HTMLAttributes, ReactNode, useCallback } from "react";
 import { PrimitiveAtom, SetStateAction, useAtom } from "jotai";
 import { editorShapeParamsAtom, viewboxOptionAtoms } from "@/store/store";
 import { NewShapeParams } from "@/store/ngon/shape";
