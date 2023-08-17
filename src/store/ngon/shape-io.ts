@@ -154,10 +154,17 @@ export namespace IO {
     export function makeUniqueIds(shapes: ConvertResult[]): ConvertResult[] {
         const ids = new Set<string | undefined>();
         const rv: ConvertResult[] = shapes.map((shape) => {
-            if (!shape.shapeParams.id || ids.has(shape.shapeParams.id)) {
+
+            if (ids.has(shape.shapeParams.id)) { // reset id if it is not unique, so later it will be removed
+                shape.id = shape.shapeParams.id = '';
+                return shape;
+            }
+
+            if (!shape.shapeParams.id) {
                 shape.id = shape.shapeParams.id = uuid();
             }
             ids.add(shape.shapeParams.id);
+
             return shape;
         });
         return rv;
@@ -166,7 +173,7 @@ export namespace IO {
     export function uniqueIdsOnly(shapes: ConvertResult[]): ConvertResult[] {
         const ids = new Set<string | undefined>();
         const rv: ConvertResult[] = shapes.reduce((acc: ConvertResult[], shape: ConvertResult) => {
-            const key = JSON.stringify({...shape.gadgets, ...shape.shapeParams, id: ''});
+            const key = JSON.stringify({ ...shape.gadgets, ...shape.shapeParams, id: '' });
             if (!ids.has(key)) {
                 ids.add(key);
                 acc.push(shape);
