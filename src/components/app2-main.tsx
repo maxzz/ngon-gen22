@@ -1,6 +1,6 @@
 import React from 'react';
-import { App1_Header } from './App1_Header';
-import { App3_Footer } from './App3_Footer';
+import { App1_Header } from './app1-header';
+import { App3_Footer } from './app3-footer';
 import { Section2_Source } from './sections/2-source';
 import { Section1_Editor } from './sections/1-editor';
 import { Section3_Presets } from './sections/3-presets';
