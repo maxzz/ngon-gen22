@@ -1,7 +1,7 @@
 import React, { HTMLAttributes } from 'react';
 import { useAtomValue } from 'jotai';
 import { editorShapeAtom, editorShapeParamsAtom, openSections, } from '../../../store';
-import { UISection } from '../../UI/Section/UISection';
+import { UISection } from '../../UI/section/UISection';
 import { generateSvg } from '@/store/ngon/generator';
 import { classNames } from '@/utils/classnames';
 import { previewBoxShadow } from '../1-editor';

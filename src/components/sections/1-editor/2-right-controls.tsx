@@ -4,9 +4,9 @@ import { editorShapeParamsAtom, initialValueNewShapeParamsMeta, viewboxOptionAto
 import { NewShapeParams } from "@/store/ngon/types-shape";
 import { classNames } from "@/utils/classnames";
 import { debounce } from "@/utils/debounce";
-import { NewSlider } from "@/components/UI/Slider/NewSlider";
+import { NewSlider } from "@/components/UI/slider/NewSlider";
 import { useFloatInput } from "@/hooks/useFloatInput";
-import { UIAccordion } from "@/components/UI/Section/UIAccordion";
+import { UIAccordion } from "@/components/UI/section/UIAccordion";
 import { UIArrow } from "@/components/UI/icons/UIArrow";
 import { BoxUtility } from "./Boxes";
 

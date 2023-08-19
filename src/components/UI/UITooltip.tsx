@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { CSSProperties, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { Config, usePopperTooltip } from 'react-popper-tooltip';
 import { classNames } from '@/utils/classnames';
@@ -10,12 +10,12 @@ type UITooltipOptions = {
     popperConfig?: Config;
     classNamesContainer?: string;
     classNamesArrow?: string;
-    arrowStyle?: React.CSSProperties;
+    arrowStyle?: CSSProperties;
 };
 
 type UITooltipProps = UITooltipOptions & {
-    trigger: React.ReactNode;
-    children?: React.ReactNode;
+    trigger: ReactNode;
+    children?: ReactNode;
 };
 
 // To customize borders with Tailwind:
@@ -37,7 +37,7 @@ export function UITooltip({ trigger, children, arrow = false, runInPortal = true
             {...getTooltipProps({ className: classNames('tooltip-container', classNamesContainer) })} // add -mx-4 to add right/left margin from viewport edge, but it will shift arrow
         >
             {children}
-            {arrow && <div {...getArrowProps({ className: classNames('tooltip-arrow', classNamesArrow), style: arrowStyle } )} />}
+            {arrow && <div {...getArrowProps({ className: classNames('tooltip-arrow', classNamesArrow), style: arrowStyle })} />}
         </div>
     );
 

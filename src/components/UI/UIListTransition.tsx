@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode } from "react";
 import { a, useTransition } from "@react-spring/web";
 
 export const animationScaleY = {
@@ -12,7 +12,7 @@ export const animationConfig = {
     config: { duration: 200 },
 };
 
-export function UIListTransition({ open, children }: { open: boolean; children: React.ReactNode; }) {
+export function UIListTransition({ open, children }: { open: boolean; children: ReactNode; }) {
     const transition = useTransition(open, { ...animationScaleY, ...animationConfig });
     return transition((styles, item) => (
         item && <a.div style={styles}>
