@@ -126,6 +126,9 @@ export namespace IO {
     export function parseVaultShapes(vaultShapes: string[]) {
         const ids = new Set<string | undefined>();
         const failedShapes: string[] = [];
+
+        vaultShapes.splice(256); // Limit to 256 shapes
+
         const parsedShapes = vaultShapes.map((shapeStr) => {
             const res = shapeFromString(shapeStr);
             if (typeof res === 'string') {
@@ -138,6 +141,7 @@ export namespace IO {
                 return res;
             }
         }).filter(isNonNull);
+
         return {
             parsedShapes,
             failedShapes,
@@ -153,9 +157,8 @@ export namespace IO {
 
     export function makeUniqueIds(shapes: ConvertResult[]): ConvertResult[] {
         const ids = new Set<string | undefined>();
-        
-        const rv: ConvertResult[] = shapes.map((shape) => {
 
+        const rv: ConvertResult[] = shapes.map((shape) => {
             if (shape.shapeParams.id) {
                 if (ids.has(shape.shapeParams.id)) {
                     return;
