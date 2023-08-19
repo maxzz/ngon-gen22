@@ -111,22 +111,23 @@ function PresetsCounter() {
     );
 }
 
+function Title() {
+    return (
+        <div className="flex-1 flex items-center justify-between">
+            <div className="flex items-center space-x-1">
+                <div>
+                    Presets
+                </div>
+                <PresetsCounter />
+            </div>
+            <SectionsButtons />
+        </div>
+    );
+}
+
 export function Section3_Presets() {
     return (
-        // <UISection openAtom={openSections.presetsAtom} title={"Presets"}>
-        <UISection
-            className="py-0"
-            openAtom={openSections.presetsAtom}
-            title={
-                <div className="flex-1 flex items-center justify-between">
-                    <div className="flex items-center space-x-1">
-                        <div className="">Presets</div>
-                        <PresetsCounter />
-                    </div>
-                    <SectionsButtons />
-                </div>
-            }
-        >
+        <UISection className="py-0" openAtom={openSections.presetsAtom} title={<Title />}>
             <ShapePresets />
         </UISection>
     );
