@@ -12,7 +12,7 @@ import { uuid } from '@/utils/uuid';
 //#region LocalStorage
 
 namespace Storage {
-    const KEY = 'react-svg-shapes22-02';
+    const KEY = 'react-svg-shapes22-01';
 
     type Store = {
         open: StorageOpenSections;
