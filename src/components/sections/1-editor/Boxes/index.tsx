@@ -3,7 +3,7 @@ import { useSetAtom } from "jotai";
 import { initalValueShapeParams } from "@/store/ngon";
 import { editorShapeParamsAtom, vaultActions } from "@/store";
 import { classNames } from "@/utils/classnames";
-import { IconCode } from "@/components/UI/Icons/normal";
+import { IconCode } from "@/components/UI/Icons";
 
 function HintButton({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
     return (
