@@ -3,7 +3,12 @@ import { NewShapeParams } from "@/store/ngon/types-shape";
 import { GeneratorResult } from "@/store/ngon/generator";
 import { classNames } from "@/utils/classnames";
 
-export function PreviewBox({ shapeParams, shape, className, ...rest }: { shapeParams: NewShapeParams, shape: GeneratorResult; } & HTMLAttributes<SVGSVGElement>) {
+type PreviewBoxProps = {
+    shapeParams: NewShapeParams;
+    shape: GeneratorResult;
+};
+
+export function PreviewBox({ shapeParams, shape, className, ...rest }: PreviewBoxProps & HTMLAttributes<SVGSVGElement>) {
     return (
         <svg
             className={classNames("fill-transparent touch-none", className)}
