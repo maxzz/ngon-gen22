@@ -4,7 +4,7 @@ import { App1_Header } from './components/app1-header';
 import { App2_Main } from './components/app2-main';
 import { App3_Footer } from './components/app3-footer';
 import { UIToaster } from './components/UI/UiToaster';
-import { UISymbolsDefs } from './components/UI/Icons/UIIconSymbols';
+import { UISymbolsDefs } from './components/UI/Icons/symbols';
 import './App.scss';
 
 function LocalStorageDataLoader() {

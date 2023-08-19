@@ -1,6 +1,6 @@
 import React, { HTMLAttributes } from 'react';
 import { classNames } from '@/utils/classnames';
-import { IconGithubLogo } from './UI/Icons/UIIcons';
+import { IconGithubLogo } from './UI/Icons/normal';
 
 function GitHubLink({href, className, ...rest}: {href: string} & HTMLAttributes<SVGSVGElement>) {
     return (
