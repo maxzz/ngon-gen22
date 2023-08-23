@@ -20,7 +20,7 @@ function PopperRoot() {
     );
 }
 
-function App() {
+export function App() {
     return (<>
         <UIToaster />
         <PopperRoot />
@@ -37,4 +37,4 @@ function App() {
     </>);
 }
 
-export default App;
+// TODO: when add new shape the last four shapes are duplicated, but can be removed by clicking on 'Remove duplicated presets' button. Check why this happens.
